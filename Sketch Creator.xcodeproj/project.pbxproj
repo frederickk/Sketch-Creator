@@ -1,0 +1,481 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		8DBEE20419438B79003C5CC9 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DBEE20319438B79003C5CC9 /* Cocoa.framework */; };
+		8DBEE20E19438B79003C5CC9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8DBEE20C19438B79003C5CC9 /* InfoPlist.strings */; };
+		8DBEE21019438B79003C5CC9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DBEE20F19438B79003C5CC9 /* main.m */; };
+		8DBEE21419438B79003C5CC9 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 8DBEE21219438B79003C5CC9 /* Credits.rtf */; };
+		8DBEE21719438B79003C5CC9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DBEE21619438B79003C5CC9 /* AppDelegate.m */; };
+		8DBEE21A19438B79003C5CC9 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8DBEE21819438B79003C5CC9 /* MainMenu.xib */; };
+		8DBEE21C19438B79003C5CC9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8DBEE21B19438B79003C5CC9 /* Images.xcassets */; };
+		8DBEE22319438B79003C5CC9 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DBEE22219438B79003C5CC9 /* XCTest.framework */; };
+		8DBEE22419438B79003C5CC9 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DBEE20319438B79003C5CC9 /* Cocoa.framework */; };
+		8DBEE22C19438B79003C5CC9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8DBEE22A19438B79003C5CC9 /* InfoPlist.strings */; };
+		8DBEE22E19438B79003C5CC9 /* Sketch_CreatorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DBEE22D19438B79003C5CC9 /* Sketch_CreatorTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		8DBEE22519438B79003C5CC9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8DBEE1F819438B79003C5CC9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8DBEE1FF19438B79003C5CC9;
+			remoteInfo = "Sketch Creator";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		8DBEE20019438B79003C5CC9 /* Sketch Creator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Sketch Creator.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8DBEE20319438B79003C5CC9 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		8DBEE20619438B79003C5CC9 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		8DBEE20719438B79003C5CC9 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		8DBEE20819438B79003C5CC9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		8DBEE20B19438B79003C5CC9 /* Sketch Creator-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Sketch Creator-Info.plist"; sourceTree = "<group>"; };
+		8DBEE20D19438B79003C5CC9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		8DBEE20F19438B79003C5CC9 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		8DBEE21119438B79003C5CC9 /* Sketch Creator-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Sketch Creator-Prefix.pch"; sourceTree = "<group>"; };
+		8DBEE21319438B79003C5CC9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
+		8DBEE21519438B79003C5CC9 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		8DBEE21619438B79003C5CC9 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		8DBEE21919438B79003C5CC9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		8DBEE21B19438B79003C5CC9 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		8DBEE22119438B79003C5CC9 /* Sketch CreatorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Sketch CreatorTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8DBEE22219438B79003C5CC9 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		8DBEE22919438B79003C5CC9 /* Sketch CreatorTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Sketch CreatorTests-Info.plist"; sourceTree = "<group>"; };
+		8DBEE22B19438B79003C5CC9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		8DBEE22D19438B79003C5CC9 /* Sketch_CreatorTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Sketch_CreatorTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8DBEE1FD19438B79003C5CC9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8DBEE20419438B79003C5CC9 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8DBEE21E19438B79003C5CC9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8DBEE22419438B79003C5CC9 /* Cocoa.framework in Frameworks */,
+				8DBEE22319438B79003C5CC9 /* XCTest.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		8DBEE1F719438B79003C5CC9 = {
+			isa = PBXGroup;
+			children = (
+				8DBEE20919438B79003C5CC9 /* Sketch Creator */,
+				8DBEE22719438B79003C5CC9 /* Sketch CreatorTests */,
+				8DBEE20219438B79003C5CC9 /* Frameworks */,
+				8DBEE20119438B79003C5CC9 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		8DBEE20119438B79003C5CC9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8DBEE20019438B79003C5CC9 /* Sketch Creator.app */,
+				8DBEE22119438B79003C5CC9 /* Sketch CreatorTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		8DBEE20219438B79003C5CC9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8DBEE20319438B79003C5CC9 /* Cocoa.framework */,
+				8DBEE22219438B79003C5CC9 /* XCTest.framework */,
+				8DBEE20519438B79003C5CC9 /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		8DBEE20519438B79003C5CC9 /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8DBEE20619438B79003C5CC9 /* AppKit.framework */,
+				8DBEE20719438B79003C5CC9 /* CoreData.framework */,
+				8DBEE20819438B79003C5CC9 /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		8DBEE20919438B79003C5CC9 /* Sketch Creator */ = {
+			isa = PBXGroup;
+			children = (
+				8DBEE21519438B79003C5CC9 /* AppDelegate.h */,
+				8DBEE21619438B79003C5CC9 /* AppDelegate.m */,
+				8DBEE21819438B79003C5CC9 /* MainMenu.xib */,
+				8DBEE21B19438B79003C5CC9 /* Images.xcassets */,
+				8DBEE20A19438B79003C5CC9 /* Supporting Files */,
+			);
+			path = "Sketch Creator";
+			sourceTree = "<group>";
+		};
+		8DBEE20A19438B79003C5CC9 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				8DBEE20B19438B79003C5CC9 /* Sketch Creator-Info.plist */,
+				8DBEE20C19438B79003C5CC9 /* InfoPlist.strings */,
+				8DBEE20F19438B79003C5CC9 /* main.m */,
+				8DBEE21119438B79003C5CC9 /* Sketch Creator-Prefix.pch */,
+				8DBEE21219438B79003C5CC9 /* Credits.rtf */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		8DBEE22719438B79003C5CC9 /* Sketch CreatorTests */ = {
+			isa = PBXGroup;
+			children = (
+				8DBEE22D19438B79003C5CC9 /* Sketch_CreatorTests.m */,
+				8DBEE22819438B79003C5CC9 /* Supporting Files */,
+			);
+			path = "Sketch CreatorTests";
+			sourceTree = "<group>";
+		};
+		8DBEE22819438B79003C5CC9 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				8DBEE22919438B79003C5CC9 /* Sketch CreatorTests-Info.plist */,
+				8DBEE22A19438B79003C5CC9 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8DBEE1FF19438B79003C5CC9 /* Sketch Creator */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8DBEE23119438B79003C5CC9 /* Build configuration list for PBXNativeTarget "Sketch Creator" */;
+			buildPhases = (
+				8DBEE1FC19438B79003C5CC9 /* Sources */,
+				8DBEE1FD19438B79003C5CC9 /* Frameworks */,
+				8DBEE1FE19438B79003C5CC9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Sketch Creator";
+			productName = "Sketch Creator";
+			productReference = 8DBEE20019438B79003C5CC9 /* Sketch Creator.app */;
+			productType = "com.apple.product-type.application";
+		};
+		8DBEE22019438B79003C5CC9 /* Sketch CreatorTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8DBEE23419438B79003C5CC9 /* Build configuration list for PBXNativeTarget "Sketch CreatorTests" */;
+			buildPhases = (
+				8DBEE21D19438B79003C5CC9 /* Sources */,
+				8DBEE21E19438B79003C5CC9 /* Frameworks */,
+				8DBEE21F19438B79003C5CC9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8DBEE22619438B79003C5CC9 /* PBXTargetDependency */,
+			);
+			name = "Sketch CreatorTests";
+			productName = "Sketch CreatorTests";
+			productReference = 8DBEE22119438B79003C5CC9 /* Sketch CreatorTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		8DBEE1F819438B79003C5CC9 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = "Ken Frederick";
+				TargetAttributes = {
+					8DBEE22019438B79003C5CC9 = {
+						TestTargetID = 8DBEE1FF19438B79003C5CC9;
+					};
+				};
+			};
+			buildConfigurationList = 8DBEE1FB19438B79003C5CC9 /* Build configuration list for PBXProject "Sketch Creator" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 8DBEE1F719438B79003C5CC9;
+			productRefGroup = 8DBEE20119438B79003C5CC9 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8DBEE1FF19438B79003C5CC9 /* Sketch Creator */,
+				8DBEE22019438B79003C5CC9 /* Sketch CreatorTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8DBEE1FE19438B79003C5CC9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8DBEE20E19438B79003C5CC9 /* InfoPlist.strings in Resources */,
+				8DBEE21C19438B79003C5CC9 /* Images.xcassets in Resources */,
+				8DBEE21419438B79003C5CC9 /* Credits.rtf in Resources */,
+				8DBEE21A19438B79003C5CC9 /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8DBEE21F19438B79003C5CC9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8DBEE22C19438B79003C5CC9 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8DBEE1FC19438B79003C5CC9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8DBEE21719438B79003C5CC9 /* AppDelegate.m in Sources */,
+				8DBEE21019438B79003C5CC9 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8DBEE21D19438B79003C5CC9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8DBEE22E19438B79003C5CC9 /* Sketch_CreatorTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		8DBEE22619438B79003C5CC9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8DBEE1FF19438B79003C5CC9 /* Sketch Creator */;
+			targetProxy = 8DBEE22519438B79003C5CC9 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		8DBEE20C19438B79003C5CC9 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8DBEE20D19438B79003C5CC9 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		8DBEE21219438B79003C5CC9 /* Credits.rtf */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8DBEE21319438B79003C5CC9 /* en */,
+			);
+			name = Credits.rtf;
+			sourceTree = "<group>";
+		};
+		8DBEE21819438B79003C5CC9 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8DBEE21919438B79003C5CC9 /* Base */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+		8DBEE22A19438B79003C5CC9 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8DBEE22B19438B79003C5CC9 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		8DBEE22F19438B79003C5CC9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		8DBEE23019438B79003C5CC9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		8DBEE23219438B79003C5CC9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Sketch Creator/Sketch Creator-Prefix.pch";
+				INFOPLIST_FILE = "Sketch Creator/Sketch Creator-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		8DBEE23319438B79003C5CC9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Sketch Creator/Sketch Creator-Prefix.pch";
+				INFOPLIST_FILE = "Sketch Creator/Sketch Creator-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		8DBEE23519438B79003C5CC9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Sketch Creator.app/Contents/MacOS/Sketch Creator";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Sketch Creator/Sketch Creator-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "Sketch CreatorTests/Sketch CreatorTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		8DBEE23619438B79003C5CC9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Sketch Creator.app/Contents/MacOS/Sketch Creator";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Sketch Creator/Sketch Creator-Prefix.pch";
+				INFOPLIST_FILE = "Sketch CreatorTests/Sketch CreatorTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		8DBEE1FB19438B79003C5CC9 /* Build configuration list for PBXProject "Sketch Creator" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8DBEE22F19438B79003C5CC9 /* Debug */,
+				8DBEE23019438B79003C5CC9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8DBEE23119438B79003C5CC9 /* Build configuration list for PBXNativeTarget "Sketch Creator" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8DBEE23219438B79003C5CC9 /* Debug */,
+				8DBEE23319438B79003C5CC9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		8DBEE23419438B79003C5CC9 /* Build configuration list for PBXNativeTarget "Sketch CreatorTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8DBEE23519438B79003C5CC9 /* Debug */,
+				8DBEE23619438B79003C5CC9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 8DBEE1F819438B79003C5CC9 /* Project object */;
+}
