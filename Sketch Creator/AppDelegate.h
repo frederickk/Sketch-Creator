@@ -8,7 +8,9 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface AppDelegate : NSObject <NSApplicationDelegate>
+@interface AppDelegate : NSObject <NSApplicationDelegate> {
+    BOOL bOverwrite;
+}
 
 
 // ------------------------------------------------------------------------
@@ -50,6 +52,16 @@
 
 - (BOOL) warningPrompt: (NSString *)filename;
 
+//
+// Sets
+//
+- (void) setPreferences;
+
+//
+// Gets
+//
+- (void) updateUI;
+
 
 
 // ------------------------------------------------------------------------
@@ -57,6 +69,8 @@
 // ------------------------------------------------------------------------
 - (IBAction) onCreate: (id)sender;
 - (IBAction) chooseSketchPath: (id)sender;
+
+- (IBAction)onQuit:(id)sender;
 
 
 @end

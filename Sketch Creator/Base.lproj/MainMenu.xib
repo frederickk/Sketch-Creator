@@ -78,7 +78,7 @@
                             <menuItem isSeparatorItem="YES" id="kCx-OE-vgT"/>
                             <menuItem title="Quit Sketch Creator" keyEquivalent="q" id="4sb-4s-VLi">
                                 <connections>
-                                    <action selector="terminate:" target="-1" id="Te7-pn-YzF"/>
+                                    <action selector="onQuit:" target="Voe-Tx-rLC" id="ceA-EK-cjA"/>
                                 </connections>
                             </menuItem>
                         </items>
@@ -942,7 +942,7 @@
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                         <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="3D3-fO-4pC">
-                            <rect key="frame" x="244" y="17" width="16" height="60"/>
+                            <rect key="frame" x="-15" y="1" width="16" height="0.0"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                     </scrollView>

@@ -1,3 +1,12 @@
+body {
+  font-family: helvetica, sans-serif;
+  font-weight: bold;
+  font-size: 12px;
+  margin: 0;
+  padding: 0;
+}
+
+
 /*
  *  a div to hold raster images
  *  hides them from view
@@ -33,6 +42,22 @@
   font-weight: normal;
   /*color: rgba(0,0,0, 0.6);*/
 }
+
+/*
+#target {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  padding: 30px;
+  border: 3px dotted rgba(0,0,0, 0.3);
+  z-index: 1000;
+  -webkit-user-drop: element;
+
+  -moz-border-radius: 15px;
+  -webkit-border-radius: 15px;
+  border-radius: 15px;
+}
+*/
 
 /*
  *  TODO: entertain notion to switch to https://code.google.com/p/dat-gui/

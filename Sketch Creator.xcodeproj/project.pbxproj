@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8D3A94C81946D79B00847DE5 /* FDrop.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 8D3A94C61946C78900847DE5 /* FDrop.min.js */; };
+		8D3A94CB1946DFAB00847DE5 /* Preferences.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D3A94CA1946DFAB00847DE5 /* Preferences.m */; };
 		8DBEE20419438B79003C5CC9 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DBEE20319438B79003C5CC9 /* Cocoa.framework */; };
 		8DBEE20E19438B79003C5CC9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8DBEE20C19438B79003C5CC9 /* InfoPlist.strings */; };
 		8DBEE21019438B79003C5CC9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DBEE20F19438B79003C5CC9 /* main.m */; };
@@ -38,7 +40,6 @@
 		8DBEE27619446666003C5CC9 /* template_keyboard.js in Resources */ = {isa = PBXBuildFile; fileRef = 8DBEE272194463D1003C5CC9 /* template_keyboard.js */; };
 		8DBEE2BC194571C4003C5CC9 /* DragController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DBEE2BB194571C4003C5CC9 /* DragController.m */; };
 		8DBEE2BD194571C4003C5CC9 /* DragController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DBEE2BB194571C4003C5CC9 /* DragController.m */; };
-		8DBEE2BF19458361003C5CC9 /* p5DOM.js in Sources */ = {isa = PBXBuildFile; fileRef = 8DBEE2BE19458361003C5CC9 /* p5DOM.js */; };
 		8DBEE2C019458361003C5CC9 /* p5DOM.js in Sources */ = {isa = PBXBuildFile; fileRef = 8DBEE2BE19458361003C5CC9 /* p5DOM.js */; };
 		8DBEE2C119458CD1003C5CC9 /* p5DOM.js in Resources */ = {isa = PBXBuildFile; fileRef = 8DBEE2BE19458361003C5CC9 /* p5DOM.js */; };
 /* End PBXBuildFile section */
@@ -54,6 +55,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8D3A94C61946C78900847DE5 /* FDrop.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = FDrop.min.js; sourceTree = "<group>"; };
+		8D3A94C91946DFAB00847DE5 /* Preferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Preferences.h; sourceTree = "<group>"; };
+		8D3A94CA1946DFAB00847DE5 /* Preferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Preferences.m; sourceTree = "<group>"; };
 		8DBEE20019438B79003C5CC9 /* Sketch Creator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Sketch Creator.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8DBEE20319438B79003C5CC9 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		8DBEE20619438B79003C5CC9 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -154,6 +158,8 @@
 				8DBEE21619438B79003C5CC9 /* AppDelegate.m */,
 				8DBEE2BA194571C4003C5CC9 /* DragController.h */,
 				8DBEE2BB194571C4003C5CC9 /* DragController.m */,
+				8D3A94C91946DFAB00847DE5 /* Preferences.h */,
+				8D3A94CA1946DFAB00847DE5 /* Preferences.m */,
 				8DBEE21819438B79003C5CC9 /* MainMenu.xib */,
 				8DBEE21B19438B79003C5CC9 /* Images.xcassets */,
 				8DBEE20A19438B79003C5CC9 /* Supporting Files */,
@@ -221,6 +227,7 @@
 			children = (
 				8DBEE2BE19458361003C5CC9 /* p5DOM.js */,
 				8DBEE25C1943B3E1003C5CC9 /* p5.min.js */,
+				8D3A94C61946C78900847DE5 /* FDrop.min.js */,
 			);
 			path = lib;
 			sourceTree = "<group>";
@@ -301,6 +308,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8D3A94C81946D79B00847DE5 /* FDrop.min.js in Resources */,
 				8DBEE2C119458CD1003C5CC9 /* p5DOM.js in Resources */,
 				8DBEE27519446666003C5CC9 /* template_touch.js in Resources */,
 				8DBEE27619446666003C5CC9 /* template_keyboard.js in Resources */,
@@ -339,9 +347,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8DBEE2BF19458361003C5CC9 /* p5DOM.js in Sources */,
 				8DBEE21719438B79003C5CC9 /* AppDelegate.m in Sources */,
 				8DBEE2BC194571C4003C5CC9 /* DragController.m in Sources */,
+				8D3A94CB1946DFAB00847DE5 /* Preferences.m in Sources */,
 				8DBEE21019438B79003C5CC9 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -560,6 +568,7 @@
 				8DBEE23319438B79003C5CC9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		8DBEE23419438B79003C5CC9 /* Build configuration list for PBXNativeTarget "Sketch CreatorTests" */ = {
 			isa = XCConfigurationList;
@@ -568,6 +577,7 @@
 				8DBEE23619438B79003C5CC9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
