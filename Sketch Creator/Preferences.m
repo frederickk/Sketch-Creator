@@ -63,6 +63,7 @@
 //    return [self clear];
 }
 
+// ------------------------------------------------------------------------
 + (BOOL) clear {
     NSDictionary *allObjects = [[NSUserDefaults standardUserDefaults] dictionaryRepresentation];
 
@@ -145,6 +146,15 @@
     }
 }
 
+// ------------------------------------------------------------------------
++ (NSArray *) getLibraryValues {
+    if ( [[NSUserDefaults standardUserDefaults] objectForKey:@"libraryValues"] ) {
+        return [[NSUserDefaults standardUserDefaults] objectForKey:@"libraryValues"];
+    }
+    else {
+        return nil;
+    }
+}
 
 @end
 

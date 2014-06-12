@@ -19,6 +19,8 @@
 @property (assign) IBOutlet NSWindow *window;
 
 @property (weak) IBOutlet NSPopUpButton *libraryList;
+@property (weak) NSArray *libraryValues;
+//@property (weak) IBOutlet NSTableView *libraryTable;
 
 @property (weak) IBOutlet NSTextField *sketchName;
 @property (weak) IBOutlet NSTextField *sketchPath;
@@ -29,8 +31,6 @@
 @property (weak) IBOutlet NSButton *bDragdrop;
 
 // preferences
-@property (weak) IBOutlet NSScrollView *libraryScroll;
-@property (weak) IBOutlet NSTableView *libraryTable;
 @property (weak) IBOutlet NSButton *bCss;
 @property (weak) IBOutlet NSButton *bWarnings;
 
@@ -47,8 +47,8 @@
 
 - (void) createStructure: (NSString *)filename :(NSString *)path;
 
-- (void) getPathModal: (NSCell *)nscell;
-- (void) getFilepathModal: (NSCell *)nscell;
+- (NSString *) getPathModal;
+//- (NSString *) getFilepathModal: (NSCell *)nscell;
 
 - (BOOL) warningPrompt: (NSString *)filename;
 

@@ -48,4 +48,7 @@
 + (BOOL) getbCss;
 + (BOOL) getbWarnings;
 
++ (NSArray *) getLibraryValues;
+
+
 @end

@@ -1,12 +1,22 @@
 //
 //  DragController.m
-//  DragTableCellDemo
+//  Sketch Creator
+//
+//  Created by Ken Frederick on 2014.06.07.
+//  Copyright (c) 2014 Ken Frederick. All rights reserved.
+//
+//
+//  Code inspired by
+//  https://github.com/xuecheng/osx_dragtablecelldemo
 //
 //  Created by evan on 12-10-9.
 //  Copyright (c) 2012年 acheng. All rights reserved.
 //
 
+
+
 #import "DragController.h"
+//#import "Preferences.m"
 
 @implementation DragController
 
@@ -14,7 +24,7 @@
 // ------------------------------------------------------------------------
 // Properties
 // ------------------------------------------------------------------------
-@synthesize cellArray;
+@synthesize valuesArray;
 @synthesize dragTableView;
 
 #define DCTableCellViewDataType @"DCTableCellViewDataType"
@@ -26,127 +36,228 @@
 // ------------------------------------------------------------------------
 - (void) awakeFromNib {
     // init array
-    cellArray = [[NSMutableArray alloc] init];
+    valuesArray = [[NSMutableArray alloc] init];
 
-    // add items
-    [self addItem:@"p5.js"    setActive:TRUE];
-    [self addItem:@"p5DOM.js" setActive:FALSE];
+    // update with saved libraries
+    [self update];
+
+    // add initial items
+    NSString *p5js = [[NSBundle bundleForClass:[self class]]
+                               pathForResource:@"p5.min"
+                                        ofType:@"js"];
+    NSString *p5domjs = [[NSBundle bundleForClass:[self class]]
+                                  pathForResource:@"p5.dom"
+                                           ofType:@"js"];
+
+    [self addPath:p5js     setActive:TRUE];
+    [self addPath:p5domjs  setActive:FALSE];
+
 
     [dragTableView registerForDraggedTypes:[NSArray arrayWithObject:DCTableCellViewDataType] ];
 }
 
+- (BOOL) applicationShouldTerminateAfterLastWindowClosed: (NSApplication *)theApplication {
+    [self saveValues];
+    return YES;
+}
+- (IBAction) onQuit: (id)sender {
+    [self saveValues];
+    exit(0);
+}
+
 // ------------------------------------------------------------------------
+
+//
+// Inherited from NSTableViewDataSource
+//
+
+// Get
 - (NSInteger) numberOfRowsInTableView: (NSTableView *)tableView {
     if (tableView == dragTableView) {
-        return (int)[cellArray count];
+        return (int)[valuesArray count];
     }
     return 0;
 }
 
 - (id) tableView: (NSTableView *)tableView
-objectValueForTableColumn: (NSTableColumn *)tableColumn
+objectValueForTableColumn: (NSTableColumn *)column
                       row: (NSInteger)row {
 
     if (tableView == dragTableView) {
-        return [cellArray objectAtIndex:row];
+        return [[valuesArray objectAtIndex:row] valueForKey:[column identifier]];
     }
 
-    return 0;
+    return nil;
 }
 
-- (void) tableView: (NSTableView *)aTableView
-    setObjectValue: (id)anObject
-    forTableColumn: (NSTableColumn *)aTableColumn
-               row: (NSInteger)rowIndex {
+// Set
+- (void) tableView: (NSTableView *)tableView
+    setObjectValue: (id)value
+    forTableColumn: (NSTableColumn *)column
+               row: (NSInteger)row {
+
+    if (tableView == dragTableView) {
+        [[valuesArray objectAtIndex:row] setObject:value forKey:[column identifier]];
+    }
 
 }
 
 
 // ------------------------------------------------------------------------
-// Methods
-// ------------------------------------------------------------------------
-- (BOOL) addItem: (NSString *)item
+- (BOOL) addPath: (NSString *)path
        setActive: (BOOL)state {
 
+    NSMutableDictionary *val = [[NSMutableDictionary alloc] init];
+    val[@"active"] = [NSNumber numberWithBool:state];
+    val[@"name"]   = [path lastPathComponent];
+    val[@"path"]   = path;
+
     BOOL isAdded = FALSE;
-    if( cellArray && ![cellArray containsObject:item] ) {
-        [cellArray addObject:item];
+    if ( valuesArray && ![valuesArray containsObject:val] ) {
+        [valuesArray addObject:val];
         isAdded = TRUE;
+
+        [self saveValues];
     }
 
     return isAdded;
 }
 
-- (BOOL) removeItem: (id)item {
-    BOOL isSuccess = FALSE;
+// ------------------------------------------------------------------------
+- (NSString *) getFilepathModal {
+    NSOpenPanel *openPanel = [[NSOpenPanel alloc] init];
+    [openPanel setCanChooseFiles:YES];
+    [openPanel setCanChooseDirectories:NO];
+    [openPanel setAllowsMultipleSelection:NO];
+    [openPanel setAllowedFileTypes:[[NSArray alloc] initWithObjects:@"js", @"JS", nil]];
+
+    NSString *selected = @"";
+    if ([openPanel runModal] == NSOKButton) {
+        selected = [[[openPanel URLs] objectAtIndex: 0] absoluteString];
+        selected = [selected stringByReplacingOccurrencesOfString:@"file://" withString:@""];
+    }
+
+    return selected;
+}
 
 
-    //    [cellArray removeObjectAtIndex:dragRow];
+// ------------------------------------------------------------------------
+- (NSArray *) getValues; {
+    return (NSArray *)valuesArray;
+}
 
-    return isSuccess;
+- (BOOL) saveValues {
+    // set values
+    [[NSUserDefaults standardUserDefaults] setObject:valuesArray forKey:@"libraryValues"];
+
+    // Return the results of attempting to write preferences to system
+    return [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (void) update {
+    if ( [[NSUserDefaults standardUserDefaults] objectForKey:@"libraryValues"] ) {
+        [valuesArray setArray:[[NSUserDefaults standardUserDefaults] objectForKey:@"libraryValues"]];
+    }
 }
 
 
 // ------------------------------------------------------------------------
 // Events
 // ------------------------------------------------------------------------
+- (IBAction)addRow:(id)sender {
+    NSString *path = [self getFilepathModal];
+    if (![path isEqualToString:@""]) {
+        [self addPath:path setActive:TRUE];
+
+        [self.dragTableView noteNumberOfRowsChanged];
+        [self.dragTableView reloadData];
+    }
+}
+
+- (IBAction)removeRow:(id)sender {
+    NSInteger row = [self.dragTableView selectedRow];
+
+    if (row != 0 && row != 1) {
+        [valuesArray removeObjectAtIndex:row];
+        [self.dragTableView noteNumberOfRowsChanged];
+        [self.dragTableView reloadData];
+
+        [self saveValues];
+    }
+}
+
+// ------------------------------------------------------------------------
+- (IBAction) setPath: (id)sender {
+    if (sender == dragTableView) {
+        NSInteger row = [sender clickedRow];
+        NSString *path = [self getFilepathModal];
+        if (![path isEqualToString:@""]) {
+            [[valuesArray objectAtIndex:row] setObject:[path lastPathComponent] forKey:@"name"];
+            [[valuesArray objectAtIndex:row] setObject:path forKey:@"path"];
+        }
+    }
+}
+
+// ------------------------------------------------------------------------
 
 //
-// Drag operation stuff
+// Drag
 //
-- (BOOL) tableView: (NSTableView *)tv
-writeRowsWithIndexes: (NSIndexSet *)rowIndexes
+- (BOOL) tableView: (NSTableView *)tableView
+writeRowsWithIndexes: (NSIndexSet *)rows
         toPasteboard: (NSPasteboard *)pboard {
-    // Copy the row numbers to the pasteboard.
-    NSData *zNSIndexSetData = [NSKeyedArchiver archivedDataWithRootObject:rowIndexes];
+
+    NSData *zNSIndexSetData = [NSKeyedArchiver archivedDataWithRootObject:rows];
     [pboard declareTypes:[NSArray arrayWithObject:DCTableCellViewDataType] owner:self];
     [pboard setData:zNSIndexSetData forType:DCTableCellViewDataType];
     return YES;
 }
 
-// ------------------------------------------------------------------------
-- (NSDragOperation) tableView: (NSTableView *)tv
+- (NSDragOperation) tableView: (NSTableView *)tableView
                  validateDrop: (id <NSDraggingInfo>)info
                   proposedRow: (NSInteger)row
         proposedDropOperation: (NSTableViewDropOperation)op {
-    // Add code here to validate the drop
+
 //    NSLog(@"validate Drop: %@", info);
     return NSDragOperationEvery;
 }
 
 // ------------------------------------------------------------------------
-- (BOOL) tableView: (NSTableView *)aTableView
+- (BOOL) tableView: (NSTableView *)tableView
         acceptDrop: (id <NSDraggingInfo>)info
                row: (NSInteger)row
      dropOperation: (NSTableViewDropOperation)operation {
+
     NSPasteboard *pboard = [info draggingPasteboard];
     NSData *rowData = [pboard dataForType:DCTableCellViewDataType];
-    NSIndexSet *rowIndexes = [NSKeyedUnarchiver unarchiveObjectWithData:rowData];
-    NSInteger dragRow = [rowIndexes firstIndex];
+    NSIndexSet *rows = [NSKeyedUnarchiver unarchiveObjectWithData:rowData];
+    NSInteger dragRow = [rows firstIndex];
 
-    // Move the specified row to its new location...
-    // if we remove a row then everything moves down by one
-    // so do an insert prior to the delete
-    // --- depends which way we're moving the data!!!
-    if (dragRow < row) {
-        [cellArray insertObject:[cellArray objectAtIndex:dragRow] atIndex:row];
-        [cellArray removeObjectAtIndex:dragRow];
+    if (dragRow != 0 && dragRow != 1 && row != 0 && row != 1) {
+        if (dragRow < row) {
+            [valuesArray insertObject:[valuesArray objectAtIndex:dragRow] atIndex:row];
+            [valuesArray removeObjectAtIndex:dragRow];
+            [self.dragTableView noteNumberOfRowsChanged];
+            [self.dragTableView reloadData];
+
+            return YES;
+        }
+
+        NSString *zData = [valuesArray objectAtIndex:dragRow];
+        [valuesArray removeObjectAtIndex:dragRow];
+        [valuesArray insertObject:zData atIndex:row];
         [self.dragTableView noteNumberOfRowsChanged];
         [self.dragTableView reloadData];
 
+        [self saveValues];
+
         return YES;
     }
-
-    NSString *zData = [cellArray objectAtIndex:dragRow];
-    [cellArray removeObjectAtIndex:dragRow];
-    [cellArray insertObject:zData atIndex:row];
-    [self.dragTableView noteNumberOfRowsChanged];
-    [self.dragTableView reloadData];
-    
-    return YES;
+    else {
+        return NO;
+    }
 }
 
-// ------------------------------------------------------------------------
 
 
 

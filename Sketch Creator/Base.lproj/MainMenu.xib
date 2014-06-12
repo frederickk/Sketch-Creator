@@ -21,7 +21,6 @@
                 <outlet property="bWarnings" destination="ktw-nU-fTF" id="sXV-tG-CnG"/>
                 <outlet property="create" destination="0d4-fh-0Je" id="pqg-l1-0pG"/>
                 <outlet property="libraryList" destination="Y5K-9f-Ka4" id="1V9-Uj-icn"/>
-                <outlet property="libraryScroll" destination="9k1-gd-ybC" id="bze-a7-SKu"/>
                 <outlet property="sketchName" destination="Zij-dW-OiS" id="piP-ei-I0A"/>
                 <outlet property="sketchPath" destination="HsM-fn-nXY" id="Etf-7P-6w0"/>
                 <outlet property="window" destination="QvC-M9-y7g" id="gIp-Ho-8D9"/>
@@ -31,6 +30,7 @@
         <customObject id="UxA-bo-6vD" customClass="DragController">
             <connections>
                 <outlet property="dragTableView" destination="HVI-nf-DvB" id="UTY-tK-xqE"/>
+                <outlet property="removeRow" destination="hLU-Su-QFx" id="9Lu-Gn-6U0"/>
             </connections>
         </customObject>
         <menu title="Main Menu" systemMenu="main" id="AYu-sK-qS6">
@@ -204,7 +204,7 @@
                     </textField>
                     <textField appearanceType="lightContent" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zij-dW-OiS">
                         <rect key="frame" x="22" y="211" width="190" height="22"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="Sketch" drawsBackground="YES" id="eaV-4z-6k8">
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" title="Sketch" placeholderString="Sketch" drawsBackground="YES" id="eaV-4z-6k8">
                             <font key="font" metaFont="cellTitle"/>
                             <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -874,39 +874,42 @@
                                     <tableViewGridLines key="gridStyleMask" horizontal="YES"/>
                                     <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                     <tableColumns>
-                                        <tableColumn editable="NO" width="34" minWidth="34" maxWidth="34" id="jd9-PP-2dV">
+                                        <tableColumn identifier="active" editable="NO" width="34" minWidth="34" maxWidth="34" id="jd9-PP-2dV">
                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="center">
                                                 <font key="font" metaFont="smallSystem"/>
                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" white="0.33333298560000002" alpha="1" colorSpace="calibratedWhite"/>
                                             </tableHeaderCell>
-                                            <buttonCell key="dataCell" type="check" bezelStyle="regularSquare" imagePosition="only" alignment="center" controlSize="small" inset="2" id="rp5-sx-3tX">
+                                            <buttonCell key="dataCell" type="check" bezelStyle="regularSquare" imagePosition="only" alignment="center" controlSize="small" identifier="isActive" inset="2" id="rp5-sx-3tX">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                 <font key="font" metaFont="smallSystem"/>
                                             </buttonCell>
                                         </tableColumn>
-                                        <tableColumn width="191" minWidth="191" maxWidth="191" id="CNZ-mU-p5s">
+                                        <tableColumn identifier="name" width="191" minWidth="191" maxWidth="191" id="CNZ-mU-p5s">
                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
                                                 <font key="font" metaFont="smallSystem"/>
                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" white="0.33333298560000002" alpha="1" colorSpace="calibratedWhite"/>
                                             </tableHeaderCell>
-                                            <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" title="Text" id="dgn-C9-274">
+                                            <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" sendsActionOnEndEditing="YES" title="Text" id="dgn-C9-274">
                                                 <font key="font" metaFont="cellTitle"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         </tableColumn>
-                                        <tableColumn editable="NO" width="34" minWidth="34" maxWidth="34" id="dsy-iK-cWG">
+                                        <tableColumn identifier="path" editable="NO" width="34" minWidth="34" maxWidth="34" id="dsy-iK-cWG">
                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
                                                 <font key="font" metaFont="smallSystem"/>
                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" white="0.33333298560000002" alpha="1" colorSpace="calibratedWhite"/>
                                             </tableHeaderCell>
-                                            <buttonCell key="dataCell" type="bevel" title="..." bezelStyle="rounded" alignment="center" inset="2" id="kTe-L0-x2q">
+                                            <buttonCell key="dataCell" type="bevel" title="..." bezelStyle="rounded" alignment="center" identifier="setPath" inset="2" id="kTe-L0-x2q">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" metaFont="system"/>
+                                                <connections>
+                                                    <action selector="setPath:" target="UxA-bo-6vD" id="Mu0-PD-q4b"/>
+                                                </connections>
                                             </buttonCell>
                                         </tableColumn>
                                     </tableColumns>
@@ -932,6 +935,9 @@
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="systemBold" size="12"/>
                         </buttonCell>
+                        <connections>
+                            <action selector="addRow:" target="UxA-bo-6vD" id="tca-jO-dbu"/>
+                        </connections>
                     </button>
                     <button appearanceType="lightContent" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hLU-Su-QFx">
                         <rect key="frame" x="48" y="101" width="24" height="15"/>
@@ -939,6 +945,9 @@
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="systemBold" size="12"/>
                         </buttonCell>
+                        <connections>
+                            <action selector="removeRow:" target="UxA-bo-6vD" id="RB3-0r-87d"/>
+                        </connections>
                     </button>
                 </subviews>
             </view>

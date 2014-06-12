@@ -16,6 +16,7 @@
 // Properties
 // ------------------------------------------------------------------------
 @synthesize libraryList;
+//@synthesize libraryTable;
 
 @synthesize sketchName;
 @synthesize sketchPath; // *
@@ -26,8 +27,6 @@
 @synthesize bDragdrop;  // *
 
 // preferences
-@synthesize libraryScroll;
-@synthesize libraryTable;
 @synthesize bCss;       // *
 @synthesize bWarnings;  // *
 
@@ -50,32 +49,14 @@ BOOL bOverwrite = TRUE;
     // set preferences
     [self setPreferences];
 
-    NSLog(@"%@", libraryTable);
-
 //    [[addons cell] setDelegate:addons];
 }
 
 - (void)awakeFromNib {
 
-//    NSString *p5js = [[NSBundle bundleForClass:[self class]]
-//                               pathForResource:@"p5.min"
-//                                        ofType:@"js"];
-//    NSString *p5Djs = [[NSBundle bundleForClass:[self class]]
-//                                pathForResource:@"p5.dom"
-//                                         ofType:@"js"];
-//    NSLog(@"p5.js: %@", p5js);
-//    NSLog(@"p5.dom.js: %@", p5Djs);
-//
-//    NSString *filename = [p5js lastPathComponent];
-//
-//    NSLog(@"p5.js-file: %@", filename);
-//
-//    NSLog(@"rows: %lil", (long)[libraryTable numberOfRows]);
-//    NSLog(@"columns: %ld", (long)[libraryTable numberOfColumns]);
-//
-//    NSMutableArray *cellArray;
-//	[cellArray addObject:@"aaaaaaaaaaaaaaaaa"];
-//	[cellArray addObject:@"cccccccc"];
+//    NSArray * libraryTable = [Preferences getLibraryValues];
+    NSLog(@"%li", [[Preferences getLibraryValues] count]);
+//    NSArray * val = [[DragController alloc] init];
 
 }
 
@@ -121,7 +102,6 @@ BOOL bOverwrite = TRUE;
         jsKeyboard = [NSString stringWithContentsOfFile:jsKeyboard encoding:NSUTF8StringEncoding error:&error];
 
         jsContent = [NSString stringWithFormat:@"%@%@", jsContent, jsKeyboard];
-        NSLog(@"jsContent: %@", jsContent);
     }
     if ([bMouse state] == 1) {
         // mouse
@@ -208,22 +188,31 @@ BOOL bOverwrite = TRUE;
         NSString *libDirectory = [self createDirectory:filename :[path stringByAppendingPathComponent:@"lib"]];
 
 
-        // create the template files
-        [self createFile:[filename stringByAppendingString:@".html"] :sketchDirectory :[content objectForKey:@"html"]];
-        [self createFile:[filename stringByAppendingString:@".js"]   :sketchDirectory :[content objectForKey:@"js"]];
-
-
-        // move library files
-        // TODO: feed this from library list
-        NSString *src = [[NSBundle bundleForClass:[self class]]
-                                  pathForResource:@"p5.min"
-                                           ofType:@"js"];
-        [self copyFile:src :[libDirectory stringByAppendingString:@"/p5.min.js"]];
-
-
         // move library/add-on files
-        // TODO: feed this from library list
         // TODO: make dynamic
+        NSArray *libraries = [Preferences getLibraryValues];
+        NSString *jsHtmlTag = @"";
+        for( NSDictionary *item in libraries ) {
+            NSNumber *isActive = [item valueForKey:@"active"];
+            if ([isActive isEqual:[NSNumber numberWithBool:YES]]) {
+                // copy files
+                NSString *src = [item valueForKey:@"path"];
+                NSString *srcName = [@"/" stringByAppendingString:[item valueForKey:@"name"]];
+                [self copyFile:src :[libDirectory stringByAppendingString:srcName]];
+                // update html
+                jsHtmlTag = [jsHtmlTag stringByAppendingString:[NSString stringWithFormat:@"<script type=\"text/javascript\" src=\"./lib%@\"></script>\r\t\t", srcName]];
+            }
+        }
+        // replace instances ##libraries## with <script..
+        NSString *htmlContent = [[content objectForKey:@"html"] stringByReplacingOccurrencesOfString:@"##libraries##"
+                                                             withString:jsHtmlTag];
+
+        // create the template files
+        [self createFile:[filename stringByAppendingString:@".js"]   :sketchDirectory :[content objectForKey:@"js"]];
+        [self createFile:[filename stringByAppendingString:@".html"] :sketchDirectory :htmlContent];
+
+
+        // drag-drop is a special case
         if ([bDragdrop state] == 1) {
             NSString *dragdrop = [[NSBundle bundleForClass:[self class]]
                                            pathForResource:@"FDrop.min" // this should match table value
@@ -390,33 +379,36 @@ BOOL bOverwrite = TRUE;
 //
 // Gets
 //
-- (void) getPathModal: (NSCell *)nscell {
+- (NSString *) getPathModal {
     NSOpenPanel *openPanel = [[NSOpenPanel alloc] init];
     [openPanel setCanChooseFiles:NO];
     [openPanel setCanChooseDirectories:YES];
     [openPanel setAllowsMultipleSelection:NO];
 
-    NSString *selected;
+    NSString *selected = @"";
     if ([openPanel runModal] == NSOKButton) {
         selected = [[[openPanel URLs] objectAtIndex: 0] absoluteString];
         selected = [selected stringByReplacingOccurrencesOfString:@"file://" withString:@""];
-        [nscell setStringValue:selected];
+//        [nscell setStringValue:selected];
     }
+
+    return selected;
 }
 
-- (void) getFilepathModal: (NSCell *)nscell {
-    NSOpenPanel *openPanel = [[NSOpenPanel alloc] init];
-    [openPanel setCanChooseFiles:YES];
-    [openPanel setCanChooseDirectories:NO];
-    [openPanel setAllowsMultipleSelection:NO];
-
-    NSString *selected;
-    if ([openPanel runModal] == NSOKButton) {
-        selected = [[[openPanel URLs] objectAtIndex: 0] absoluteString];
-        selected = [selected stringByReplacingOccurrencesOfString:@"file://" withString:@""];
-        [nscell setStringValue:selected];
-    }
-}
+//- (void) getFilepathModal: (NSCell *)nscell {
+//    NSOpenPanel *openPanel = [[NSOpenPanel alloc] init];
+//    [openPanel setCanChooseFiles:YES];
+//    [openPanel setCanChooseDirectories:NO];
+//    [openPanel setAllowsMultipleSelection:NO];
+//
+//    NSString *selected = @"";
+//    if ([openPanel runModal] == NSOKButton) {
+//        selected = [[[openPanel URLs] objectAtIndex: 0] absoluteString];
+//        selected = [selected stringByReplacingOccurrencesOfString:@"file://" withString:@""];
+//        [nscell setStringValue:selected];
+//    }
+//    return selected;
+//}
 
 
 #pragma mark Events
@@ -437,11 +429,9 @@ BOOL bOverwrite = TRUE;
 
 
 - (IBAction) chooseSketchPath: (id)sender {
-    [self getPathModal:[sketchPath cell]];
+    [[sketchPath cell] setStringValue:[self getPathModal]];
 }
 
-- (IBAction)testTable:(id)sender {
-}
 
 
 
