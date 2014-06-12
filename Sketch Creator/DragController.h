@@ -11,12 +11,24 @@
 @interface DragController : NSObjectController<NSTableViewDataSource, NSTableViewDelegate>
 
 
-
 // ------------------------------------------------------------------------
 // Properties
 // ------------------------------------------------------------------------
-@property (assign) NSMutableArray *cellArray;
+@property (strong) NSMutableArray *cellArray;
 @property (assign) IBOutlet NSTableView *dragTableView;
+
+
+// ------------------------------------------------------------------------
+// Methods
+// ------------------------------------------------------------------------
+- (BOOL) addItem: (NSString *)item setActive: (BOOL)state;
+- (BOOL) removeItem: (id)item;
+
+
+
+// ------------------------------------------------------------------------
+// Events
+// ------------------------------------------------------------------------
 
 
 

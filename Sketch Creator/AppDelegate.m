@@ -50,6 +50,7 @@ BOOL bOverwrite = TRUE;
     // set preferences
     [self setPreferences];
 
+    NSLog(@"%@", libraryTable);
 
 //    [[addons cell] setDelegate:addons];
 }
@@ -60,10 +61,10 @@ BOOL bOverwrite = TRUE;
 //                               pathForResource:@"p5.min"
 //                                        ofType:@"js"];
 //    NSString *p5Djs = [[NSBundle bundleForClass:[self class]]
-//                                pathForResource:@"p5DOM"
+//                                pathForResource:@"p5.dom"
 //                                         ofType:@"js"];
 //    NSLog(@"p5.js: %@", p5js);
-//    NSLog(@"p5Dom.js: %@", p5Djs);
+//    NSLog(@"p5.dom.js: %@", p5Djs);
 //
 //    NSString *filename = [p5js lastPathComponent];
 //

@@ -70,7 +70,5 @@
 - (IBAction) onCreate: (id)sender;
 - (IBAction) chooseSketchPath: (id)sender;
 
-- (IBAction)onQuit:(id)sender;
-
 
 @end

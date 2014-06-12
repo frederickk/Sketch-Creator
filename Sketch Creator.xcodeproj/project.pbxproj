@@ -40,8 +40,7 @@
 		8DBEE27619446666003C5CC9 /* template_keyboard.js in Resources */ = {isa = PBXBuildFile; fileRef = 8DBEE272194463D1003C5CC9 /* template_keyboard.js */; };
 		8DBEE2BC194571C4003C5CC9 /* DragController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DBEE2BB194571C4003C5CC9 /* DragController.m */; };
 		8DBEE2BD194571C4003C5CC9 /* DragController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DBEE2BB194571C4003C5CC9 /* DragController.m */; };
-		8DBEE2C019458361003C5CC9 /* p5DOM.js in Sources */ = {isa = PBXBuildFile; fileRef = 8DBEE2BE19458361003C5CC9 /* p5DOM.js */; };
-		8DBEE2C119458CD1003C5CC9 /* p5DOM.js in Resources */ = {isa = PBXBuildFile; fileRef = 8DBEE2BE19458361003C5CC9 /* p5DOM.js */; };
+		8DE93B6B1947B61D005DB160 /* p5.dom.js in Resources */ = {isa = PBXBuildFile; fileRef = 8DE93B6A1947B60B005DB160 /* p5.dom.js */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -88,7 +87,7 @@
 		8DBEE272194463D1003C5CC9 /* template_keyboard.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = template_keyboard.js; sourceTree = "<group>"; };
 		8DBEE2BA194571C4003C5CC9 /* DragController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DragController.h; sourceTree = "<group>"; };
 		8DBEE2BB194571C4003C5CC9 /* DragController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DragController.m; sourceTree = "<group>"; };
-		8DBEE2BE19458361003C5CC9 /* p5DOM.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = p5DOM.js; sourceTree = "<group>"; };
+		8DE93B6A1947B60B005DB160 /* p5.dom.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = p5.dom.js; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -225,7 +224,7 @@
 		8DBEE2581943B3E1003C5CC9 /* lib */ = {
 			isa = PBXGroup;
 			children = (
-				8DBEE2BE19458361003C5CC9 /* p5DOM.js */,
+				8DE93B6A1947B60B005DB160 /* p5.dom.js */,
 				8DBEE25C1943B3E1003C5CC9 /* p5.min.js */,
 				8D3A94C61946C78900847DE5 /* FDrop.min.js */,
 			);
@@ -308,20 +307,20 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8DBEE26819443013003C5CC9 /* p5.min.js in Resources */,
+				8DE93B6B1947B61D005DB160 /* p5.dom.js in Resources */,
 				8D3A94C81946D79B00847DE5 /* FDrop.min.js in Resources */,
-				8DBEE2C119458CD1003C5CC9 /* p5DOM.js in Resources */,
+				8DBEE2501943B23A003C5CC9 /* template_base.js in Resources */,
+				8DBEE2561943B23A003C5CC9 /* template_mouse.js in Resources */,
 				8DBEE27519446666003C5CC9 /* template_touch.js in Resources */,
 				8DBEE27619446666003C5CC9 /* template_keyboard.js in Resources */,
-				8DBEE26819443013003C5CC9 /* p5.min.js in Resources */,
-				8DBEE24119439E63003C5CC9 /* default.css in Resources */,
-				8DBEE2521943B23A003C5CC9 /* template_dragdrop.html in Resources */,
-				8DBEE20E19438B79003C5CC9 /* InfoPlist.strings in Resources */,
-				8DBEE24519439E63003C5CC9 /* template_base.html in Resources */,
-				8DBEE2501943B23A003C5CC9 /* template_base.js in Resources */,
 				8DBEE2541943B23A003C5CC9 /* template_dragdrop.js in Resources */,
-				8DBEE21C19438B79003C5CC9 /* Images.xcassets in Resources */,
+				8DBEE2521943B23A003C5CC9 /* template_dragdrop.html in Resources */,
+				8DBEE24519439E63003C5CC9 /* template_base.html in Resources */,
+				8DBEE24119439E63003C5CC9 /* default.css in Resources */,
+				8DBEE20E19438B79003C5CC9 /* InfoPlist.strings in Resources */,
 				8DBEE21419438B79003C5CC9 /* Credits.rtf in Resources */,
-				8DBEE2561943B23A003C5CC9 /* template_mouse.js in Resources */,
+				8DBEE21C19438B79003C5CC9 /* Images.xcassets in Resources */,
 				8DBEE21A19438B79003C5CC9 /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -360,7 +359,6 @@
 			files = (
 				8DBEE22E19438B79003C5CC9 /* Sketch_CreatorTests.m in Sources */,
 				8DBEE2BD194571C4003C5CC9 /* DragController.m in Sources */,
-				8DBEE2C019458361003C5CC9 /* p5DOM.js in Sources */,
 				8DBEE271194463C0003C5CC9 /* template_touch.js in Sources */,
 				8DBEE2621943B3E1003C5CC9 /* p5.min.js in Sources */,
 				8DBEE274194463D1003C5CC9 /* template_keyboard.js in Sources */,
