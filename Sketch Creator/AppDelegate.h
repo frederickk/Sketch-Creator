@@ -20,7 +20,6 @@
 
 @property (weak) IBOutlet NSPopUpButton *libraryList;
 @property (weak) NSArray *libraryValues;
-//@property (weak) IBOutlet NSTableView *libraryTable;
 
 @property (weak) IBOutlet NSTextField *sketchName;
 @property (weak) IBOutlet NSTextField *sketchPath;
@@ -39,28 +38,6 @@
 // ------------------------------------------------------------------------
 // Methods
 // ------------------------------------------------------------------------
-- (NSString *) createDirectory: (NSString *)dirname :(NSString *)path;
-- (NSString *) createFile: (NSString *)filename :(NSString *)path :(NSString *)content;
-- (NSString *) copyFile: (NSString *)src :(NSString *)dest;
-
-- (NSDictionary *) createTemplate: (NSString *)name;
-
-- (void) createStructure: (NSString *)filename :(NSString *)path;
-
-- (NSString *) getPathModal;
-//- (NSString *) getFilepathModal: (NSCell *)nscell;
-
-- (BOOL) warningPrompt: (NSString *)filename;
-
-//
-// Sets
-//
-- (void) setPreferences;
-
-//
-// Gets
-//
-- (void) updateUI;
 
 
 

@@ -31,6 +31,8 @@
 
 
 
+#pragma mark Methods
+
 // ------------------------------------------------------------------------
 // Methods
 // ------------------------------------------------------------------------
@@ -67,6 +69,8 @@
 
 // ------------------------------------------------------------------------
 
+#pragma mark Methods-Inherited
+
 //
 // Inherited from NSTableViewDataSource
 //
@@ -102,8 +106,21 @@ objectValueForTableColumn: (NSTableColumn *)column
 
 }
 
+// ------------------------------------------------------------------------
+- (void) update {
+    if ( [[NSUserDefaults standardUserDefaults] objectForKey:@"libraryValues"] ) {
+        [valuesArray setArray:[[NSUserDefaults standardUserDefaults] objectForKey:@"libraryValues"]];
+    }
+}
+
+
+#pragma mark Methods-Sets
 
 // ------------------------------------------------------------------------
+
+//
+// Sets
+//
 - (BOOL) addPath: (NSString *)path
        setActive: (BOOL)state {
 
@@ -121,6 +138,41 @@ objectValueForTableColumn: (NSTableColumn *)column
     }
 
     return isAdded;
+}
+
+- (BOOL) removePath: (NSInteger)row {
+    BOOL isRemoved = FALSE;
+    if (row != 0 && row != 1) {
+        [valuesArray removeObjectAtIndex:row];
+        [self.dragTableView noteNumberOfRowsChanged];
+        [self.dragTableView reloadData];
+        isRemoved = TRUE;
+
+        [self saveValues];
+    }
+    
+    return isRemoved;
+}
+
+// ------------------------------------------------------------------------
+- (BOOL) saveValues {
+    // set values
+    [[NSUserDefaults standardUserDefaults] setObject:valuesArray forKey:@"libraryValues"];
+
+    // Return the results of attempting to write preferences to system
+    return [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+
+#pragma mark Methods-Gets
+
+// ------------------------------------------------------------------------
+
+//
+// Gets
+//
+- (NSArray *) getValues; {
+    return (NSArray *)valuesArray;
 }
 
 // ------------------------------------------------------------------------
@@ -141,25 +193,7 @@ objectValueForTableColumn: (NSTableColumn *)column
 }
 
 
-// ------------------------------------------------------------------------
-- (NSArray *) getValues; {
-    return (NSArray *)valuesArray;
-}
-
-- (BOOL) saveValues {
-    // set values
-    [[NSUserDefaults standardUserDefaults] setObject:valuesArray forKey:@"libraryValues"];
-
-    // Return the results of attempting to write preferences to system
-    return [[NSUserDefaults standardUserDefaults] synchronize];
-}
-
-- (void) update {
-    if ( [[NSUserDefaults standardUserDefaults] objectForKey:@"libraryValues"] ) {
-        [valuesArray setArray:[[NSUserDefaults standardUserDefaults] objectForKey:@"libraryValues"]];
-    }
-}
-
+#pragma mark Events
 
 // ------------------------------------------------------------------------
 // Events
@@ -176,14 +210,7 @@ objectValueForTableColumn: (NSTableColumn *)column
 
 - (IBAction)removeRow:(id)sender {
     NSInteger row = [self.dragTableView selectedRow];
-
-    if (row != 0 && row != 1) {
-        [valuesArray removeObjectAtIndex:row];
-        [self.dragTableView noteNumberOfRowsChanged];
-        [self.dragTableView reloadData];
-
-        [self saveValues];
-    }
+    [self removePath:row];
 }
 
 // ------------------------------------------------------------------------
@@ -197,6 +224,9 @@ objectValueForTableColumn: (NSTableColumn *)column
         }
     }
 }
+
+
+#pragma mark Events-Drag
 
 // ------------------------------------------------------------------------
 
@@ -233,7 +263,7 @@ writeRowsWithIndexes: (NSIndexSet *)rows
     NSIndexSet *rows = [NSKeyedUnarchiver unarchiveObjectWithData:rowData];
     NSInteger dragRow = [rows firstIndex];
 
-    if (dragRow != 0 && dragRow != 1 && row != 0 && row != 1) {
+//    if (dragRow != 0 && dragRow != 1 && row != 0 && row != 1) {
         if (dragRow < row) {
             [valuesArray insertObject:[valuesArray objectAtIndex:dragRow] atIndex:row];
             [valuesArray removeObjectAtIndex:dragRow];
@@ -252,14 +282,13 @@ writeRowsWithIndexes: (NSIndexSet *)rows
         [self saveValues];
 
         return YES;
-    }
-    else {
-        return NO;
-    }
+//    }
+//    else {
+//        return NO;
+//    }
 }
 
 
 
-
-
 @end
+

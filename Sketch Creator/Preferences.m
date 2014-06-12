@@ -32,9 +32,13 @@
 
 
 
+#pragma mark Methods
+
 // ------------------------------------------------------------------------
 // Methods
 // ------------------------------------------------------------------------
+
+#pragma mark Methods-Sets
 
 //
 // Sets
@@ -59,7 +63,7 @@
     // Return the results of attempting to write preferences to system
     return [[NSUserDefaults standardUserDefaults] synchronize];
 
-//    // for Debugging
+    // for Debugging
 //    return [self clear];
 }
 
@@ -73,6 +77,11 @@
 
     return [[NSUserDefaults standardUserDefaults ] synchronize];
 }
+
+
+#pragma mark Methods-Gets
+
+// ------------------------------------------------------------------------
 
 //
 // Gets
@@ -155,6 +164,8 @@
         return nil;
     }
 }
+
+
 
 @end
 

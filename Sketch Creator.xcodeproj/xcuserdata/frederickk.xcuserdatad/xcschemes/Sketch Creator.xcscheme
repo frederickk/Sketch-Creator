@@ -37,6 +37,11 @@
                BlueprintName = "Sketch CreatorTests"
                ReferencedContainer = "container:Sketch Creator.xcodeproj">
             </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "Sketch_CreatorTests/testExample">
+               </Test>
+            </SkippedTests>
          </TestableReference>
       </Testables>
       <MacroExpansion>

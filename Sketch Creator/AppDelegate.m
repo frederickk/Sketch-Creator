@@ -30,8 +30,6 @@
 @synthesize bCss;       // *
 @synthesize bWarnings;  // *
 
-BOOL bOverwrite = TRUE;
-
 
 
 // ------------------------------------------------------------------------
@@ -40,6 +38,8 @@ BOOL bOverwrite = TRUE;
 #pragma mark Methods-Init
 
 - (void) applicationDidFinishLaunching: (NSNotification *)aNotification {
+    bOverwrite = TRUE;
+
     // set default/placeholder values
     [[sketchName cell] setPlaceholderString:@"sketch"];
 
@@ -48,16 +48,9 @@ BOOL bOverwrite = TRUE;
 
     // set preferences
     [self setPreferences];
-
-//    [[addons cell] setDelegate:addons];
 }
 
 - (void)awakeFromNib {
-
-//    NSArray * libraryTable = [Preferences getLibraryValues];
-    NSLog(@"%li", [[Preferences getLibraryValues] count]);
-//    NSArray * val = [[DragController alloc] init];
-
 }
 
 
@@ -207,11 +200,6 @@ BOOL bOverwrite = TRUE;
         NSString *htmlContent = [[content objectForKey:@"html"] stringByReplacingOccurrencesOfString:@"##libraries##"
                                                              withString:jsHtmlTag];
 
-        // create the template files
-        [self createFile:[filename stringByAppendingString:@".js"]   :sketchDirectory :[content objectForKey:@"js"]];
-        [self createFile:[filename stringByAppendingString:@".html"] :sketchDirectory :htmlContent];
-
-
         // drag-drop is a special case
         if ([bDragdrop state] == 1) {
             NSString *dragdrop = [[NSBundle bundleForClass:[self class]]
@@ -231,11 +219,15 @@ BOOL bOverwrite = TRUE;
                                                       ofType:@"css"];
             [self copyFile:cssDefault :[cssDirectory stringByAppendingString:@"/default.css"]];
         }
+
+
+        // create the template files
+        [self createFile:[filename stringByAppendingString:@".js"]   :sketchDirectory :[content objectForKey:@"js"]];
+        [self createFile:[filename stringByAppendingString:@".html"] :sketchDirectory :htmlContent];
     }
 
     // reset overwrite value
     bOverwrite = TRUE;
-
 }
 
 
@@ -425,6 +417,8 @@ BOOL bOverwrite = TRUE;
 
     // create the directories
     [self createStructure:filename :path];
+
+    NSLog(@"onCreate: %@%@", path, filename);
 }
 
 
@@ -434,5 +428,5 @@ BOOL bOverwrite = TRUE;
 
 
 
-
 @end
+
