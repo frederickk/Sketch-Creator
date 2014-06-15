@@ -123,7 +123,8 @@ objectValueForTableColumn: (NSTableColumn *)column
 
     BOOL isContained = FALSE;
     for( NSMutableDictionary *item in values ) {
-        if ([item[@"path"] isEqualToString:path] ) {
+        if ([item[@"name"] isEqualToString:val[@"name"]] ) {
+//        if ([item[@"path"] isEqualToString:path] ) {
             isContained = TRUE;
             break;
         }
@@ -142,15 +143,15 @@ objectValueForTableColumn: (NSTableColumn *)column
 
 - (BOOL) removePath: (NSInteger)row {
     BOOL isRemoved = FALSE;
-    if (row != 0 && row != 1) {
+//    if (row != 0 && row != 1) {
         [values removeObjectAtIndex:row];
         [self.FDTableView noteNumberOfRowsChanged];
         [self.FDTableView reloadData];
         isRemoved = TRUE;
 
         [self setPreferences];
-    }
-    
+//    }
+
     return isRemoved;
 }
 
