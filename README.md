@@ -5,7 +5,7 @@ Sketch-Creator
 
 ![Screenshot](sketch-creator-screenshot.png)
 
-A simple app for the creation of [p5.js](https://github.com/lmccart/p5.js) sketches. Similar to [OpenFrameworks-Project Creator](https://github.com/ofZach/project-creator) and [Cinder-TinderBox](https://github.com/cinder/TinderBox-Mac), this app will create a director with all dependencies (html, css, js, etc.) required for a [p5.js](https://github.com/lmccart/p5.js) project.
+A simple app for the creation of [p5.js](https://github.com/lmccart/p5.js) sketches. Similar to [OpenFrameworks-Project Creator](https://github.com/ofZach/project-creator) and [Cinder-TinderBox](https://github.com/cinder/TinderBox-Mac), this app will create a directory with all dependencies (html, css, js, etc.) required for a [p5.js](https://github.com/lmccart/p5.js) project.
 
 
 
