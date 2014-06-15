@@ -17,7 +17,7 @@
 #import <Cocoa/Cocoa.h>
 
 @interface DragController : NSObjectController<NSTableViewDataSource, NSTableViewDelegate>{
-    NSArray *getValues;
+    NSMutableArray *getValues;
 }
 
 
@@ -27,11 +27,14 @@
 @property (strong) NSMutableArray *valuesArray;
 @property (assign) IBOutlet NSTableView *dragTableView;
 
+@property (weak) IBOutlet NSButtonCell *isActive;
+
+
 
 // ------------------------------------------------------------------------
 // Methods
 // ------------------------------------------------------------------------
-- (NSArray *) getValues;
+- (NSMutableArray *) getValues;
 
 
 
@@ -41,6 +44,8 @@
 - (IBAction) setPath: (id)sender;
 - (IBAction) addRow: (id)sender;
 - (IBAction) removeRow: (id)sender;
+
+- (IBAction) setActive: (id)sender;
 
 
 

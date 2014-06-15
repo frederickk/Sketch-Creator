@@ -1,5 +1,5 @@
 {
-	sketchPath = "";
+	sketchPath = "/Users/";
 	bMouse = NO;
 	bTouch = NO;
 	bKeyboard = YES;

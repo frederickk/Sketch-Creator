@@ -20,7 +20,6 @@
                 <outlet property="bTouch" destination="3Kx-at-fWN" id="vTA-Ut-dT7"/>
                 <outlet property="bWarnings" destination="ktw-nU-fTF" id="sXV-tG-CnG"/>
                 <outlet property="create" destination="0d4-fh-0Je" id="pqg-l1-0pG"/>
-                <outlet property="libraryList" destination="Y5K-9f-Ka4" id="1V9-Uj-icn"/>
                 <outlet property="sketchName" destination="Zij-dW-OiS" id="piP-ei-I0A"/>
                 <outlet property="sketchPath" destination="HsM-fn-nXY" id="Etf-7P-6w0"/>
                 <outlet property="window" destination="QvC-M9-y7g" id="gIp-Ho-8D9"/>
@@ -30,6 +29,7 @@
         <customObject id="UxA-bo-6vD" customClass="DragController">
             <connections>
                 <outlet property="dragTableView" destination="HVI-nf-DvB" id="UTY-tK-xqE"/>
+                <outlet property="isActive" destination="rp5-sx-3tX" id="Dta-7e-aPU"/>
                 <outlet property="removeRow" destination="hLU-Su-QFx" id="9Lu-Gn-6U0"/>
             </connections>
         </customObject>
@@ -169,7 +169,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="300" y="600" width="234" height="270"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1028"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1418"/>
             <value key="minSize" type="size" width="234" height="270"/>
             <value key="maxSize" type="size" width="234" height="270"/>
             <view key="contentView" appearanceType="lightContent" id="EiT-Mj-1SZ">
@@ -184,16 +184,6 @@
                             <color key="backgroundColor" red="0.16078431372549018" green="0.20000000000000001" blue="0.23921568627450979" alpha="1" colorSpace="calibratedRGB"/>
                         </textFieldCell>
                     </textField>
-                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6ng-Tm-9dU">
-                        <rect key="frame" x="50" y="19" width="135" height="19"/>
-                        <buttonCell key="cell" type="roundRect" title="Create" bezelStyle="roundedRect" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="0d4-fh-0Je">
-                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" metaFont="cellTitle"/>
-                        </buttonCell>
-                        <connections>
-                            <action selector="onCreate:" target="Voe-Tx-rLC" id="9Tq-FG-cnf"/>
-                        </connections>
-                    </button>
                     <textField appearanceType="lightContent" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="46r-P0-VX8">
                         <rect key="frame" x="22" y="237" width="86" height="17"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Sketch Name" id="ngJ-pE-RyS">
@@ -226,7 +216,7 @@
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <button appearanceType="lightContent" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Oyq-Cr-vpc">
+                    <button toolTip="Set path for sketch" appearanceType="lightContent" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Oyq-Cr-vpc">
                         <rect key="frame" x="178" y="155" width="34" height="25"/>
                         <buttonCell key="cell" type="roundTextured" title="..." alternateTitle="..." bezelStyle="texturedRounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="0AK-nT-iBJ">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -236,27 +226,6 @@
                             <action selector="chooseSketchPath:" target="Voe-Tx-rLC" id="ZEI-th-o3P"/>
                         </connections>
                     </button>
-                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Lwf-ly-1Gu">
-                        <rect key="frame" x="22" y="105" width="63" height="18"/>
-                        <buttonCell key="cell" type="check" title="Mouse" bezelStyle="regularSquare" imagePosition="left" inset="2" id="wRY-ny-XeG">
-                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                            <font key="font" metaFont="cellTitle"/>
-                        </buttonCell>
-                    </button>
-                    <button appearanceType="lightContent" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3Kx-at-fWN">
-                        <rect key="frame" x="22" y="82" width="61" height="18"/>
-                        <buttonCell key="cell" type="check" title="Touch" bezelStyle="regularSquare" imagePosition="left" inset="2" id="hkV-iX-J2r">
-                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                            <font key="font" metaFont="cellTitle"/>
-                        </buttonCell>
-                    </button>
-                    <button appearanceType="lightContent" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SaH-1S-ebk">
-                        <rect key="frame" x="110" y="105" width="82" height="18"/>
-                        <buttonCell key="cell" type="check" title="Keyboard" bezelStyle="regularSquare" imagePosition="left" inset="2" id="2p2-he-iHA">
-                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                            <font key="font" metaFont="cellTitle"/>
-                        </buttonCell>
-                    </button>
                     <textField appearanceType="lightContent" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="q1a-Bf-ry0">
                         <rect key="frame" x="22" y="127" width="44" height="17"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Events" id="QLv-MZ-v7C">
@@ -265,30 +234,44 @@
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <button appearanceType="lightContent" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3QY-5h-6X1">
+                    <button toolTip="Include hooks for mouse events" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Lwf-ly-1Gu">
+                        <rect key="frame" x="22" y="105" width="63" height="18"/>
+                        <buttonCell key="cell" type="check" title="Mouse" bezelStyle="regularSquare" imagePosition="left" inset="2" id="wRY-ny-XeG">
+                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                            <font key="font" metaFont="cellTitle"/>
+                        </buttonCell>
+                    </button>
+                    <button toolTip="Include hooks for touch events" appearanceType="lightContent" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3Kx-at-fWN">
+                        <rect key="frame" x="22" y="82" width="61" height="18"/>
+                        <buttonCell key="cell" type="check" title="Touch" bezelStyle="regularSquare" imagePosition="left" inset="2" id="hkV-iX-J2r">
+                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                            <font key="font" metaFont="cellTitle"/>
+                        </buttonCell>
+                    </button>
+                    <button toolTip="Include hooks for keyboard events" appearanceType="lightContent" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SaH-1S-ebk">
+                        <rect key="frame" x="110" y="105" width="82" height="18"/>
+                        <buttonCell key="cell" type="check" title="Keyboard" bezelStyle="regularSquare" imagePosition="left" inset="2" id="2p2-he-iHA">
+                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                            <font key="font" metaFont="cellTitle"/>
+                        </buttonCell>
+                    </button>
+                    <button toolTip="Include hooks for drag and drop functionality" appearanceType="lightContent" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3QY-5h-6X1">
                         <rect key="frame" x="110" y="82" width="92" height="18"/>
                         <buttonCell key="cell" type="check" title="Drag-Drop" bezelStyle="regularSquare" imagePosition="left" inset="2" id="NvC-U6-0az">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" metaFont="cellTitle"/>
                         </buttonCell>
                     </button>
-                    <popUpButton toolTip="Select the library modules and addons to add to your sketch." appearanceType="lightContent" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Y5K-9f-Ka4">
-                        <rect key="frame" x="19" y="287" width="196" height="26"/>
-                        <popUpButtonCell key="cell" type="push" title="Select Library Modules" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="border" inset="2" pullsDown="YES" selectedItem="aZJ-nq-2gt" id="9eE-I1-d1E">
-                            <behavior key="behavior" lightByBackground="YES" lightByGray="YES" changeBackground="YES" changeGray="YES"/>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6ng-Tm-9dU">
+                        <rect key="frame" x="50" y="19" width="135" height="19"/>
+                        <buttonCell key="cell" type="roundRect" title="Create" bezelStyle="roundedRect" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="0d4-fh-0Je">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="cellTitle"/>
-                            <menu key="menu" title="OtherViews" id="WOS-RA-nzi">
-                                <items>
-                                    <menuItem title="Select Library Modules" hidden="YES" enabled="NO" id="hBc-D7-3Cz"/>
-                                    <menuItem title="p5.js" state="on" id="0LP-xk-BFx"/>
-                                    <menuItem title="p5DOM.js" id="aZJ-nq-2gt">
-                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                    </menuItem>
-                                    <menuItem isSeparatorItem="YES" id="wU5-dy-evG"/>
-                                </items>
-                            </menu>
-                        </popUpButtonCell>
-                    </popUpButton>
+                        </buttonCell>
+                        <connections>
+                            <action selector="onCreate:" target="Voe-Tx-rLC" id="9Tq-FG-cnf"/>
+                        </connections>
+                    </button>
                 </subviews>
             </view>
             <point key="canvasLocation" x="-516" y="-183"/>
@@ -818,7 +801,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="150" y="600" width="305" height="332"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1028"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1418"/>
             <value key="minSize" type="size" width="305" height="272"/>
             <view key="contentView" id="gHY-dA-6Xm">
                 <rect key="frame" x="0.0" y="0.0" width="305" height="332"/>
@@ -834,7 +817,7 @@
                     </textField>
                     <textField appearanceType="lightContent" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="byc-AB-RKc">
                         <rect key="frame" x="22" y="243" width="264" height="49"/>
-                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Drag and drop source files of any additional JavaScript libraries. Load ordering can be adjusted as well." id="WUm-eD-QSi">
+                        <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Add source files of any additional JavaScript libraries. Load ordering can be adjusted as well." id="WUm-eD-QSi">
                             <font key="font" metaFont="smallSystem"/>
                             <color key="textColor" name="alternateSelectedControlColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -880,9 +863,12 @@
                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" white="0.33333298560000002" alpha="1" colorSpace="calibratedWhite"/>
                                             </tableHeaderCell>
-                                            <buttonCell key="dataCell" type="check" bezelStyle="regularSquare" imagePosition="only" alignment="center" controlSize="small" identifier="isActive" inset="2" id="rp5-sx-3tX">
+                                            <buttonCell key="dataCell" type="check" bezelStyle="regularSquare" imagePosition="only" alignment="center" controlSize="small" toolTip="Toggle inclusion of library in sketch creation" identifier="isActive" inset="2" id="rp5-sx-3tX">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                 <font key="font" metaFont="smallSystem"/>
+                                                <connections>
+                                                    <action selector="setActive:" target="UxA-bo-6vD" id="XGe-kS-qNA"/>
+                                                </connections>
                                             </buttonCell>
                                         </tableColumn>
                                         <tableColumn identifier="name" width="191" minWidth="191" maxWidth="191" id="CNZ-mU-p5s">
@@ -904,7 +890,7 @@
                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" white="0.33333298560000002" alpha="1" colorSpace="calibratedWhite"/>
                                             </tableHeaderCell>
-                                            <buttonCell key="dataCell" type="bevel" title="..." bezelStyle="rounded" alignment="center" identifier="setPath" inset="2" id="kTe-L0-x2q">
+                                            <buttonCell key="dataCell" type="bevel" title="..." bezelStyle="rounded" alignment="center" toolTip="Change path of JavaScript library" identifier="setPath" inset="2" id="kTe-L0-x2q">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" metaFont="system"/>
                                                 <connections>
@@ -929,7 +915,7 @@
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                     </scrollView>
-                    <button appearanceType="lightContent" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2GG-0C-OO4">
+                    <button toolTip="Add JavaScript library" appearanceType="lightContent" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2GG-0C-OO4">
                         <rect key="frame" x="22" y="101" width="24" height="15"/>
                         <buttonCell key="cell" type="inline" bezelStyle="inline" image="NSAddTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" inset="2" id="tgu-FH-wqj">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -939,7 +925,7 @@
                             <action selector="addRow:" target="UxA-bo-6vD" id="tca-jO-dbu"/>
                         </connections>
                     </button>
-                    <button appearanceType="lightContent" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hLU-Su-QFx">
+                    <button toolTip="Remove selected library" appearanceType="lightContent" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hLU-Su-QFx">
                         <rect key="frame" x="48" y="101" width="24" height="15"/>
                         <buttonCell key="cell" type="inline" bezelStyle="inline" image="NSRemoveTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" inset="2" id="Jkw-Bd-FB6">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>

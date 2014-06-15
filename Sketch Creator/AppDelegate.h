@@ -18,7 +18,6 @@
 // ------------------------------------------------------------------------
 @property (assign) IBOutlet NSWindow *window;
 
-@property (weak) IBOutlet NSPopUpButton *libraryList;
 @property (weak) NSArray *libraryValues;
 
 @property (weak) IBOutlet NSTextField *sketchName;

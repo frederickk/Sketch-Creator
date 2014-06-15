@@ -15,9 +15,6 @@
 // ------------------------------------------------------------------------
 // Properties
 // ------------------------------------------------------------------------
-@synthesize libraryList;
-//@synthesize libraryTable;
-
 @synthesize sketchName;
 @synthesize sketchPath; // *
 
@@ -182,10 +179,9 @@
 
 
         // move library/add-on files
-        // TODO: make dynamic
         NSArray *libraries = [Preferences getLibraryValues];
         NSString *jsHtmlTag = @"";
-        for( NSDictionary *item in libraries ) {
+        for( NSMutableDictionary *item in libraries ) {
             NSNumber *isActive = [item valueForKey:@"active"];
             if ([isActive isEqual:[NSNumber numberWithBool:YES]]) {
                 // copy files

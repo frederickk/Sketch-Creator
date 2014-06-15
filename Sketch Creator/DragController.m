@@ -16,7 +16,6 @@
 
 
 #import "DragController.h"
-//#import "Preferences.m"
 
 @implementation DragController
 
@@ -40,9 +39,6 @@
     // init array
     valuesArray = [[NSMutableArray alloc] init];
 
-    // update with saved libraries
-    [self update];
-
     // add initial items
     NSString *p5js = [[NSBundle bundleForClass:[self class]]
                                pathForResource:@"p5.min"
@@ -54,6 +50,8 @@
     [self addPath:p5js     setActive:TRUE];
     [self addPath:p5domjs  setActive:FALSE];
 
+    // update with saved libraries
+    [self update];
 
     [dragTableView registerForDraggedTypes:[NSArray arrayWithObject:DCTableCellViewDataType] ];
 }
@@ -101,7 +99,16 @@ objectValueForTableColumn: (NSTableColumn *)column
                row: (NSInteger)row {
 
     if (tableView == dragTableView) {
-        [[valuesArray objectAtIndex:row] setObject:value forKey:[column identifier]];
+        NSLog(@"column:identifier %@", [column identifier]);
+        NSLog(@"valuesArray:row: %li: %@" ,row, [valuesArray objectAtIndex:row]);
+        NSLog(@"value: %@", value);
+//        @try {
+//            NSLog(@"valuesArray---> %@", [[valuesArray objectAtIndex:row] className]);
+            [[valuesArray objectAtIndex:row] setObject:value forKey:[column identifier]];
+//        }
+//        @catch(NSException *e) {
+//            NSLog(@"Error: %@", e);
+//        }
     }
 
 }
@@ -130,6 +137,7 @@ objectValueForTableColumn: (NSTableColumn *)column
     val[@"path"]   = path;
 
     BOOL isAdded = FALSE;
+    NSLog(@"addPath: exists: %d", [valuesArray containsObject:val]);
     if ( valuesArray && ![valuesArray containsObject:val] ) {
         [valuesArray addObject:val];
         isAdded = TRUE;
@@ -171,8 +179,8 @@ objectValueForTableColumn: (NSTableColumn *)column
 //
 // Gets
 //
-- (NSArray *) getValues; {
-    return (NSArray *)valuesArray;
+- (NSMutableArray *) getValues; {
+    return valuesArray;
 }
 
 // ------------------------------------------------------------------------
@@ -198,7 +206,7 @@ objectValueForTableColumn: (NSTableColumn *)column
 // ------------------------------------------------------------------------
 // Events
 // ------------------------------------------------------------------------
-- (IBAction)addRow:(id)sender {
+- (IBAction) addRow: (id)sender {
     NSString *path = [self getFilepathModal];
     if (![path isEqualToString:@""]) {
         [self addPath:path setActive:TRUE];
@@ -208,7 +216,7 @@ objectValueForTableColumn: (NSTableColumn *)column
     }
 }
 
-- (IBAction)removeRow:(id)sender {
+- (IBAction) removeRow: (id)sender {
     NSInteger row = [self.dragTableView selectedRow];
     [self removePath:row];
 }
@@ -223,6 +231,11 @@ objectValueForTableColumn: (NSTableColumn *)column
             [[valuesArray objectAtIndex:row] setObject:path forKey:@"path"];
         }
     }
+}
+
+// ------------------------------------------------------------------------
+- (IBAction) setActive: (id)sender {
+    NSLog(@"setActive: %@", sender);
 }
 
 
