@@ -15,37 +15,38 @@
 
 
 #import <Cocoa/Cocoa.h>
+#import "FPreferences.h"
 
-@interface DragController : NSObjectController<NSTableViewDataSource, NSTableViewDelegate>{
-    NSMutableArray *getValues;
+@interface FDragController : NSObjectController<NSTableViewDataSource, NSTableViewDelegate>{
 }
 
 
 // ------------------------------------------------------------------------
 // Properties
 // ------------------------------------------------------------------------
-@property (strong) NSMutableArray *valuesArray;
-@property (assign) IBOutlet NSTableView *dragTableView;
+@property (assign) IBOutlet NSTableView *FDTableView;
+@property (strong) NSMutableArray *values;
 
-@property (weak) IBOutlet NSButtonCell *isActive;
+// preferences
+@property (weak) FPreferences *prefs;
 
 
 
 // ------------------------------------------------------------------------
 // Methods
 // ------------------------------------------------------------------------
-- (NSMutableArray *) getValues;
+//- (NSMutableArray *) getValues;
 
 
 
 // ------------------------------------------------------------------------
 // Events
 // ------------------------------------------------------------------------
-- (IBAction) setPath: (id)sender;
-- (IBAction) addRow: (id)sender;
-- (IBAction) removeRow: (id)sender;
-
-- (IBAction) setActive: (id)sender;
+//- (IBAction) setPath: (id)sender;
+//- (IBAction) addRow: (id)sender;
+//- (IBAction) removeRow: (id)sender;
+//
+//- (IBAction) setActive: (id)sender;
 
 
 

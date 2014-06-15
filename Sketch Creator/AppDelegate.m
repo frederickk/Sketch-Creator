@@ -7,7 +7,6 @@
 //
 
 #import "AppDelegate.h"
-#import "Preferences.h"
 
 @implementation AppDelegate
 
@@ -23,9 +22,11 @@
 @synthesize bKeyboard;  // *
 @synthesize bDragdrop;  // *
 
-// preferences
 @synthesize bCss;       // *
 @synthesize bWarnings;  // *
+
+// preferences
+@synthesize prefs;
 
 
 
@@ -33,21 +34,25 @@
 // Methods
 // ------------------------------------------------------------------------
 #pragma mark Methods-Init
-
-- (void) applicationDidFinishLaunching: (NSNotification *)aNotification {
+- (id) init {
+    // inits
+    prefs = [[FPreferences alloc] init];
     bOverwrite = TRUE;
 
+    return self;
+}
+
+- (void) awakeFromNib {
     // set default/placeholder values
     [[sketchName cell] setPlaceholderString:@"sketch"];
+}
 
+- (void) applicationDidFinishLaunching: (NSNotification *)aNotification {
     // update UI with saved preferences
-    [self updateUI];
+    [self updateWithPreferences];
 
     // set preferences
     [self setPreferences];
-}
-
-- (void)awakeFromNib {
 }
 
 
@@ -55,7 +60,7 @@
 
 // ------------------------------------------------------------------------
 - (BOOL) applicationShouldTerminateAfterLastWindowClosed: (NSApplication *)theApplication {
-    [self setPreferences];
+    [self onQuit:self];
     return YES;
 }
 - (IBAction) onQuit: (id)sender {
@@ -153,73 +158,77 @@
         NSLog(@"Error reading file: %@", error);
     }
     
-    // debug
-//    NSLog(@"name: %@", name);
-//    NSLog(@"htmlContents: %@", htmlContent);
-//    NSLog(@"jsContent: %@", jsContent);
-
     return @{@"html":htmlContent, @"js":jsContent};
 }
 
-- (void) createStructure: (NSString *)filename :(NSString *)path {
+- (void) createStructure: (NSString *)filename
+                withPath: (NSString *)path {
     // create the template content
     NSDictionary *content = [self createTemplate:filename];
     
 
     // create the directories
     path = [path stringByAppendingPathComponent:filename];
-    NSString *sketchDirectory = [self createDirectory:filename :path];
+    NSString *sketchDirectory = [self createDirectory:filename
+                                             withPath:path];
 
     if (bOverwrite) {
         // create the sub-directories
         // empty data directory
-        [self createDirectory:filename :[path stringByAppendingPathComponent:@"data"]];
+        [self createDirectory:filename
+                     withPath:[path stringByAppendingPathComponent:@"data"]];
         // empty lib directory
-        NSString *libDirectory = [self createDirectory:filename :[path stringByAppendingPathComponent:@"lib"]];
+        NSString *libDirectory = [self createDirectory:filename
+                                              withPath:[path stringByAppendingPathComponent:@"lib"]];
 
 
         // move library/add-on files
-        NSArray *libraries = [Preferences getLibraryValues];
-        NSString *jsHtmlTag = @"";
-        for( NSMutableDictionary *item in libraries ) {
-            NSNumber *isActive = [item valueForKey:@"active"];
-            if ([isActive isEqual:[NSNumber numberWithBool:YES]]) {
-                // copy files
-                NSString *src = [item valueForKey:@"path"];
-                NSString *srcName = [@"/" stringByAppendingString:[item valueForKey:@"name"]];
-                [self copyFile:src :[libDirectory stringByAppendingString:srcName]];
-                // update html
-                jsHtmlTag = [jsHtmlTag stringByAppendingString:[NSString stringWithFormat:@"<script type=\"text/javascript\" src=\"./lib%@\"></script>\r\t\t", srcName]];
-            }
-        }
-        // replace instances ##libraries## with <script..
-        NSString *htmlContent = [[content objectForKey:@"html"] stringByReplacingOccurrencesOfString:@"##libraries##"
-                                                             withString:jsHtmlTag];
+//        NSArray *libraries = [prefs getLibraryValues];
+//        NSString *jsHtmlTag = @"";
+//        for( NSMutableDictionary *item in libraries ) {
+//            NSNumber *isActive = [item valueForKey:@"active"];
+//            if ([isActive isEqual:[NSNumber numberWithBool:YES]]) {
+//                // copy files
+//                NSString *src = [item valueForKey:@"path"];
+//                NSString *srcName = [@"/" stringByAppendingString:[item valueForKey:@"name"]];
+//                [self copyFile:src :[libDirectory stringByAppendingString:srcName]];
+//                // update html
+//                jsHtmlTag = [jsHtmlTag stringByAppendingString:[NSString stringWithFormat:@"<script type=\"text/javascript\" src=\"./lib%@\"></script>\r\t\t", srcName]];
+//            }
+//        }
+//        // replace instances ##libraries## with <script..
+//        NSString *htmlContent = [[content objectForKey:@"html"] stringByReplacingOccurrencesOfString:@"##libraries##"
+//                                                             withString:jsHtmlTag];
 
         // drag-drop is a special case
         if ([bDragdrop state] == 1) {
             NSString *dragdrop = [[NSBundle bundleForClass:[self class]]
                                            pathForResource:@"FDrop.min" // this should match table value
                                                     ofType:@"js"];
-            [self copyFile:dragdrop :[libDirectory stringByAppendingString:@"/FDrop.min.js"]];
+            [self copyFile:dragdrop
+                  withPath:[libDirectory stringByAppendingString:@"/FDrop.min.js"]];
         }
 
 
         // css
         if ([bCss state] == 1) {
             // empty css directory
-            NSString *cssDirectory = [self createDirectory:filename :[path stringByAppendingPathComponent:@"css"]];
+            NSString *cssDirectory = [self createDirectory:filename
+                                                  withPath:[path stringByAppendingPathComponent:@"css"]];
             // move css files
             NSString *cssDefault = [[NSBundle bundleForClass:[self class]]
                                              pathForResource:@"default"
                                                       ofType:@"css"];
-            [self copyFile:cssDefault :[cssDirectory stringByAppendingString:@"/default.css"]];
+            [self copyFile:cssDefault
+                  withPath:[cssDirectory stringByAppendingString:@"/default.css"]];
         }
 
 
         // create the template files
-        [self createFile:[filename stringByAppendingString:@".js"]   :sketchDirectory :[content objectForKey:@"js"]];
-        [self createFile:[filename stringByAppendingString:@".html"] :sketchDirectory :htmlContent];
+        [self createFile:[filename stringByAppendingString:@".js"]
+                withPath:sketchDirectory
+             withContent:[content objectForKey:@"js"]];
+//        [self createFile:[filename stringByAppendingString:@".html"] :sketchDirectory :htmlContent];
     }
 
     // reset overwrite value
@@ -230,7 +239,8 @@
 #pragma mark Methods-File-Handling
 
 // ------------------------------------------------------------------------
-- (NSString *) createDirectory: (NSString *)dirname :(NSString *)path {
+- (NSString *) createDirectory: (NSString *)dirname
+                      withPath: (NSString *)path {
     NSError *error;
     NSFileManager *fileManager = [NSFileManager defaultManager];
     BOOL dirSuccess = FALSE;
@@ -259,11 +269,12 @@
         }
     }
 
-
     return directory;
 }
 
-- (NSString *) createFile: (NSString *)filename :(NSString *)path :(NSString *)content {
+- (NSString *) createFile: (NSString *)filename
+                 withPath: (NSString *)path
+              withContent: (NSString *)content {
     NSError *error;
     NSFileManager *fileManager = [NSFileManager defaultManager];
     BOOL fileSuccess = FALSE;
@@ -286,7 +297,8 @@
     return file;
 }
 
-- (NSString *) copyFile: (NSString *)src :(NSString *)dest {
+- (NSString *) copyFile: (NSString *)src
+               withPath: (NSString *)dest {
     NSError *error;
     NSFileManager *fileManager = [NSFileManager defaultManager];
     BOOL copySuccess = FALSE;
@@ -295,7 +307,6 @@
     if ([fileManager fileExistsAtPath:dest]) {
         [fileManager removeItemAtPath:dest error:&error];
     }
-
     copySuccess = [fileManager copyItemAtPath:src
                                        toPath:dest
                                         error:&error];
@@ -336,27 +347,32 @@
 // Sets
 //
 - (void) setPreferences {
-    [Preferences set:[sketchPath stringValue]
-            setMouse:[bMouse state]
-            setTouch:[bTouch state]
-          setKeyboad:[bKeyboard state]
-         setDragdrop:[bDragdrop state]
-              setCss:[bCss state]
-         setWarnings:[bWarnings state]
-    ];
+    NSLog(@"setPreferences");
+
+    [prefs setString:[sketchPath stringValue] forKey:@"sketchPath"];
+
+    [prefs setBool:[bMouse state] forKey:@"bMouse"];
+    [prefs setBool:[bTouch state] forKey:@"bTouch"];
+    [prefs setBool:[bKeyboard state] forKey:@"bKeyboard"];
+    [prefs setBool:[bDragdrop state] forKey:@"bDragdrop"];
+
+    [prefs setBool:[bCss state] forKey:@"bCss"];
+    [prefs setBool:[bWarnings state] forKey:@"bWarnings"];
 }
 
-- (void) updateUI {
-    [[sketchPath cell] setPlaceholderString:[Preferences getSketchPath]];
-    [[sketchPath cell] setStringValue:[Preferences getSketchPath]];
+- (void) updateWithPreferences {
+    NSLog(@"updateWithPreferences");
 
-    [bMouse setIntValue:[Preferences getbMouse]];
-    [bTouch setIntValue:[Preferences getbTouch]];
-    [bKeyboard setIntValue:[Preferences getbKeyboard]];
-    [bDragdrop setIntValue:[Preferences getbDragdrop]];
+    [[sketchPath cell] setPlaceholderString:[prefs getString:@"sketchPath"]];
+    [[sketchPath cell] setStringValue:[prefs getString:@"sketchPath"]];
 
-    [bCss setIntValue:[Preferences getbCss]];
-    [bWarnings setIntValue:[Preferences getbWarnings]];
+    [bMouse setIntValue:[prefs getBool:@"bMouse"]];
+    [bTouch setIntValue:[prefs getBool:@"bTouch"]];
+    [bKeyboard setIntValue:[prefs getBool:@"bKeyboard"]];
+    [bDragdrop setIntValue:[prefs getBool:@"bDragdrop"]];
+
+    [bCss setIntValue:[prefs getBool:@"bCss"]];
+    [bWarnings setIntValue:[prefs getBool:@"bWarnings"]];
 }
 
 
@@ -411,8 +427,9 @@
     // create the template content
     [self createTemplate:filename];
 
-    // create the directories
-    [self createStructure:filename :path];
+    // create the directory struture
+    [self createStructure:filename
+                 withPath:path];
 
     NSLog(@"onCreate: %@%@", path, filename);
 }

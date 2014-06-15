@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		8D3A94C81946D79B00847DE5 /* FDrop.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 8D3A94C61946C78900847DE5 /* FDrop.min.js */; };
-		8D3A94CB1946DFAB00847DE5 /* Preferences.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D3A94CA1946DFAB00847DE5 /* Preferences.m */; };
+		8D3A94CB1946DFAB00847DE5 /* FPreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D3A94CA1946DFAB00847DE5 /* FPreferences.m */; };
 		8DBEE20419438B79003C5CC9 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DBEE20319438B79003C5CC9 /* Cocoa.framework */; };
 		8DBEE20E19438B79003C5CC9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8DBEE20C19438B79003C5CC9 /* InfoPlist.strings */; };
 		8DBEE21019438B79003C5CC9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DBEE20F19438B79003C5CC9 /* main.m */; };
@@ -38,8 +38,8 @@
 		8DBEE274194463D1003C5CC9 /* template_keyboard.js in Sources */ = {isa = PBXBuildFile; fileRef = 8DBEE272194463D1003C5CC9 /* template_keyboard.js */; };
 		8DBEE27519446666003C5CC9 /* template_touch.js in Resources */ = {isa = PBXBuildFile; fileRef = 8DBEE26F194463C0003C5CC9 /* template_touch.js */; };
 		8DBEE27619446666003C5CC9 /* template_keyboard.js in Resources */ = {isa = PBXBuildFile; fileRef = 8DBEE272194463D1003C5CC9 /* template_keyboard.js */; };
-		8DBEE2BC194571C4003C5CC9 /* DragController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DBEE2BB194571C4003C5CC9 /* DragController.m */; };
-		8DBEE2BD194571C4003C5CC9 /* DragController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DBEE2BB194571C4003C5CC9 /* DragController.m */; };
+		8DBEE2BC194571C4003C5CC9 /* FDragController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DBEE2BB194571C4003C5CC9 /* FDragController.m */; };
+		8DBEE2BD194571C4003C5CC9 /* FDragController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DBEE2BB194571C4003C5CC9 /* FDragController.m */; };
 		8DE93B6B1947B61D005DB160 /* p5.dom.js in Resources */ = {isa = PBXBuildFile; fileRef = 8DE93B6A1947B60B005DB160 /* p5.dom.js */; };
 /* End PBXBuildFile section */
 
@@ -55,8 +55,8 @@
 
 /* Begin PBXFileReference section */
 		8D3A94C61946C78900847DE5 /* FDrop.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = FDrop.min.js; sourceTree = "<group>"; };
-		8D3A94C91946DFAB00847DE5 /* Preferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Preferences.h; sourceTree = "<group>"; };
-		8D3A94CA1946DFAB00847DE5 /* Preferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Preferences.m; sourceTree = "<group>"; };
+		8D3A94C91946DFAB00847DE5 /* FPreferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPreferences.h; sourceTree = "<group>"; };
+		8D3A94CA1946DFAB00847DE5 /* FPreferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPreferences.m; sourceTree = "<group>"; };
 		8DBEE20019438B79003C5CC9 /* Sketch Creator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Sketch Creator.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8DBEE20319438B79003C5CC9 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		8DBEE20619438B79003C5CC9 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -85,8 +85,8 @@
 		8DBEE25C1943B3E1003C5CC9 /* p5.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = p5.min.js; sourceTree = "<group>"; };
 		8DBEE26F194463C0003C5CC9 /* template_touch.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = template_touch.js; sourceTree = "<group>"; };
 		8DBEE272194463D1003C5CC9 /* template_keyboard.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = template_keyboard.js; sourceTree = "<group>"; };
-		8DBEE2BA194571C4003C5CC9 /* DragController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DragController.h; sourceTree = "<group>"; };
-		8DBEE2BB194571C4003C5CC9 /* DragController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DragController.m; sourceTree = "<group>"; };
+		8DBEE2BA194571C4003C5CC9 /* FDragController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FDragController.h; sourceTree = "<group>"; };
+		8DBEE2BB194571C4003C5CC9 /* FDragController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FDragController.m; sourceTree = "<group>"; };
 		8DE93B6A1947B60B005DB160 /* p5.dom.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = p5.dom.js; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -155,10 +155,10 @@
 			children = (
 				8DBEE21519438B79003C5CC9 /* AppDelegate.h */,
 				8DBEE21619438B79003C5CC9 /* AppDelegate.m */,
-				8DBEE2BA194571C4003C5CC9 /* DragController.h */,
-				8DBEE2BB194571C4003C5CC9 /* DragController.m */,
-				8D3A94C91946DFAB00847DE5 /* Preferences.h */,
-				8D3A94CA1946DFAB00847DE5 /* Preferences.m */,
+				8DBEE2BA194571C4003C5CC9 /* FDragController.h */,
+				8DBEE2BB194571C4003C5CC9 /* FDragController.m */,
+				8D3A94C91946DFAB00847DE5 /* FPreferences.h */,
+				8D3A94CA1946DFAB00847DE5 /* FPreferences.m */,
 				8DBEE21819438B79003C5CC9 /* MainMenu.xib */,
 				8DBEE21B19438B79003C5CC9 /* Images.xcassets */,
 				8DBEE20A19438B79003C5CC9 /* Supporting Files */,
@@ -347,8 +347,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				8DBEE21719438B79003C5CC9 /* AppDelegate.m in Sources */,
-				8DBEE2BC194571C4003C5CC9 /* DragController.m in Sources */,
-				8D3A94CB1946DFAB00847DE5 /* Preferences.m in Sources */,
+				8DBEE2BC194571C4003C5CC9 /* FDragController.m in Sources */,
+				8D3A94CB1946DFAB00847DE5 /* FPreferences.m in Sources */,
 				8DBEE21019438B79003C5CC9 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -358,7 +358,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8DBEE22E19438B79003C5CC9 /* Sketch_CreatorTests.m in Sources */,
-				8DBEE2BD194571C4003C5CC9 /* DragController.m in Sources */,
+				8DBEE2BD194571C4003C5CC9 /* FDragController.m in Sources */,
 				8DBEE271194463C0003C5CC9 /* template_touch.js in Sources */,
 				8DBEE2621943B3E1003C5CC9 /* p5.min.js in Sources */,
 				8DBEE274194463D1003C5CC9 /* template_keyboard.js in Sources */,

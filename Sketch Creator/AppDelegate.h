@@ -7,6 +7,8 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "FPreferences.h"
+
 
 @interface AppDelegate : NSObject <NSApplicationDelegate> {
     BOOL bOverwrite;
@@ -28,9 +30,11 @@
 @property (weak) IBOutlet NSButton *bKeyboard;
 @property (weak) IBOutlet NSButton *bDragdrop;
 
-// preferences
 @property (weak) IBOutlet NSButton *bCss;
 @property (weak) IBOutlet NSButton *bWarnings;
+
+// preferences
+@property (strong) FPreferences *prefs;
 
 
 

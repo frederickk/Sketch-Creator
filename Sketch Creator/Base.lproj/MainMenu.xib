@@ -26,13 +26,11 @@
             </connections>
         </customObject>
         <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
-        <customObject id="UxA-bo-6vD" customClass="DragController">
+        <objectController id="wDe-O2-NqI" customClass="FDragController">
             <connections>
-                <outlet property="dragTableView" destination="HVI-nf-DvB" id="UTY-tK-xqE"/>
-                <outlet property="isActive" destination="rp5-sx-3tX" id="Dta-7e-aPU"/>
-                <outlet property="removeRow" destination="hLU-Su-QFx" id="9Lu-Gn-6U0"/>
+                <outlet property="FDTableView" destination="HVI-nf-DvB" id="og5-Cl-UXF"/>
             </connections>
-        </customObject>
+        </objectController>
         <menu title="Main Menu" systemMenu="main" id="AYu-sK-qS6">
             <items>
                 <menuItem title="Sketch Creator" id="1Xt-HY-uBw">
@@ -169,7 +167,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="300" y="600" width="234" height="270"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1418"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1028"/>
             <value key="minSize" type="size" width="234" height="270"/>
             <value key="maxSize" type="size" width="234" height="270"/>
             <view key="contentView" appearanceType="lightContent" id="EiT-Mj-1SZ">
@@ -194,7 +192,7 @@
                     </textField>
                     <textField appearanceType="lightContent" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zij-dW-OiS">
                         <rect key="frame" x="22" y="211" width="190" height="22"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" title="Sketch" placeholderString="Sketch" drawsBackground="YES" id="eaV-4z-6k8">
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" title="sketch" placeholderString="sketch" drawsBackground="YES" id="eaV-4z-6k8">
                             <font key="font" metaFont="cellTitle"/>
                             <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -801,7 +799,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="150" y="600" width="305" height="332"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1418"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1028"/>
             <value key="minSize" type="size" width="305" height="272"/>
             <view key="contentView" id="gHY-dA-6Xm">
                 <rect key="frame" x="0.0" y="0.0" width="305" height="332"/>
@@ -866,9 +864,6 @@
                                             <buttonCell key="dataCell" type="check" bezelStyle="regularSquare" imagePosition="only" alignment="center" controlSize="small" toolTip="Toggle inclusion of library in sketch creation" identifier="isActive" inset="2" id="rp5-sx-3tX">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                 <font key="font" metaFont="smallSystem"/>
-                                                <connections>
-                                                    <action selector="setActive:" target="UxA-bo-6vD" id="XGe-kS-qNA"/>
-                                                </connections>
                                             </buttonCell>
                                         </tableColumn>
                                         <tableColumn identifier="name" width="191" minWidth="191" maxWidth="191" id="CNZ-mU-p5s">
@@ -893,15 +888,12 @@
                                             <buttonCell key="dataCell" type="bevel" title="..." bezelStyle="rounded" alignment="center" toolTip="Change path of JavaScript library" identifier="setPath" inset="2" id="kTe-L0-x2q">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" metaFont="system"/>
-                                                <connections>
-                                                    <action selector="setPath:" target="UxA-bo-6vD" id="Mu0-PD-q4b"/>
-                                                </connections>
                                             </buttonCell>
                                         </tableColumn>
                                     </tableColumns>
                                     <connections>
-                                        <outlet property="dataSource" destination="UxA-bo-6vD" id="aST-49-G5h"/>
-                                        <outlet property="delegate" destination="UxA-bo-6vD" id="FOc-T6-32M"/>
+                                        <outlet property="dataSource" destination="wDe-O2-NqI" id="AOr-Nf-Hb6"/>
+                                        <outlet property="delegate" destination="wDe-O2-NqI" id="Ody-pa-HVW"/>
                                     </connections>
                                 </tableView>
                             </subviews>
@@ -921,9 +913,6 @@
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="systemBold" size="12"/>
                         </buttonCell>
-                        <connections>
-                            <action selector="addRow:" target="UxA-bo-6vD" id="tca-jO-dbu"/>
-                        </connections>
                     </button>
                     <button toolTip="Remove selected library" appearanceType="lightContent" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hLU-Su-QFx">
                         <rect key="frame" x="48" y="101" width="24" height="15"/>
@@ -931,9 +920,6 @@
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="systemBold" size="12"/>
                         </buttonCell>
-                        <connections>
-                            <action selector="removeRow:" target="UxA-bo-6vD" id="RB3-0r-87d"/>
-                        </connections>
                     </button>
                 </subviews>
             </view>
