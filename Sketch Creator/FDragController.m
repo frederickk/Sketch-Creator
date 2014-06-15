@@ -33,6 +33,9 @@
 @synthesize FDTableView;
 @synthesize values;
 
+// preferences
+@synthesize prefs;
+
 
 
 #pragma mark Methods
@@ -40,38 +43,31 @@
 // ------------------------------------------------------------------------
 // Methods
 // ------------------------------------------------------------------------
-- (id) init {
-
-    return self;
-}
-
 - (void) awakeFromNib {
-//    // init array
-//    values = [[NSMutableArray alloc] init];
-//
-//    // add initial items
-//    NSString *p5js = [[NSBundle bundleForClass:[self class]]
-//                               pathForResource:@"p5.min"
-//                                        ofType:@"js"];
-//    NSString *p5domjs = [[NSBundle bundleForClass:[self class]]
-//                                  pathForResource:@"p5.dom"
-//                                           ofType:@"js"];
-//
-//    [self addPath:p5js     setActive:TRUE];
-//    [self addPath:p5domjs  setActive:FALSE];
-//
-//    // update with saved libraries
-//    [self update];
-//
-//    [FDTableView registerForDraggedTypes:[NSArray arrayWithObject:FDTableCellViewDataType] ];
+    // inits
+    values = [[NSMutableArray alloc] init];
+    prefs = [[FPreferences alloc] init];
+
+    // add initial items
+    NSString *p5js = [[NSBundle bundleForClass:[self class]]
+                               pathForResource:@"p5.min"
+                                        ofType:@"js"];
+    NSString *p5domjs = [[NSBundle bundleForClass:[self class]]
+                                  pathForResource:@"p5.dom"
+                                           ofType:@"js"];
+
+    [self addPath:p5js     setActive:TRUE];
+    [self addPath:p5domjs  setActive:FALSE];
+
+    [FDTableView registerForDraggedTypes:[NSArray arrayWithObject:FDTableCellViewDataType] ];
 }
 
 - (BOOL) applicationShouldTerminateAfterLastWindowClosed: (NSApplication *)theApplication {
-//    [self saveValues];
+    [self onQuit:self];
     return YES;
 }
 - (IBAction) onQuit: (id)sender {
-//    [self saveValues];
+    [self setPreferences];
     exit(0);
 }
 
@@ -109,144 +105,117 @@ objectValueForTableColumn: (NSTableColumn *)column
                row: (NSInteger)row {
 
     if (tableView == FDTableView) {
-//        NSLog(@"column:identifier %@", [column identifier]);
-//        NSLog(@"values:row: %li: %@" ,row, [values objectAtIndex:row]);
-//        NSLog(@"value: %@", value);
-////        @try {
-////            NSLog(@"values---> %@", [[values objectAtIndex:row] className]);
-//            [[values objectAtIndex:row] setObject:value forKey:[column identifier]];
-////        }
-////        @catch(NSException *e) {
-////            NSLog(@"Error: %@", e);
-////        }
+        [[values objectAtIndex:row] setValue:value forKey:[column identifier]];
     }
-
 }
 
 // ------------------------------------------------------------------------
-//- (void) update {
-//    if ( [[NSUserDefaults standardUserDefaults] objectForKey:@"libraryValues"] ) {
-//        [values setArray:[[NSUserDefaults standardUserDefaults] objectForKey:@"libraryValues"]];
-//    }
-//}
+
+
+#pragma mark Methods-Sets
+
 //
+// Sets
 //
-//#pragma mark Methods-Sets
-//
-//// ------------------------------------------------------------------------
-//
-////
-//// Sets
-////
-//- (BOOL) addPath: (NSString *)path
-//       setActive: (BOOL)state {
-//
-//    NSMutableDictionary *val = [[NSMutableDictionary alloc] init];
-//    val[@"active"] = [NSNumber numberWithBool:state];
-//    val[@"name"]   = [path lastPathComponent];
-//    val[@"path"]   = path;
-//
-//    BOOL isAdded = FALSE;
-//    NSLog(@"addPath: exists: %d", [values containsObject:val]);
-//    if ( values && ![values containsObject:val] ) {
-//        [values addObject:val];
-//        isAdded = TRUE;
-//
-//        [self saveValues];
-//    }
-//
-//    return isAdded;
-//}
-//
-//- (BOOL) removePath: (NSInteger)row {
-//    BOOL isRemoved = FALSE;
-//    if (row != 0 && row != 1) {
-//        [values removeObjectAtIndex:row];
-//        [self.FDTableView noteNumberOfRowsChanged];
-//        [self.FDTableView reloadData];
-//        isRemoved = TRUE;
-//
-//        [self saveValues];
-//    }
-//    
-//    return isRemoved;
-//}
-//
-//// ------------------------------------------------------------------------
-//- (BOOL) saveValues {
-//    // set values
-//    [[NSUserDefaults standardUserDefaults] setObject:values forKey:@"libraryValues"];
-//
-//    // Return the results of attempting to write preferences to system
-//    return [[NSUserDefaults standardUserDefaults] synchronize];
-//}
-//
-//
-//#pragma mark Methods-Gets
-//
-//// ------------------------------------------------------------------------
-//
-////
-//// Gets
-////
-//- (NSMutableArray *) getValues; {
-//    return values;
-//}
-//
-//// ------------------------------------------------------------------------
-//- (NSString *) getFilepathModal {
-//    NSOpenPanel *openPanel = [[NSOpenPanel alloc] init];
-//    [openPanel setCanChooseFiles:YES];
-//    [openPanel setCanChooseDirectories:NO];
-//    [openPanel setAllowsMultipleSelection:NO];
-//    [openPanel setAllowedFileTypes:[[NSArray alloc] initWithObjects:@"js", @"JS", nil]];
-//
-//    NSString *selected = @"";
-//    if ([openPanel runModal] == NSOKButton) {
-//        selected = [[[openPanel URLs] objectAtIndex: 0] absoluteString];
-//        selected = [selected stringByReplacingOccurrencesOfString:@"file://" withString:@""];
-//    }
-//
-//    return selected;
-//}
-//
-//
-//#pragma mark Events
-//
-//// ------------------------------------------------------------------------
-//// Events
-//// ------------------------------------------------------------------------
-//- (IBAction) addRow: (id)sender {
-//    NSString *path = [self getFilepathModal];
-//    if (![path isEqualToString:@""]) {
-//        [self addPath:path setActive:TRUE];
-//
-//        [self.FDTableView noteNumberOfRowsChanged];
-//        [self.FDTableView reloadData];
-//    }
-//}
-//
-//- (IBAction) removeRow: (id)sender {
-//    NSInteger row = [self.FDTableView selectedRow];
-//    [self removePath:row];
-//}
-//
-//// ------------------------------------------------------------------------
-//- (IBAction) setPath: (id)sender {
-//    if (sender == FDTableView) {
-//        NSInteger row = [sender clickedRow];
-//        NSString *path = [self getFilepathModal];
-//        if (![path isEqualToString:@""]) {
-//            [[values objectAtIndex:row] setObject:[path lastPathComponent] forKey:@"name"];
-//            [[values objectAtIndex:row] setObject:path forKey:@"path"];
-//        }
-//    }
-//}
-//
-//// ------------------------------------------------------------------------
-//- (IBAction) setActive: (id)sender {
-//    NSLog(@"setActive: %@", sender);
-//}
+- (BOOL) addPath: (NSString *)path
+       setActive: (BOOL)state {
+
+    NSMutableDictionary *val = [[NSMutableDictionary alloc] init];
+    val[@"active"] = [NSNumber numberWithBool:state];
+    val[@"name"]   = [path lastPathComponent];
+    val[@"path"]   = path;
+
+    BOOL isAdded = FALSE;
+    NSLog(@"addPath: exists: %d", [values containsObject:val]);
+    if ( values && ![values containsObject:val] ) {
+        [values addObject:val];
+        isAdded = TRUE;
+
+        [self setPreferences];
+    }
+
+    return isAdded;
+}
+
+- (BOOL) removePath: (NSInteger)row {
+    BOOL isRemoved = FALSE;
+    if (row != 0 && row != 1) {
+        [values removeObjectAtIndex:row];
+        [self.FDTableView noteNumberOfRowsChanged];
+        [self.FDTableView reloadData];
+        isRemoved = TRUE;
+
+        [self setPreferences];
+    }
+    
+    return isRemoved;
+}
+
+// ------------------------------------------------------------------------
+- (BOOL) setPreferences {
+    [prefs setArray:values forKey:@"libraries"];
+    return YES;
+}
+
+
+#pragma mark Methods-Gets
+
+// ------------------------------------------------------------------------
+- (NSString *) getFilepathModal: (NSArray *)extensions {
+    NSOpenPanel *openPanel = [[NSOpenPanel alloc] init];
+    [openPanel setCanChooseFiles:YES];
+    [openPanel setCanChooseDirectories:NO];
+    [openPanel setAllowsMultipleSelection:NO];
+    [openPanel setAllowedFileTypes:extensions];
+
+    NSString *selected = @"";
+    if ([openPanel runModal] == NSOKButton) {
+        selected = [[[openPanel URLs] objectAtIndex: 0] absoluteString];
+        selected = [selected stringByReplacingOccurrencesOfString:@"file://" withString:@""];
+    }
+
+    return selected;
+}
+
+
+#pragma mark Events
+
+// ------------------------------------------------------------------------
+// Events
+// ------------------------------------------------------------------------
+- (IBAction) addRow: (id)sender {
+    NSArray *extensions = [[NSArray alloc] initWithObjects:@"js", @"JS", nil];
+    NSString *path = [self getFilepathModal:extensions];
+    if (![path isEqualToString:@""]) {
+        [self addPath:path setActive:TRUE];
+
+        [self.FDTableView noteNumberOfRowsChanged];
+        [self.FDTableView reloadData];
+    }
+}
+
+- (IBAction) removeRow: (id)sender {
+    NSInteger row = [self.FDTableView selectedRow];
+    [self removePath:row];
+}
+
+// ------------------------------------------------------------------------
+- (IBAction) setPath: (id)sender {
+    if (sender == FDTableView) {
+        NSInteger row = [sender clickedRow];
+        NSArray *extensions = [[NSArray alloc] initWithObjects:@"js", @"JS", nil];
+        NSString *path = [self getFilepathModal:extensions];
+        if (![path isEqualToString:@""]) {
+            [[values objectAtIndex:row] setValue:[path lastPathComponent] forKey:@"name"];
+            [[values objectAtIndex:row] setValue:path forKey:@"path"];
+        }
+    }
+}
+
+// ------------------------------------------------------------------------
+- (IBAction) setActive: (id)sender {
+    NSLog(@"setActive: %@", sender);
+}
 
 
 #pragma mark Events-Drag
@@ -263,6 +232,7 @@ writeRowsWithIndexes: (NSIndexSet *)rows
     NSData *zNSIndexSetData = [NSKeyedArchiver archivedDataWithRootObject:rows];
     [pasteboard declareTypes:[NSArray arrayWithObject:FDTableCellViewDataType] owner:self];
     [pasteboard setData:zNSIndexSetData forType:FDTableCellViewDataType];
+
     return YES;
 }
 
@@ -286,6 +256,7 @@ writeRowsWithIndexes: (NSIndexSet *)rows
     NSIndexSet *rows = [NSKeyedUnarchiver unarchiveObjectWithData:rowData];
     NSInteger dragRow = [rows firstIndex];
 
+
 //    if (dragRow != 0 && dragRow != 1 && row != 0 && row != 1) {
         if (dragRow < row) {
             [values insertObject:[values objectAtIndex:dragRow] atIndex:row];
@@ -301,6 +272,8 @@ writeRowsWithIndexes: (NSIndexSet *)rows
         [values insertObject:zData atIndex:row];
         [self.FDTableView noteNumberOfRowsChanged];
         [self.FDTableView reloadData];
+
+        [self setPreferences];
 
         return YES;
 //    }

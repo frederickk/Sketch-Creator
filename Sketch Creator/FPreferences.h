@@ -31,6 +31,7 @@
 - (BOOL) setInteger: (NSInteger)value forKey: (NSString *)key;
 - (BOOL) setString: (NSString *)value forKey: (NSString *)key;
 - (BOOL) setArray: (NSArray *)value forKey: (NSString *)key;
+- (BOOL) setObject: (NSObject *)value forKey: (NSString *)key;
 
 - (BOOL) clear;
 - (BOOL) clear: (NSString *)key;
@@ -44,6 +45,7 @@
 - (NSInteger) getInteger: (NSString *)key;
 - (NSString *) getString: (NSString*)key;
 - (NSArray *) getArray: (NSString *)key;
+- (NSObject *) getObject: (NSString *)key;
 
 
 

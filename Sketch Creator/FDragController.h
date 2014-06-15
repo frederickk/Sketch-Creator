@@ -28,24 +28,23 @@
 @property (strong) NSMutableArray *values;
 
 // preferences
-@property (weak) FPreferences *prefs;
+@property (strong) FPreferences *prefs;
 
 
 
 // ------------------------------------------------------------------------
 // Methods
 // ------------------------------------------------------------------------
-//- (NSMutableArray *) getValues;
 
 
 
 // ------------------------------------------------------------------------
 // Events
 // ------------------------------------------------------------------------
-//- (IBAction) setPath: (id)sender;
-//- (IBAction) addRow: (id)sender;
-//- (IBAction) removeRow: (id)sender;
-//
+- (IBAction) setPath: (id)sender;
+- (IBAction) addRow: (id)sender;
+- (IBAction) removeRow: (id)sender;
+
 //- (IBAction) setActive: (id)sender;
 
 

@@ -183,22 +183,25 @@
 
 
         // move library/add-on files
-//        NSArray *libraries = [prefs getLibraryValues];
-//        NSString *jsHtmlTag = @"";
-//        for( NSMutableDictionary *item in libraries ) {
-//            NSNumber *isActive = [item valueForKey:@"active"];
-//            if ([isActive isEqual:[NSNumber numberWithBool:YES]]) {
-//                // copy files
-//                NSString *src = [item valueForKey:@"path"];
-//                NSString *srcName = [@"/" stringByAppendingString:[item valueForKey:@"name"]];
-//                [self copyFile:src :[libDirectory stringByAppendingString:srcName]];
-//                // update html
-//                jsHtmlTag = [jsHtmlTag stringByAppendingString:[NSString stringWithFormat:@"<script type=\"text/javascript\" src=\"./lib%@\"></script>\r\t\t", srcName]];
-//            }
-//        }
-//        // replace instances ##libraries## with <script..
-//        NSString *htmlContent = [[content objectForKey:@"html"] stringByReplacingOccurrencesOfString:@"##libraries##"
-//                                                             withString:jsHtmlTag];
+        NSArray *libraries = [prefs getArray:@"libraries"];
+        NSLog(@"library: %@", libraries);
+        NSString *jsHtmlTag = @"";
+        for( NSMutableDictionary *item in libraries ) {
+            NSNumber *isActive = [item valueForKey:@"active"];
+            if ([isActive isEqual:[NSNumber numberWithBool:YES]]) {
+                // copy files
+                NSString *src = [item valueForKey:@"path"];
+                NSString *srcName = [@"/" stringByAppendingString:[item valueForKey:@"name"]];
+                [self copyFile:src
+                      withPath:[libDirectory stringByAppendingString:srcName]];
+
+                // update html
+                jsHtmlTag = [jsHtmlTag stringByAppendingString:[NSString stringWithFormat:@"<script type=\"text/javascript\" src=\"./lib%@\"></script>\r\t\t", srcName]];
+            }
+        }
+        // replace instances ##libraries## with <script..
+        NSString *htmlContent = [[content objectForKey:@"html"] stringByReplacingOccurrencesOfString:@"##libraries##"
+                                                             withString:jsHtmlTag];
 
         // drag-drop is a special case
         if ([bDragdrop state] == 1) {
@@ -228,7 +231,10 @@
         [self createFile:[filename stringByAppendingString:@".js"]
                 withPath:sketchDirectory
              withContent:[content objectForKey:@"js"]];
-//        [self createFile:[filename stringByAppendingString:@".html"] :sketchDirectory :htmlContent];
+
+        [self createFile:[filename stringByAppendingString:@".html"]
+                withPath:sketchDirectory
+             withContent:htmlContent];
     }
 
     // reset overwrite value

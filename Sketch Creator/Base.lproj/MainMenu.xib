@@ -888,6 +888,9 @@
                                             <buttonCell key="dataCell" type="bevel" title="..." bezelStyle="rounded" alignment="center" toolTip="Change path of JavaScript library" identifier="setPath" inset="2" id="kTe-L0-x2q">
                                                 <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                 <font key="font" metaFont="system"/>
+                                                <connections>
+                                                    <action selector="setPath:" target="wDe-O2-NqI" id="hkt-j4-BT2"/>
+                                                </connections>
                                             </buttonCell>
                                         </tableColumn>
                                     </tableColumns>
@@ -913,6 +916,9 @@
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="systemBold" size="12"/>
                         </buttonCell>
+                        <connections>
+                            <action selector="addRow:" target="wDe-O2-NqI" id="49I-mi-dlM"/>
+                        </connections>
                     </button>
                     <button toolTip="Remove selected library" appearanceType="lightContent" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hLU-Su-QFx">
                         <rect key="frame" x="48" y="101" width="24" height="15"/>
@@ -920,6 +926,9 @@
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="systemBold" size="12"/>
                         </buttonCell>
+                        <connections>
+                            <action selector="removeRow:" target="wDe-O2-NqI" id="JVD-gT-nV2"/>
+                        </connections>
                     </button>
                 </subviews>
             </view>

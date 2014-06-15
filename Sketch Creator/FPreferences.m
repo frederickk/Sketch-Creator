@@ -82,6 +82,13 @@
     return [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
+- (BOOL) setObject: (NSObject *)value
+            forKey: (NSString *)key {
+
+    [[NSUserDefaults standardUserDefaults] setObject:value forKey:key];
+    return [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
 // ------------------------------------------------------------------------
 - (BOOL) clear {
     NSDictionary *allObjects = [[NSUserDefaults standardUserDefaults] dictionaryRepresentation];
@@ -154,6 +161,15 @@
 }
 
 - (NSArray *) getArray: (NSString *)key {
+    if ( [[NSUserDefaults standardUserDefaults] objectForKey:key] ) {
+        return [[NSUserDefaults standardUserDefaults] objectForKey:key];
+    }
+    else {
+        return nil;
+    }
+}
+
+- (NSObject *) getObject: (NSString *)key {
     if ( [[NSUserDefaults standardUserDefaults] objectForKey:key] ) {
         return [[NSUserDefaults standardUserDefaults] objectForKey:key];
     }

@@ -32,14 +32,10 @@
 		8DBEE2551943B23A003C5CC9 /* template_dragdrop.js in Resources */ = {isa = PBXBuildFile; fileRef = 8DBEE24E1943B23A003C5CC9 /* template_dragdrop.js */; };
 		8DBEE2561943B23A003C5CC9 /* template_mouse.js in Resources */ = {isa = PBXBuildFile; fileRef = 8DBEE24F1943B23A003C5CC9 /* template_mouse.js */; };
 		8DBEE2571943B23A003C5CC9 /* template_mouse.js in Resources */ = {isa = PBXBuildFile; fileRef = 8DBEE24F1943B23A003C5CC9 /* template_mouse.js */; };
-		8DBEE2621943B3E1003C5CC9 /* p5.min.js in Sources */ = {isa = PBXBuildFile; fileRef = 8DBEE25C1943B3E1003C5CC9 /* p5.min.js */; };
 		8DBEE26819443013003C5CC9 /* p5.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 8DBEE25C1943B3E1003C5CC9 /* p5.min.js */; };
-		8DBEE271194463C0003C5CC9 /* template_touch.js in Sources */ = {isa = PBXBuildFile; fileRef = 8DBEE26F194463C0003C5CC9 /* template_touch.js */; };
-		8DBEE274194463D1003C5CC9 /* template_keyboard.js in Sources */ = {isa = PBXBuildFile; fileRef = 8DBEE272194463D1003C5CC9 /* template_keyboard.js */; };
 		8DBEE27519446666003C5CC9 /* template_touch.js in Resources */ = {isa = PBXBuildFile; fileRef = 8DBEE26F194463C0003C5CC9 /* template_touch.js */; };
 		8DBEE27619446666003C5CC9 /* template_keyboard.js in Resources */ = {isa = PBXBuildFile; fileRef = 8DBEE272194463D1003C5CC9 /* template_keyboard.js */; };
 		8DBEE2BC194571C4003C5CC9 /* FDragController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DBEE2BB194571C4003C5CC9 /* FDragController.m */; };
-		8DBEE2BD194571C4003C5CC9 /* FDragController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DBEE2BB194571C4003C5CC9 /* FDragController.m */; };
 		8DE93B6B1947B61D005DB160 /* p5.dom.js in Resources */ = {isa = PBXBuildFile; fileRef = 8DE93B6A1947B60B005DB160 /* p5.dom.js */; };
 /* End PBXBuildFile section */
 
@@ -358,10 +354,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				8DBEE22E19438B79003C5CC9 /* Sketch_CreatorTests.m in Sources */,
-				8DBEE2BD194571C4003C5CC9 /* FDragController.m in Sources */,
-				8DBEE271194463C0003C5CC9 /* template_touch.js in Sources */,
-				8DBEE2621943B3E1003C5CC9 /* p5.min.js in Sources */,
-				8DBEE274194463D1003C5CC9 /* template_keyboard.js in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
