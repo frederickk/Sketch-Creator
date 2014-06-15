@@ -23,6 +23,7 @@
 @synthesize bDragdrop;  // *
 
 @synthesize bCss;       // *
+@synthesize bBrowser;   // *
 @synthesize bWarnings;  // *
 
 // preferences
@@ -59,8 +60,13 @@
 #pragma mark Methods-Quit
 
 // ------------------------------------------------------------------------
+- (void) onClose: (id)sender {
+    NSLog(@"onClose");
+    [self setPreferences];
+}
+
 - (BOOL) applicationShouldTerminateAfterLastWindowClosed: (NSApplication *)theApplication {
-    [self onQuit:self];
+    [self setPreferences];
     return YES;
 }
 - (IBAction) onQuit: (id)sender {
@@ -184,10 +190,10 @@
 
         // move library/add-on files
         NSArray *libraries = [prefs getArray:@"libraries"];
-        NSLog(@"library: %@", libraries);
         NSString *jsHtmlTag = @"";
         for( NSMutableDictionary *item in libraries ) {
             NSNumber *isActive = [item valueForKey:@"active"];
+            NSLog(@"isActive: %d", [isActive isEqual:[NSNumber numberWithBool:YES]]);
             if ([isActive isEqual:[NSNumber numberWithBool:YES]]) {
                 // copy files
                 NSString *src = [item valueForKey:@"path"];
@@ -235,6 +241,17 @@
         [self createFile:[filename stringByAppendingString:@".html"]
                 withPath:sketchDirectory
              withContent:htmlContent];
+
+
+        // open in browser
+        // chrome preffered, fallback to user default
+        if ([bBrowser state] == 1 ) {
+            NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"file://%@/%@%@", sketchDirectory, filename, @".html"]];
+            [self openBrowser:url
+//                         with:@"com.apple.Safari"];
+                         with:@"com.google.Chrome"];
+        }
+
     }
 
     // reset overwrite value
@@ -344,6 +361,29 @@
     return val;
 }
 
+- (BOOL) openBrowser: (NSURL *)url
+                with: (NSString *)appBundleIdentifier {
+    BOOL browser = FALSE;
+
+    // try preferred first
+    browser = [[NSWorkspace sharedWorkspace]
+                    openURLs:@[url]
+               withAppBundleIdentifier:appBundleIdentifier
+               options:NSWorkspaceLaunchAllowingClassicStartup
+               additionalEventParamDescriptor:nil
+               launchIdentifiers:nil];
+
+    if( !browser ) {
+        // try default
+        browser = [[NSWorkspace sharedWorkspace] openURL:url];
+    }
+    else {
+        NSLog(@"Failed to open url: %@", url);
+    }
+
+    return browser;
+}
+
 
 #pragma mark Methods-Sets
 
@@ -353,7 +393,7 @@
 // Sets
 //
 - (void) setPreferences {
-    NSLog(@"setPreferences");
+    NSLog(@"app: setPreferences");
 
     [prefs setString:[sketchPath stringValue] forKey:@"sketchPath"];
 
@@ -363,11 +403,12 @@
     [prefs setBool:[bDragdrop state] forKey:@"bDragdrop"];
 
     [prefs setBool:[bCss state] forKey:@"bCss"];
+    [prefs setBool:[bBrowser state] forKey:@"bBrowser"];
     [prefs setBool:[bWarnings state] forKey:@"bWarnings"];
 }
 
 - (void) updateWithPreferences {
-    NSLog(@"updateWithPreferences");
+    NSLog(@"app: updateWithPreferences");
 
     [[sketchPath cell] setPlaceholderString:[prefs getString:@"sketchPath"]];
     [[sketchPath cell] setStringValue:[prefs getString:@"sketchPath"]];
@@ -378,6 +419,7 @@
     [bDragdrop setIntValue:[prefs getBool:@"bDragdrop"]];
 
     [bCss setIntValue:[prefs getBool:@"bCss"]];
+    [bBrowser setIntValue:[prefs getBool:@"bBrowser"]];
     [bWarnings setIntValue:[prefs getBool:@"bWarnings"]];
 }
 
@@ -437,7 +479,8 @@
     [self createStructure:filename
                  withPath:path];
 
-    NSLog(@"onCreate: %@%@", path, filename);
+    // set preferences
+    [self setPreferences];
 }
 
 

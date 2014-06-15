@@ -45,8 +45,6 @@
 - (IBAction) addRow: (id)sender;
 - (IBAction) removeRow: (id)sender;
 
-//- (IBAction) setActive: (id)sender;
-
 
 
 @end

@@ -19,6 +19,7 @@
 // Properties
 // ------------------------------------------------------------------------
 @property (assign) IBOutlet NSWindow *window;
+@property (assign) IBOutlet NSPanel *panel;
 
 @property (weak) NSArray *libraryValues;
 
@@ -31,6 +32,7 @@
 @property (weak) IBOutlet NSButton *bDragdrop;
 
 @property (weak) IBOutlet NSButton *bCss;
+@property (weak) IBOutlet NSButton *bBrowser;
 @property (weak) IBOutlet NSButton *bWarnings;
 
 // preferences
@@ -50,5 +52,6 @@
 - (IBAction) onCreate: (id)sender;
 - (IBAction) chooseSketchPath: (id)sender;
 
+- (IBAction) onClose: (id)sender;
 
 @end

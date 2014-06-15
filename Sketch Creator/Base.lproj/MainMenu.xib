@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6154.17" systemVersion="13D65" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
+        <deployment defaultVersion="1070" identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6154.17"/>
     </dependencies>
     <objects>
@@ -13,16 +14,18 @@
         <customObject id="-3" userLabel="Application"/>
         <customObject id="Voe-Tx-rLC" customClass="AppDelegate">
             <connections>
+                <outlet property="bBrowser" destination="ktw-nU-fTF" id="EQg-DK-Epo"/>
                 <outlet property="bCss" destination="D6F-hn-2Q8" id="hiS-Rz-MTu"/>
                 <outlet property="bDragdrop" destination="3QY-5h-6X1" id="XbF-pg-YYn"/>
                 <outlet property="bKeyboard" destination="SaH-1S-ebk" id="hNd-A0-kFF"/>
                 <outlet property="bMouse" destination="Lwf-ly-1Gu" id="71B-JU-Kf4"/>
                 <outlet property="bTouch" destination="3Kx-at-fWN" id="vTA-Ut-dT7"/>
-                <outlet property="bWarnings" destination="ktw-nU-fTF" id="sXV-tG-CnG"/>
+                <outlet property="bWarnings" destination="X6c-WQ-RXW" id="D82-vB-SzD"/>
                 <outlet property="create" destination="0d4-fh-0Je" id="pqg-l1-0pG"/>
+                <outlet property="panel" destination="qWE-kf-WUt" id="akk-Aw-0Kz"/>
                 <outlet property="sketchName" destination="Zij-dW-OiS" id="piP-ei-I0A"/>
                 <outlet property="sketchPath" destination="HsM-fn-nXY" id="Etf-7P-6w0"/>
-                <outlet property="window" destination="QvC-M9-y7g" id="gIp-Ho-8D9"/>
+                <outlet property="window" destination="QvC-M9-y7g" id="mNz-bA-bmJ"/>
             </connections>
         </customObject>
         <customObject id="YLy-65-1bz" customClass="NSFontManager"/>
@@ -87,12 +90,7 @@
                         <items>
                             <menuItem title="Close" keyEquivalent="w" id="DVo-aG-piG">
                                 <connections>
-                                    <action selector="performClose:" target="-1" id="HmO-Ls-i7Q"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="Print…" keyEquivalent="p" id="aTl-1u-JFS">
-                                <connections>
-                                    <action selector="print:" target="-1" id="qaZ-4w-aoO"/>
+                                    <action selector="performClose:" target="-1" id="QED-ds-PY2"/>
                                 </connections>
                             </menuItem>
                         </items>
@@ -190,7 +188,7 @@
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <textField appearanceType="lightContent" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zij-dW-OiS">
+                    <textField toolTip="The name of your sketch." appearanceType="lightContent" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zij-dW-OiS">
                         <rect key="frame" x="22" y="211" width="190" height="22"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" title="sketch" placeholderString="sketch" drawsBackground="YES" id="eaV-4z-6k8">
                             <font key="font" metaFont="cellTitle"/>
@@ -206,7 +204,7 @@
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <textField appearanceType="lightContent" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HsM-fn-nXY">
+                    <textField toolTip="The save location of your sketch." appearanceType="lightContent" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HsM-fn-nXY">
                         <rect key="frame" x="22" y="157" width="157" height="22"/>
                         <textFieldCell key="cell" lineBreakMode="truncatingHead" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="~/Documents/Processing/" drawsBackground="YES" usesSingleLineMode="YES" id="MEV-ad-s2F">
                             <font key="font" metaFont="cellTitle"/>
@@ -232,28 +230,28 @@
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <button toolTip="Include hooks for mouse events" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Lwf-ly-1Gu">
+                    <button toolTip="Include hooks for mouse events." fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Lwf-ly-1Gu">
                         <rect key="frame" x="22" y="105" width="63" height="18"/>
                         <buttonCell key="cell" type="check" title="Mouse" bezelStyle="regularSquare" imagePosition="left" inset="2" id="wRY-ny-XeG">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" metaFont="cellTitle"/>
                         </buttonCell>
                     </button>
-                    <button toolTip="Include hooks for touch events" appearanceType="lightContent" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3Kx-at-fWN">
+                    <button toolTip="Include hooks for touch events." appearanceType="lightContent" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3Kx-at-fWN">
                         <rect key="frame" x="22" y="82" width="61" height="18"/>
                         <buttonCell key="cell" type="check" title="Touch" bezelStyle="regularSquare" imagePosition="left" inset="2" id="hkV-iX-J2r">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" metaFont="cellTitle"/>
                         </buttonCell>
                     </button>
-                    <button toolTip="Include hooks for keyboard events" appearanceType="lightContent" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SaH-1S-ebk">
+                    <button toolTip="Include hooks for keyboard events." appearanceType="lightContent" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SaH-1S-ebk">
                         <rect key="frame" x="110" y="105" width="82" height="18"/>
                         <buttonCell key="cell" type="check" title="Keyboard" bezelStyle="regularSquare" imagePosition="left" inset="2" id="2p2-he-iHA">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" metaFont="cellTitle"/>
                         </buttonCell>
                     </button>
-                    <button toolTip="Include hooks for drag and drop functionality" appearanceType="lightContent" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3QY-5h-6X1">
+                    <button toolTip="Include hooks for drag and drop functionality." appearanceType="lightContent" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3QY-5h-6X1">
                         <rect key="frame" x="110" y="82" width="92" height="18"/>
                         <buttonCell key="cell" type="check" title="Drag-Drop" bezelStyle="regularSquare" imagePosition="left" inset="2" id="NvC-U6-0az">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -272,7 +270,7 @@
                     </button>
                 </subviews>
             </view>
-            <point key="canvasLocation" x="-516" y="-183"/>
+            <point key="canvasLocation" x="-519" y="-183"/>
         </window>
         <menuItem title="Format" id="jxT-CU-nIS">
             <modifierMask key="keyEquivalentModifierMask"/>
@@ -798,15 +796,15 @@
         <window title="Preferences" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hidesOnDeactivate="YES" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" appearanceType="lightContent" animationBehavior="default" id="qWE-kf-WUt" customClass="NSPanel">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="150" y="600" width="305" height="332"/>
+            <rect key="contentRect" x="150" y="600" width="305" height="353"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1028"/>
             <value key="minSize" type="size" width="305" height="272"/>
             <view key="contentView" id="gHY-dA-6Xm">
-                <rect key="frame" x="0.0" y="0.0" width="305" height="332"/>
+                <rect key="frame" x="0.0" y="0.0" width="305" height="353"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <textField appearanceType="lightContent" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="I0r-2i-fOS">
-                        <rect key="frame" x="22" y="295" width="246" height="17"/>
+                        <rect key="frame" x="22" y="316" width="246" height="17"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Additional JavaScript Libraries/Addons" id="DyT-7Q-22e">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -814,7 +812,7 @@
                         </textFieldCell>
                     </textField>
                     <textField appearanceType="lightContent" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="byc-AB-RKc">
-                        <rect key="frame" x="22" y="243" width="264" height="49"/>
+                        <rect key="frame" x="22" y="264" width="264" height="49"/>
                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Add source files of any additional JavaScript libraries. Load ordering can be adjusted as well." id="WUm-eD-QSi">
                             <font key="font" metaFont="smallSystem"/>
                             <color key="textColor" name="alternateSelectedControlColor" catalog="System" colorSpace="catalog"/>
@@ -822,27 +820,27 @@
                         </textFieldCell>
                     </textField>
                     <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="D6F-hn-2Q8">
-                        <rect key="frame" x="21" y="46" width="190" height="18"/>
+                        <rect key="frame" x="21" y="67" width="190" height="18"/>
                         <buttonCell key="cell" type="check" title="Include bundled CSS styles" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="ffF-G1-4wO">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
                     </button>
-                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ktw-nU-fTF">
-                        <rect key="frame" x="21" y="23" width="202" height="18"/>
-                        <buttonCell key="cell" type="check" title="Suppress overwrite warnings" bezelStyle="regularSquare" imagePosition="left" inset="2" id="b7R-Vq-ac8">
+                    <button toolTip="Opens created sketch within the browser. Chrome is preferred." fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ktw-nU-fTF">
+                        <rect key="frame" x="21" y="44" width="202" height="18"/>
+                        <buttonCell key="cell" type="check" title="Open in browser on creation" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="b7R-Vq-ac8">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
                     </button>
                     <box autoresizesSubviews="NO" appearanceType="lightContent" verticalHuggingPriority="750" fixedFrame="YES" title="Box" boxType="separator" titlePosition="noTitle" translatesAutoresizingMaskIntoConstraints="NO" id="RKu-uH-6ak">
-                        <rect key="frame" x="0.0" y="81" width="305" height="5"/>
+                        <rect key="frame" x="0.0" y="102" width="305" height="5"/>
                         <color key="borderColor" white="0.0" alpha="0.41999999999999998" colorSpace="calibratedWhite"/>
                         <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <font key="titleFont" metaFont="system"/>
                     </box>
                     <scrollView appearanceType="lightContent" fixedFrame="YES" autohidesScrollers="YES" horizontalLineScroll="23" horizontalPageScroll="10" verticalLineScroll="23" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9k1-gd-ybC">
-                        <rect key="frame" x="22" y="124" width="261" height="117"/>
+                        <rect key="frame" x="22" y="145" width="261" height="117"/>
                         <clipView key="contentView" ambiguous="YES" misplaced="YES" copiesOnScroll="NO" id="sDp-xD-G7t">
                             <rect key="frame" x="1" y="1" width="259" height="76"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -861,7 +859,7 @@
                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" white="0.33333298560000002" alpha="1" colorSpace="calibratedWhite"/>
                                             </tableHeaderCell>
-                                            <buttonCell key="dataCell" type="check" bezelStyle="regularSquare" imagePosition="only" alignment="center" controlSize="small" toolTip="Toggle inclusion of library in sketch creation" identifier="isActive" inset="2" id="rp5-sx-3tX">
+                                            <buttonCell key="dataCell" type="check" bezelStyle="regularSquare" imagePosition="only" alignment="center" controlSize="small" toolTip="Toggle inclusion of library during sketch creation." identifier="isActive" inset="2" id="rp5-sx-3tX">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                 <font key="font" metaFont="smallSystem"/>
                                             </buttonCell>
@@ -872,7 +870,7 @@
                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" white="0.33333298560000002" alpha="1" colorSpace="calibratedWhite"/>
                                             </tableHeaderCell>
-                                            <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" sendsActionOnEndEditing="YES" title="Text" id="dgn-C9-274">
+                                            <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" sendsActionOnEndEditing="YES" toolTip="Drag and drop to reorder libraries to desired load order." title="Text" id="dgn-C9-274">
                                                 <font key="font" metaFont="cellTitle"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -911,7 +909,7 @@
                         </scroller>
                     </scrollView>
                     <button toolTip="Add JavaScript library" appearanceType="lightContent" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2GG-0C-OO4">
-                        <rect key="frame" x="22" y="101" width="24" height="15"/>
+                        <rect key="frame" x="22" y="122" width="24" height="15"/>
                         <buttonCell key="cell" type="inline" bezelStyle="inline" image="NSAddTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" inset="2" id="tgu-FH-wqj">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="systemBold" size="12"/>
@@ -921,7 +919,7 @@
                         </connections>
                     </button>
                     <button toolTip="Remove selected library" appearanceType="lightContent" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hLU-Su-QFx">
-                        <rect key="frame" x="48" y="101" width="24" height="15"/>
+                        <rect key="frame" x="48" y="122" width="24" height="15"/>
                         <buttonCell key="cell" type="inline" bezelStyle="inline" image="NSRemoveTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" inset="2" id="Jkw-Bd-FB6">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="systemBold" size="12"/>
@@ -930,9 +928,16 @@
                             <action selector="removeRow:" target="wDe-O2-NqI" id="JVD-gT-nV2"/>
                         </connections>
                     </button>
+                    <button appearanceType="lightContent" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="X6c-WQ-RXW">
+                        <rect key="frame" x="21" y="21" width="202" height="18"/>
+                        <buttonCell key="cell" type="check" title="Suppress overwrite warnings" bezelStyle="regularSquare" imagePosition="left" inset="2" id="ZL2-Lx-dGo">
+                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                    </button>
                 </subviews>
             </view>
-            <point key="canvasLocation" x="-857.5" y="-152"/>
+            <point key="canvasLocation" x="-857.5" y="-141.5"/>
         </window>
     </objects>
     <resources>

@@ -48,6 +48,9 @@
     values = [[NSMutableArray alloc] init];
     prefs = [[FPreferences alloc] init];
 
+    // update UI with saved preferences
+    [self updateWithPreferences];
+
     // add initial items
     NSString *p5js = [[NSBundle bundleForClass:[self class]]
                                pathForResource:@"p5.min"
@@ -60,15 +63,6 @@
     [self addPath:p5domjs  setActive:FALSE];
 
     [FDTableView registerForDraggedTypes:[NSArray arrayWithObject:FDTableCellViewDataType] ];
-}
-
-- (BOOL) applicationShouldTerminateAfterLastWindowClosed: (NSApplication *)theApplication {
-    [self onQuit:self];
-    return YES;
-}
-- (IBAction) onQuit: (id)sender {
-    [self setPreferences];
-    exit(0);
 }
 
 // ------------------------------------------------------------------------
@@ -106,6 +100,7 @@ objectValueForTableColumn: (NSTableColumn *)column
 
     if (tableView == FDTableView) {
         [[values objectAtIndex:row] setValue:value forKey:[column identifier]];
+        [self setPreferences];
     }
 }
 
@@ -125,9 +120,17 @@ objectValueForTableColumn: (NSTableColumn *)column
     val[@"name"]   = [path lastPathComponent];
     val[@"path"]   = path;
 
+
+    BOOL isContained = FALSE;
+    for( NSMutableDictionary *item in values ) {
+        if ([item[@"path"] isEqualToString:path] ) {
+            isContained = TRUE;
+            break;
+        }
+    }
+
     BOOL isAdded = FALSE;
-    NSLog(@"addPath: exists: %d", [values containsObject:val]);
-    if ( values && ![values containsObject:val] ) {
+    if ( values && !isContained ) { //![values containsObject:val] ) {
         [values addObject:val];
         isAdded = TRUE;
 
@@ -157,6 +160,15 @@ objectValueForTableColumn: (NSTableColumn *)column
     return YES;
 }
 
+- (void) updateWithPreferences {
+    // may seem backwards, but this prevents
+    // an index out of bounds error
+    NSArray *libraries = [prefs getArray:@"libraries"];
+    for( NSMutableDictionary *item in libraries ) {
+        [self addPath:item[@"path"]
+            setActive:(BOOL)item[@"active"]];
+    }
+}
 
 #pragma mark Methods-Gets
 
@@ -210,11 +222,6 @@ objectValueForTableColumn: (NSTableColumn *)column
             [[values objectAtIndex:row] setValue:path forKey:@"path"];
         }
     }
-}
-
-// ------------------------------------------------------------------------
-- (IBAction) setActive: (id)sender {
-    NSLog(@"setActive: %@", sender);
 }
 
 
