@@ -1,0 +1,38 @@
+* {
+  box-sizing: border-box;
+}
+body {
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 12px;
+  line-height: 15px;
+}
+a:link,
+a:visited,
+a:hover,
+a:active {
+  color: #0000ff;
+}
+
+.container {
+  position: relative;
+  text-align: center;
+}
+.column {
+  position: relative;
+  top: 9px;
+  width: 31.5%;
+  margin: 12px 12px 72px 12px;
+  padding: 0 10% 0 0;
+  float: left;
+  font-weight: bold;
+  text-align: left;
+}
+
+.clear {
+  clear: both;
+}
+
+code {
+  background-color: #e1e1e1;
+  font-weight: normal;
+}
