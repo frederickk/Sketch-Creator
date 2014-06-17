@@ -12,25 +12,20 @@
 
 
 // ------------------------------------------------------------------------
-// Constants
-// ------------------------------------------------------------------------
-
-
-
-// ------------------------------------------------------------------------
 // Properties
 // ------------------------------------------------------------------------
 @synthesize sketchName;
-@synthesize sketchPath; // *
+@synthesize sketchPath;   // *
 
-@synthesize bMouse;     // *
-@synthesize bTouch;     // *
-@synthesize bKeyboard;  // *
-@synthesize bDragdrop;  // *
+@synthesize bMouse;       // *
+@synthesize bTouch;       // *
+@synthesize bKeyboard;    // *
+@synthesize bDragdrop;    // *
 
-@synthesize bCss;       // *
-@synthesize bBrowser;   // *
-@synthesize bWarnings;  // *
+@synthesize bCss;         // *
+@synthesize bBrowser;     // *
+@synthesize browserPopup; // *
+@synthesize bWarnings;    // *
 
 // preferences
 @synthesize prefs;
@@ -53,6 +48,15 @@
     // set default/placeholder values
     [[sketchName cell] setPlaceholderString:@"sketch"];
     [[sketchPath cell] setStringValue:[NSString stringWithFormat:@"%@%@", NSHomeDirectory(), @"/Documents/Processing"]];
+
+    // populate browserPopup with appropriate app names
+    NSString *html = [[NSBundle bundleForClass:[self class]]
+                      pathForResource:@"template_base"
+                      ofType:@"html"];
+    NSURL *url = [NSURL fileURLWithPath:html];
+    browserBundleList = [self getAppBundlesFor:url];
+    [browserPopup removeAllItems];
+    [browserPopup addItemsWithTitles:[self getBundleAppNames:browserBundleList]];
 }
 
 - (void) applicationDidFinishLaunching: (NSNotification *)aNotification {
@@ -68,7 +72,6 @@
 
 // ------------------------------------------------------------------------
 - (void) onClose: (id)sender {
-    NSLog(@"onClose");
     [self setPreferences];
 }
 
@@ -164,8 +167,6 @@
     NSString *date = [NSString stringWithFormat:@"%02d.%02d.%02d", currentDate.year, currentDate.month, currentDate.day];
     jsContent = [jsContent stringByReplacingOccurrencesOfString:@"##date##"
                                                      withString:date];
-    
-
 
     if (error) {
         NSLog(@"Error reading file: %@", error);
@@ -198,7 +199,7 @@
         // move library/add-on files
         NSArray *libraries = [prefs getArray:@"libraries"];
         NSString *jsHtmlTag = @"";
-        for( NSMutableDictionary *item in libraries ) {
+        for ( NSMutableDictionary *item in libraries ) {
             NSNumber *isActive = [item valueForKey:@"active"];
 //            NSLog(@"isActive: %d", [isActive isEqual:[NSNumber numberWithBool:YES]]);
             if ([isActive isEqual:[NSNumber numberWithBool:YES]]) {
@@ -213,8 +214,9 @@
             }
         }
         // replace instances ##libraries## with <script..
-        NSString *htmlContent = [[content objectForKey:@"html"] stringByReplacingOccurrencesOfString:@"##libraries##"
-                                                             withString:jsHtmlTag];
+        NSString *htmlContent = [[content objectForKey:@"html"]
+                                 stringByReplacingOccurrencesOfString:@"##libraries##"
+                                                           withString:jsHtmlTag];
 
         // drag-drop is a special case
         if ([bDragdrop state] == 1) {
@@ -251,12 +253,20 @@
 
 
         // open in browser
-        // chrome preffered, fallback to user default
         if ([bBrowser state] == 1 ) {
             NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"file://%@/%@%@", sketchDirectory, filename, @".html"]];
-            [self openBrowser:url
-                         with:@"com.apple.Safari"];
-//                         with:@"com.google.Chrome"];
+
+            NSString *stringToSearch = [[browserPopup selectedItem] title];
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF contains[c] %@", stringToSearch];
+            NSString *result = @"";
+            @try {
+                result = [browserBundleList filteredArrayUsingPredicate:predicate][0];
+            }
+            @catch(NSException *exception) {
+                NSLog(@"Error opening browser: %@", exception);
+            }
+            [self openBrowser:url with:result];
+
         }
 
     }
@@ -350,6 +360,37 @@
 }
 
 // ------------------------------------------------------------------------
+//
+// http://stackoverflow.com/questions/12796391/retrieve-all-app-bundle-identifiers-which-can-open-file-at-given-url
+//
+- (NSArray *) getAppBundlesFor: (NSURL *)url {
+    NSError *error;
+    NSString *utiType = nil;
+    NSArray *bundleIdentifiers;
+
+    BOOL success = [url getResourceValue: &utiType
+                                  forKey: NSURLTypeIdentifierKey
+                                   error: &error];
+    if (!success) {
+        NSLog(@"Error finding valid app bundles: %@", error);
+    }
+    else {
+        bundleIdentifiers = (__bridge NSArray *)LSCopyAllRoleHandlersForContentType((__bridge CFStringRef)utiType, kLSRolesShell | kLSRolesViewer);
+    }
+
+    return bundleIdentifiers;
+}
+
+- (NSArray *) getBundleAppNames: (NSArray *)list {
+    NSMutableArray *names = [[NSMutableArray alloc] init];
+    for (int i=0; i<[list count]; i++) {
+        NSArray *name = [list[i] componentsSeparatedByString: @"."];
+        [names addObject:[name [[name count]-1] capitalizedString]];
+    }
+    return (NSArray *)names;
+}
+
+// ------------------------------------------------------------------------
 - (BOOL) warningPrompt: (NSString *)filename {
     BOOL val = FALSE;
     NSAlert *alert = [[NSAlert alloc] init];
@@ -368,13 +409,13 @@
     return val;
 }
 
+// ------------------------------------------------------------------------
 - (BOOL) openBrowser: (NSURL *)url
                 with: (NSString *)appBundleIdentifier {
     BOOL browser = FALSE;
 
-    NSLog(@"url: %@ \rbundle: %@", url, appBundleIdentifier);
     // try preferred browser first
-    if( !browser ) {
+    if ( !browser ) {
         browser = [[NSWorkspace sharedWorkspace]
                    openURLs:@[url]
                    withAppBundleIdentifier:appBundleIdentifier
@@ -384,12 +425,12 @@
     }
 
     // ok... try default browser
-    if( !browser ) {
+    if ( !browser ) {
         browser = [[NSWorkspace sharedWorkspace] openURL:url];
     }
 
     // still nothing. alert!
-    if( !browser ) {
+    if ( !browser ) {
         NSAlert *alert = [[NSAlert alloc] init];
         [alert setAlertStyle:NSWarningAlertStyle];
         [alert setMessageText:@"Failed to open sketch."];
@@ -409,7 +450,7 @@
 // Sets
 //
 - (void) setPreferences {
-    NSLog(@"app: setPreferences");
+    NSLog(@"Sketch-Creator: setPreferences");
 
     [prefs setString:[sketchPath stringValue] forKey:@"sketchPath"];
 
@@ -420,37 +461,41 @@
 
     [prefs setBool:[bCss state] forKey:@"bCss"];
     [prefs setBool:[bBrowser state] forKey:@"bBrowser"];
+    [prefs setString:[[browserPopup selectedItem] title] forKey:@"browserPopup"];
     [prefs setBool:[bWarnings state] forKey:@"bWarnings"];
 }
 
 - (void) updateWithPreferences {
-    NSLog(@"app: updateWithPreferences");
+    NSLog(@"Sketch-Creator: updateWithPreferences");
 
-    if([prefs getString:@"sketchPath"]) {
+    if ([prefs getString:@"sketchPath"]) {
         [[sketchPath cell] setPlaceholderString:[prefs getString:@"sketchPath"]];
         [[sketchPath cell] setStringValue:[prefs getString:@"sketchPath"]];
     }
 
-    if([prefs getBool:@"bMouse"]) {
+    if ([prefs getBool:@"bMouse"]) {
         [bMouse setIntValue:[prefs getBool:@"bMouse"]];
     }
-    if([prefs getBool:@"bTouch"]) {
+    if ([prefs getBool:@"bTouch"]) {
     [bTouch setIntValue:[prefs getBool:@"bTouch"]];
     }
-    if([prefs getBool:@"bKeyboard"]) {
+    if ([prefs getBool:@"bKeyboard"]) {
         [bKeyboard setIntValue:[prefs getBool:@"bKeyboard"]];
     }
-    if([prefs getBool:@"bDragdrop"]) {
+    if ([prefs getBool:@"bDragdrop"]) {
         [bDragdrop setIntValue:[prefs getBool:@"bDragdrop"]];
     }
 
-    if([prefs getBool:@"bCss"]) {
+    if ([prefs getBool:@"bCss"]) {
         [bCss setIntValue:[prefs getBool:@"bCss"]];
     }
-    if([prefs getBool:@"bBrowser"]) {
+    if ([prefs getBool:@"bBrowser"]) {
         [bBrowser setIntValue:[prefs getBool:@"bBrowser"]];
     }
-    if([prefs getBool:@"bWarnings"]) {
+    if ([prefs getString:@"browserPopup"]) {
+        [browserPopup selectItemWithTitle:[prefs getString:@"browserPopup"]];
+    }
+    if ([prefs getBool:@"bWarnings"]) {
         [bWarnings setIntValue:[prefs getBool:@"bWarnings"]];
     }
 }

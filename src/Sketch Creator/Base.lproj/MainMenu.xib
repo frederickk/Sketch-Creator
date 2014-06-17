@@ -20,6 +20,7 @@
                 <outlet property="bMouse" destination="Lwf-ly-1Gu" id="71B-JU-Kf4"/>
                 <outlet property="bTouch" destination="3Kx-at-fWN" id="vTA-Ut-dT7"/>
                 <outlet property="bWarnings" destination="X6c-WQ-RXW" id="D82-vB-SzD"/>
+                <outlet property="browserPopup" destination="Nty-sC-fH4" id="hzI-z6-EBi"/>
                 <outlet property="create" destination="0d4-fh-0Je" id="pqg-l1-0pG"/>
                 <outlet property="panel" destination="qWE-kf-WUt" id="akk-Aw-0Kz"/>
                 <outlet property="sketchName" destination="Zij-dW-OiS" id="piP-ei-I0A"/>
@@ -814,7 +815,7 @@
                         <rect key="frame" x="22" y="264" width="264" height="49"/>
                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Add source files of any additional JavaScript libraries. Load ordering can be adjusted as well." id="WUm-eD-QSi">
                             <font key="font" metaFont="smallSystem"/>
-                            <color key="textColor" name="alternateSelectedControlColor" catalog="System" colorSpace="catalog"/>
+                            <color key="textColor" red="0.45098039509999999" green="0.45098039509999999" blue="0.45098039509999999" alpha="1" colorSpace="deviceRGB"/>
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
@@ -826,8 +827,8 @@
                         </buttonCell>
                     </button>
                     <button toolTip="Opens created sketch within the browser. Chrome is preferred." fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ktw-nU-fTF">
-                        <rect key="frame" x="21" y="44" width="202" height="18"/>
-                        <buttonCell key="cell" type="check" title="Open in browser on creation" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="b7R-Vq-ac8">
+                        <rect key="frame" x="21" y="44" width="72" height="18"/>
+                        <buttonCell key="cell" type="check" title="Open in" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="b7R-Vq-ac8">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
@@ -934,6 +935,27 @@
                             <font key="font" metaFont="system"/>
                         </buttonCell>
                     </button>
+                    <popUpButton appearanceType="lightContent" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Nty-sC-fH4">
+                        <rect key="frame" x="93" y="39" width="91" height="26"/>
+                        <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="hjl-gz-UEx">
+                            <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" size="12" name="LucidaGrande"/>
+                            <menu key="menu" id="0kO-bc-pFt">
+                                <items>
+                                    <menuItem title="Chrome" id="4iv-ce-KrF"/>
+                                    <menuItem title="Safari" id="t8o-UU-iDx"/>
+                                </items>
+                            </menu>
+                        </popUpButtonCell>
+                    </popUpButton>
+                    <textField appearanceType="lightContent" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gOg-pp-olz">
+                        <rect key="frame" x="186" y="46" width="76" height="17"/>
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="on creation" id="ZEM-7I-TrA">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
                 </subviews>
             </view>
             <point key="canvasLocation" x="-857.5" y="-141.5"/>

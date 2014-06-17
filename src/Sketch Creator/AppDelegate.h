@@ -7,11 +7,13 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import <ApplicationServices/ApplicationServices.h>
 #import "FPreferences.h"
 
 
 @interface AppDelegate : NSObject <NSApplicationDelegate> {
     BOOL bOverwrite;
+    NSArray *browserBundleList;
 }
 
 
@@ -33,6 +35,7 @@
 
 @property (weak) IBOutlet NSButton *bCss;
 @property (weak) IBOutlet NSButton *bBrowser;
+@property (weak) IBOutlet NSPopUpButton *browserPopup;
 @property (weak) IBOutlet NSButton *bWarnings;
 
 // preferences
