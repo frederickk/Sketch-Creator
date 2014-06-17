@@ -12,6 +12,12 @@
 
 
 // ------------------------------------------------------------------------
+// Constants
+// ------------------------------------------------------------------------
+
+
+
+// ------------------------------------------------------------------------
 // Properties
 // ------------------------------------------------------------------------
 @synthesize sketchName;
@@ -46,6 +52,7 @@
 - (void) awakeFromNib {
     // set default/placeholder values
     [[sketchName cell] setPlaceholderString:@"sketch"];
+    [[sketchPath cell] setStringValue:[NSString stringWithFormat:@"%@%@", NSHomeDirectory(), @"/Documents/Processing"]];
 }
 
 - (void) applicationDidFinishLaunching: (NSNotification *)aNotification {
@@ -193,7 +200,7 @@
         NSString *jsHtmlTag = @"";
         for( NSMutableDictionary *item in libraries ) {
             NSNumber *isActive = [item valueForKey:@"active"];
-            NSLog(@"isActive: %d", [isActive isEqual:[NSNumber numberWithBool:YES]]);
+//            NSLog(@"isActive: %d", [isActive isEqual:[NSNumber numberWithBool:YES]]);
             if ([isActive isEqual:[NSNumber numberWithBool:YES]]) {
                 // copy files
                 NSString *src = [item valueForKey:@"path"];
@@ -248,8 +255,8 @@
         if ([bBrowser state] == 1 ) {
             NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"file://%@/%@%@", sketchDirectory, filename, @".html"]];
             [self openBrowser:url
-//                         with:@"com.apple.Safari"];
-                         with:@"com.google.Chrome"];
+                         with:@"com.apple.Safari"];
+//                         with:@"com.google.Chrome"];
         }
 
     }
@@ -365,20 +372,29 @@
                 with: (NSString *)appBundleIdentifier {
     BOOL browser = FALSE;
 
-    // try preferred first
-    browser = [[NSWorkspace sharedWorkspace]
-                    openURLs:@[url]
-               withAppBundleIdentifier:appBundleIdentifier
-               options:NSWorkspaceLaunchAllowingClassicStartup
-               additionalEventParamDescriptor:nil
-               launchIdentifiers:nil];
-
+    NSLog(@"url: %@ \rbundle: %@", url, appBundleIdentifier);
+    // try preferred browser first
     if( !browser ) {
-        // try default
+        browser = [[NSWorkspace sharedWorkspace]
+                   openURLs:@[url]
+                   withAppBundleIdentifier:appBundleIdentifier
+                   options:NSWorkspaceLaunchAllowingClassicStartup
+                   additionalEventParamDescriptor:nil
+                   launchIdentifiers:nil];
+    }
+
+    // ok... try default browser
+    if( !browser ) {
         browser = [[NSWorkspace sharedWorkspace] openURL:url];
     }
-    else {
-        NSLog(@"Failed to open url: %@", url);
+
+    // still nothing. alert!
+    if( !browser ) {
+        NSAlert *alert = [[NSAlert alloc] init];
+        [alert setAlertStyle:NSWarningAlertStyle];
+        [alert setMessageText:@"Failed to open sketch."];
+        [alert setInformativeText:[NSString stringWithFormat:@"A viable browser could not be found to open\r%@", url]];
+        [alert runModal];
     }
 
     return browser;
@@ -410,17 +426,33 @@
 - (void) updateWithPreferences {
     NSLog(@"app: updateWithPreferences");
 
-    [[sketchPath cell] setPlaceholderString:[prefs getString:@"sketchPath"]];
-    [[sketchPath cell] setStringValue:[prefs getString:@"sketchPath"]];
+    if([prefs getString:@"sketchPath"]) {
+        [[sketchPath cell] setPlaceholderString:[prefs getString:@"sketchPath"]];
+        [[sketchPath cell] setStringValue:[prefs getString:@"sketchPath"]];
+    }
 
-    [bMouse setIntValue:[prefs getBool:@"bMouse"]];
+    if([prefs getBool:@"bMouse"]) {
+        [bMouse setIntValue:[prefs getBool:@"bMouse"]];
+    }
+    if([prefs getBool:@"bTouch"]) {
     [bTouch setIntValue:[prefs getBool:@"bTouch"]];
-    [bKeyboard setIntValue:[prefs getBool:@"bKeyboard"]];
-    [bDragdrop setIntValue:[prefs getBool:@"bDragdrop"]];
+    }
+    if([prefs getBool:@"bKeyboard"]) {
+        [bKeyboard setIntValue:[prefs getBool:@"bKeyboard"]];
+    }
+    if([prefs getBool:@"bDragdrop"]) {
+        [bDragdrop setIntValue:[prefs getBool:@"bDragdrop"]];
+    }
 
-    [bCss setIntValue:[prefs getBool:@"bCss"]];
-    [bBrowser setIntValue:[prefs getBool:@"bBrowser"]];
-    [bWarnings setIntValue:[prefs getBool:@"bWarnings"]];
+    if([prefs getBool:@"bCss"]) {
+        [bCss setIntValue:[prefs getBool:@"bCss"]];
+    }
+    if([prefs getBool:@"bBrowser"]) {
+        [bBrowser setIntValue:[prefs getBool:@"bBrowser"]];
+    }
+    if([prefs getBool:@"bWarnings"]) {
+        [bWarnings setIntValue:[prefs getBool:@"bWarnings"]];
+    }
 }
 
 

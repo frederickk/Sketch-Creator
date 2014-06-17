@@ -19,7 +19,7 @@
 // Setup
 //
 function setup() {
-    createCanvas(displayWidth, displayHeight);
+  createCanvas(displayWidth, displayHeight);
 
 };
 
