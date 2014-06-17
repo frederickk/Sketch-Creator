@@ -5,7 +5,7 @@ Sketch-Creator
 
 ![Screenshot](sketch-creator-screenshot.png)
 
-A simple app for the creation of [p5.js](https://github.com/lmccart/p5.js) sketches. Similar to [OpenFrameworks-Project Creator](https://github.com/ofZach/project-creator) and [Cinder-TinderBox](https://github.com/cinder/TinderBox-Mac), this app will create a directory with all dependencies (html, css, js, etc.) required for a [p5.js](https://github.com/lmccart/p5.js) project.
+A simple app for the creation of [p5.js](https://github.com/lmccart/p5.js) sketches. Similar to [OpenFrameworks-Project Creator](https://github.com/ofZach/project-creator) and [Cinder-TinderBox](https://github.com/cinder/TinderBox-Mac). This app will create the scaffolding for a self-contained—html, css, js, etc.—[p5.js](https://github.com/lmccart/p5.js) project.
 
 
 Usage
@@ -37,16 +37,16 @@ Add source files of any additional JavaScript libraries. Load ordering can be ad
 The included CSS only makes things prettier, it is not required for p5.js.
 
 **Open in browser on creation**
-Opens created sketch within the browser. Chrome is preferred. You can use the browser as an IDE. Chrome is prefferred because on save the browser is refreshed, but Safari works as well. I didn't test Firefox or Opera. (Video forthcoming)
+Opens created sketch within the browser. Watch the overview video to see how to use the browser as an [IDE](http://en.wikipedia.org/wiki/Integrated_development_environment).
 
 **Suppress overwrite warnings**
-Never see a pop-up warning of overwriting files again. You've been warned.
+Avoid pop-up warnings for overwriting sketch files with same name.
 
 
 
 Examples
 -------------
-Check out the limited `examples` folder. Head to the home of [p5.js](https://github.com/lmccart/p5.js) for more examples.
+
 
 
 
