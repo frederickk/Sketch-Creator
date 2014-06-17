@@ -8,7 +8,6 @@ Sketch-Creator
 A simple app for the creation of [p5.js](https://github.com/lmccart/p5.js) sketches. Similar to [OpenFrameworks-Project Creator](https://github.com/ofZach/project-creator) and [Cinder-TinderBox](https://github.com/cinder/TinderBox-Mac). This app will create the scaffolding for a self-contained—html, css, js, etc.—[p5.js](https://github.com/lmccart/p5.js) project.
 
 **Download**
-
 [Sketch Creator.zip](https://github.com/frederickk/Sketch-Creator/raw/master/distribution/Sketch%20Creator.zip)
 
 
