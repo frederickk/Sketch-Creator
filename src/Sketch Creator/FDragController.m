@@ -38,6 +38,11 @@
     FDragTableValues = [[NSMutableArray alloc] init];
 }
 
+// ------------------------------------------------------------------------
+- (void) isUpdated {
+    NSLog(@"isUpdate");
+}
+
 
 #pragma mark Methods-Inherited
 
@@ -126,6 +131,8 @@ writeRowsWithIndexes: (NSIndexSet *)rows
             [self.FDragTableView noteNumberOfRowsChanged];
             [self.FDragTableView reloadData];
 
+            [self isUpdated];
+
             return YES;
         }
 
@@ -134,6 +141,8 @@ writeRowsWithIndexes: (NSIndexSet *)rows
         [FDragTableValues insertObject:zData atIndex:row];
         [self.FDragTableView noteNumberOfRowsChanged];
         [self.FDragTableView reloadData];
+
+        [self isUpdated];
 
         return YES;
 //    }

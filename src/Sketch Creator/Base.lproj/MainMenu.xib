@@ -18,13 +18,13 @@
                 <outlet property="hasBrowser" destination="ktw-nU-fTF" id="RSE-ow-lWv"/>
                 <outlet property="hasCss" destination="D6F-hn-2Q8" id="Y2s-aA-03P"/>
                 <outlet property="hasDragdrop" destination="3QY-5h-6X1" id="0G7-A9-Y5L"/>
+                <outlet property="hasKeyboard" destination="SaH-1S-ebk" id="hBZ-3p-Xy1"/>
+                <outlet property="hasMouse" destination="Lwf-ly-1Gu" id="JF4-4d-ueF"/>
+                <outlet property="hasTouch" destination="3Kx-at-fWN" id="0w7-mU-cXk"/>
                 <outlet property="hasWarnings" destination="X6c-WQ-RXW" id="RFn-a8-kFk"/>
-                <outlet property="isMouse" destination="Lwf-ly-1Gu" id="uet-M1-q70"/>
-                <outlet property="keyboard" destination="SaH-1S-ebk" id="GIS-WW-6SU"/>
                 <outlet property="panel" destination="qWE-kf-WUt" id="akk-Aw-0Kz"/>
                 <outlet property="sketchName" destination="Zij-dW-OiS" id="piP-ei-I0A"/>
                 <outlet property="sketchPath" destination="HsM-fn-nXY" id="Etf-7P-6w0"/>
-                <outlet property="touch" destination="3Kx-at-fWN" id="MAo-OM-IGG"/>
                 <outlet property="window" destination="QvC-M9-y7g" id="mNz-bA-bmJ"/>
             </connections>
         </customObject>
