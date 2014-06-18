@@ -1,0 +1,192 @@
+//
+//  LibraryTable.m
+//  Sketch Creator
+//
+//  Created by Ken Frederick on 2014.06.17.
+//  Copyright (c) 2014 Ken Frederick. All rights reserved.
+//
+
+#import "LibraryTableController.h"
+
+@implementation LibraryTableController
+
+
+// ------------------------------------------------------------------------
+// Properties
+// ------------------------------------------------------------------------
+@synthesize prefs;
+
+
+
+#pragma mark Methods
+
+// ------------------------------------------------------------------------
+// Methods
+// ------------------------------------------------------------------------
+- (void) awakeFromNib {
+    // inits
+    self.FDragTableValues = [[NSMutableArray alloc] init];
+    prefs = [[FPreferences alloc] init];
+
+    // set viable extensions
+    extensions = [[NSArray alloc] initWithObjects:@"js", @"JS", nil];
+
+    // update UI with saved preferences
+    [self updateWithPreferences];
+
+    // add initial items
+    NSString *p5js = [[NSBundle bundleForClass:[self class]]
+                      pathForResource:@"p5.min"
+                      ofType:@"js"];
+    NSString *p5domjs = [[NSBundle bundleForClass:[self class]]
+                         pathForResource:@"p5.dom"
+                         ofType:@"js"];
+
+    [self addPath:p5js     setActive:TRUE];
+    [self addPath:p5domjs  setActive:FALSE];
+
+    [self.FDragTableView registerForDraggedTypes:[NSArray arrayWithObject:FDTableCellViewDataType]];
+}
+
+// ------------------------------------------------------------------------
+
+#pragma mark Methods-Inherited
+
+//
+// Inherited from NSTableViewDataSource
+//
+
+// Set
+- (void) tableView: (NSTableView *)tableView
+    setObjectValue: (id)value
+    forTableColumn: (NSTableColumn *)column
+               row: (NSInteger)row {
+
+    if (tableView == self.FDragTableView) {
+        [[self.FDragTableValues objectAtIndex:row] setValue:value forKey:[column identifier]];
+        [self setPreferences];
+    }
+}
+
+// ------------------------------------------------------------------------
+
+
+#pragma mark Methods-Sets
+
+//
+// Sets
+//
+- (BOOL) addPath: (NSString *)path
+       setActive: (BOOL)state {
+
+    NSMutableDictionary *val = [[NSMutableDictionary alloc] init];
+    val[@"active"] = [NSNumber numberWithBool:state];
+    val[@"name"]   = [path lastPathComponent];
+    val[@"path"]   = path;
+
+    BOOL isContained = FALSE;
+    for( NSMutableDictionary *item in self.FDragTableValues ) {
+        if ([item[@"name"] isEqualToString:val[@"name"]] ) {
+            //        if ([item[@"path"] isEqualToString:path] ) {
+            isContained = TRUE;
+            break;
+        }
+    }
+
+    BOOL isAdded = FALSE;
+    if ( self.FDragTableValues && !isContained ) { //![values containsObject:val] ) {
+        [self.FDragTableValues addObject:val];
+        isAdded = TRUE;
+
+        [self setPreferences];
+    }
+
+    return isAdded;
+}
+
+- (BOOL) removePath: (NSInteger)row {
+    BOOL isRemoved = FALSE;
+    //    if (row != 0 && row != 1) {
+        [self.FDragTableValues removeObjectAtIndex:row];
+        [self.FDragTableView noteNumberOfRowsChanged];
+        [self.FDragTableView reloadData];
+        isRemoved = TRUE;
+
+        [self setPreferences];
+    //    }
+
+    return isRemoved;
+}
+
+// ------------------------------------------------------------------------
+- (BOOL) setPreferences {
+    [prefs setArray:self.FDragTableValues forKey:@"libraries"];
+    return YES;
+}
+
+- (void) updateWithPreferences {
+    // may seem backwards, but this prevents
+    // an index out of bounds error
+    NSArray *libraries = [prefs getArray:@"libraries"];
+    for( NSMutableDictionary *item in libraries ) {
+        [self addPath:item[@"path"]
+            setActive:(BOOL)item[@"active"]];
+    }
+}
+
+
+#pragma mark Methods-Gets
+
+// ------------------------------------------------------------------------
+- (NSString *) getFilepathModal: (NSArray *)ext {
+    NSOpenPanel *openPanel = [[NSOpenPanel alloc] init];
+    [openPanel setCanChooseFiles:YES];
+    [openPanel setCanChooseDirectories:NO];
+    [openPanel setAllowsMultipleSelection:NO];
+    [openPanel setAllowedFileTypes:ext];
+
+    NSString *selected = @"";
+    if ([openPanel runModal] == NSOKButton) {
+        selected = [[[openPanel URLs] objectAtIndex: 0] absoluteString];
+        selected = [selected stringByReplacingOccurrencesOfString:@"file://" withString:@""];
+    }
+
+    return selected;
+}
+
+
+#pragma mark Events
+
+// ------------------------------------------------------------------------
+// Events
+// ------------------------------------------------------------------------
+- (IBAction) addRow: (id)sender {
+    NSString *path = [self getFilepathModal:extensions];
+    if (![path isEqualToString:@""]) {
+        [self addPath:path setActive:TRUE];
+
+        [self.FDragTableView noteNumberOfRowsChanged];
+        [self.FDragTableView reloadData];
+    }
+}
+
+- (IBAction) removeRow: (id)sender {
+    NSInteger row = [self.FDragTableView selectedRow];
+    [self removePath:row];
+}
+
+// ------------------------------------------------------------------------
+- (IBAction) setPath: (id)sender {
+    if (sender == self.FDragTableView) {
+        NSInteger row = [sender clickedRow];
+        NSString *path = [self getFilepathModal:extensions];
+        if (![path isEqualToString:@""]) {
+            [[self.FDragTableValues objectAtIndex:row] setValue:[path lastPathComponent] forKey:@"name"];
+            [[self.FDragTableValues objectAtIndex:row] setValue:path forKey:@"path"];
+        }
+    }
+}
+
+
+
+@end

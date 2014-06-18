@@ -15,35 +15,24 @@
 
 
 #import <Cocoa/Cocoa.h>
-#import "FPreferences.h"
 
-@interface FDragController : NSObjectController<NSTableViewDataSource, NSTableViewDelegate>{
-}
+
+// ------------------------------------------------------------------------
+// Constants
+// ------------------------------------------------------------------------
+#define FDTableCellViewDataType @"FDTableCellViewDataType"
+
+
+
+@interface FDragController : NSObjectController<NSTableViewDataSource, NSTableViewDelegate>
 
 
 // ------------------------------------------------------------------------
 // Properties
 // ------------------------------------------------------------------------
-@property (assign) IBOutlet NSTableView *FDTableView;
-@property (strong) NSMutableArray *values;
+@property (assign) IBOutlet NSTableView *FDragTableView;
+@property (strong) NSMutableArray *FDragTableValues;
 
-// preferences
-@property (strong) FPreferences *prefs;
-
-
-
-// ------------------------------------------------------------------------
-// Methods
-// ------------------------------------------------------------------------
-
-
-
-// ------------------------------------------------------------------------
-// Events
-// ------------------------------------------------------------------------
-- (IBAction) setPath: (id)sender;
-- (IBAction) addRow: (id)sender;
-- (IBAction) removeRow: (id)sender;
 
 
 

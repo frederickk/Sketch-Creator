@@ -1,9 +1,2 @@
 {
-	sketchPath = "/Users/";
-	bMouse = NO;
-	bTouch = NO;
-	bKeyboard = YES;
-	bDragdrop = NO;
-	bCss = YES;
-	bWarnings = NO;
 }

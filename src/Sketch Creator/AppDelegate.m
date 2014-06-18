@@ -17,15 +17,15 @@
 @synthesize sketchName;
 @synthesize sketchPath;   // *
 
-@synthesize bMouse;       // *
-@synthesize bTouch;       // *
-@synthesize bKeyboard;    // *
-@synthesize bDragdrop;    // *
+@synthesize hasMouse;       // *
+@synthesize hasTouch;       // *
+@synthesize hasKeyboard;    // *
+@synthesize hasDragdrop;    // *
 
-@synthesize bCss;         // *
-@synthesize bBrowser;     // *
+@synthesize hasCss;         // *
+@synthesize hasBrowser;     // *
 @synthesize browserPopup; // *
-@synthesize bWarnings;    // *
+@synthesize hasWarnings;    // *
 
 // preferences
 @synthesize prefs;
@@ -41,14 +41,16 @@
     prefs = [[FPreferences alloc] init];
     bOverwrite = TRUE;
 
+    // set default/placeholder values
+    [[sketchName cell] setPlaceholderString:SKETCH_NAME];
+    if ([prefs getString:@"sketchPath"] == nil) {
+        [prefs setString:[NSString stringWithFormat:@"%@%@", NSHomeDirectory(), SKETCH_PATH] forKey:@"sketchPath"];
+    }
+
     return self;
 }
 
 - (void) awakeFromNib {
-    // set default/placeholder values
-    [[sketchName cell] setPlaceholderString:@"sketch"];
-    [[sketchPath cell] setStringValue:[NSString stringWithFormat:@"%@%@", NSHomeDirectory(), @"/Documents/Processing"]];
-
     // populate browserPopup with appropriate app names
     NSString *html = [[NSBundle bundleForClass:[self class]]
                       pathForResource:@"template_base"
@@ -93,50 +95,50 @@
 
     // the template files to build
     NSString *html = [[NSBundle bundleForClass:[self class]]
-                               pathForResource:@"template_base"
-                                        ofType:@"html"];
+                      pathForResource:@"template_base"
+                      ofType:@"html"];
     NSString *js = [[NSBundle bundleForClass:[self class]]
-                             pathForResource:@"template_base"
-                                      ofType:@"js"];
+                    pathForResource:@"template_base"
+                    ofType:@"js"];
 
     // the contents of the template files
     NSString *htmlContent = [NSString stringWithContentsOfFile:html encoding:NSUTF8StringEncoding error:&error];
     NSString *jsContent   = [NSString stringWithContentsOfFile:js encoding:NSUTF8StringEncoding error:&error];
-    
+
 
     // add events to contents
-    if ([bKeyboard state] == 1) {
+    if ([hasKeyboard state] == 1) {
         // keyboard
         NSString *jsKeyboard = [[NSBundle bundleForClass:[self class]]
-                                         pathForResource:@"template_keyboard"
-                                                  ofType:@"js"];
+                                pathForResource:@"template_keyboard"
+                                ofType:@"js"];
         jsKeyboard = [NSString stringWithContentsOfFile:jsKeyboard encoding:NSUTF8StringEncoding error:&error];
 
         jsContent = [NSString stringWithFormat:@"%@%@", jsContent, jsKeyboard];
     }
-    if ([bMouse state] == 1) {
+    if ([hasMouse state] == 1) {
         // mouse
         NSString *jsMouse = [[NSBundle bundleForClass:[self class]]
-                                      pathForResource:@"template_mouse"
-                                               ofType:@"js"];
+                             pathForResource:@"template_mouse"
+                             ofType:@"js"];
         jsMouse = [NSString stringWithContentsOfFile:jsMouse encoding:NSUTF8StringEncoding error:&error];
 
         jsContent = [NSString stringWithFormat:@"%@%@", jsContent, jsMouse];
     }
-    if ([bTouch state] == 1) {
+    if ([hasTouch state] == 1) {
         // touch
         NSString *jsTouch = [[NSBundle bundleForClass:[self class]]
-                                      pathForResource:@"template_touch"
-                                               ofType:@"js"];
+                             pathForResource:@"template_touch"
+                             ofType:@"js"];
         jsTouch = [NSString stringWithContentsOfFile:jsTouch encoding:NSUTF8StringEncoding error:&error];
 
         jsContent = [NSString stringWithFormat:@"%@%@", jsContent, jsTouch];
     }
-    if ([bDragdrop state] == 1) {
+    if ([hasDragdrop state] == 1) {
         // drag-drop
         NSString *htmlDragdrop = [[NSBundle bundleForClass:[self class]]
                                   pathForResource:@"template_dragdrop"
-                                           ofType:@"html"];
+                                  ofType:@"html"];
         htmlDragdrop = [NSString stringWithContentsOfFile:htmlDragdrop encoding:NSUTF8StringEncoding error:&error];
 
         // replace instances ##dragdrop## with dragdrop
@@ -144,19 +146,18 @@
                                                              withString:htmlDragdrop];
 
         NSString *jsDragdrop = [[NSBundle bundleForClass:[self class]]
-                                         pathForResource:@"template_dragdrop"
-                                                  ofType:@"js"];
+                                pathForResource:@"template_dragdrop"
+                                ofType:@"js"];
         jsDragdrop = [NSString stringWithContentsOfFile:jsDragdrop encoding:NSUTF8StringEncoding error:&error];
 
         jsContent = [NSString stringWithFormat:@"%@%@", jsContent, jsDragdrop];
     }
     else {
-        // TODO: feed this from token list
         htmlContent = [htmlContent stringByReplacingOccurrencesOfString:@"##dragdrop##"
                                                              withString:@""];
     }
 
-    
+
     // replace instances ##filename## with name
     htmlContent = [htmlContent stringByReplacingOccurrencesOfString:@"##filename##"
                                                          withString:name];
@@ -171,7 +172,7 @@
     if (error) {
         NSLog(@"Error reading file: %@", error);
     }
-    
+
     return @{@"html":htmlContent, @"js":jsContent};
 }
 
@@ -179,7 +180,7 @@
                 withPath: (NSString *)path {
     // create the template content
     NSDictionary *content = [self createTemplate:filename];
-    
+
 
     // create the directories
     path = [path stringByAppendingPathComponent:filename];
@@ -201,25 +202,39 @@
         NSString *jsHtmlTag = @"";
         for ( NSMutableDictionary *item in libraries ) {
             NSNumber *isActive = [item valueForKey:@"active"];
-//            NSLog(@"isActive: %d", [isActive isEqual:[NSNumber numberWithBool:YES]]);
+            //            NSLog(@"isActive: %d", [isActive isEqual:[NSNumber numberWithBool:YES]]);
             if ([isActive isEqual:[NSNumber numberWithBool:YES]]) {
                 // copy files
-                NSString *src = [item valueForKey:@"path"];
-                NSString *srcName = [@"/" stringByAppendingString:[item valueForKey:@"name"]];
-                [self copyFile:src
-                      withPath:[libDirectory stringByAppendingString:srcName]];
+                NSString *filename = [[item valueForKey:@"name"] stringByDeletingPathExtension];
+
+                NSString *filepath;
+                // accomodate for the appropriate path of bundled
+                // javascript libraries
+                if ( [filename isEqualToString:@"p5.min"] || [filename isEqualToString:@"p5.dom"] ) {
+                    filepath = [[NSBundle bundleForClass:[self class]]
+                                         pathForResource:filename
+                                                  ofType:@"js"];
+                }
+                else {
+                    filepath = [item valueForKey:@"path"];
+                }
+
+                // copy files to path
+                [self copyFile:filepath
+                      withPath:[libDirectory stringByAppendingString:[NSString stringWithFormat:@"/%@.js", filename]]];
 
                 // update html
-                jsHtmlTag = [jsHtmlTag stringByAppendingString:[NSString stringWithFormat:@"<script type=\"text/javascript\" src=\"./lib%@\"></script>\r\t\t", srcName]];
+                jsHtmlTag = [jsHtmlTag stringByAppendingString:[NSString stringWithFormat:@"<script type=\"text/javascript\" src=\"./lib%@\"></script>\r\t\t", filename]];
             }
         }
+
         // replace instances ##libraries## with <script..
         NSString *htmlContent = [[content objectForKey:@"html"]
                                  stringByReplacingOccurrencesOfString:@"##libraries##"
-                                                           withString:jsHtmlTag];
+                                 withString:jsHtmlTag];
 
         // drag-drop is a special case
-        if ([bDragdrop state] == 1) {
+        if ([hasDragdrop state] == 1) {
             NSString *dragdrop = [[NSBundle bundleForClass:[self class]]
                                            pathForResource:@"FDrop.min" // this should match table value
                                                     ofType:@"js"];
@@ -229,14 +244,14 @@
 
 
         // css
-        if ([bCss state] == 1) {
+        if ([hasCss state] == 1) {
             // empty css directory
             NSString *cssDirectory = [self createDirectory:filename
                                                   withPath:[path stringByAppendingPathComponent:@"css"]];
             // move css files
             NSString *cssDefault = [[NSBundle bundleForClass:[self class]]
-                                             pathForResource:@"default"
-                                                      ofType:@"css"];
+                                    pathForResource:@"default"
+                                    ofType:@"css"];
             [self copyFile:cssDefault
                   withPath:[cssDirectory stringByAppendingString:@"/default.css"]];
         }
@@ -253,7 +268,7 @@
 
 
         // open in browser
-        if ([bBrowser state] == 1 ) {
+        if ([hasBrowser state] == 1 ) {
             NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"file://%@/%@%@", sketchDirectory, filename, @".html"]];
 
             NSString *stringToSearch = [[browserPopup selectedItem] title];
@@ -285,13 +300,10 @@
     NSFileManager *fileManager = [NSFileManager defaultManager];
     BOOL dirSuccess = FALSE;
 
-    // the directory
-    NSString *directory = path;
-
     // check if directory exists
     if ([fileManager fileExistsAtPath:path]) {
         // display overwrite warning
-        if ([bWarnings integerValue] == 0) {
+        if ([hasWarnings integerValue] == 0) {
             bOverwrite = [self warningPrompt:dirname];
         }
         if (bOverwrite) {
@@ -305,11 +317,11 @@
                                                   error:&error];
         if (!dirSuccess) {
             NSLog(@"Directory creation error: %@", error);
-            directory = nil;
+            path = nil;
         }
     }
 
-    return directory;
+    return path;
 }
 
 - (NSString *) createFile: (NSString *)filename
@@ -321,7 +333,7 @@
 
     NSString *file = [NSString stringWithFormat:@"%@/%@", path, filename];
 
-    // check if file exist
+    // check if file exists
     if (![fileManager fileExistsAtPath:file]) {
         fileSuccess = [content writeToFile:file
                                 atomically:YES
@@ -343,7 +355,7 @@
     NSFileManager *fileManager = [NSFileManager defaultManager];
     BOOL copySuccess = FALSE;
 
-    // check if file exist
+    // check if file exists
     if ([fileManager fileExistsAtPath:dest]) {
         [fileManager removeItemAtPath:dest error:&error];
     }
@@ -355,7 +367,7 @@
         NSLog(@"File copying error: %@", error);
         src = nil;
     }
-    
+
     return src;
 }
 
@@ -404,7 +416,7 @@
     if ([alert runModal] == NSAlertFirstButtonReturn) {
         val = TRUE;
     }
-//    [alert release];
+    //    [alert release];
 
     return val;
 }
@@ -450,54 +462,45 @@
 // Sets
 //
 - (void) setPreferences {
-    NSLog(@"Sketch-Creator: setPreferences");
+    // check if this the first launch
+    if (![prefs getBool:@"hasLaunched"]) {
+        [prefs setBool:YES forKey:@"hasLaunched"];
+    }
 
     [prefs setString:[sketchPath stringValue] forKey:@"sketchPath"];
 
-    [prefs setBool:[bMouse state] forKey:@"bMouse"];
-    [prefs setBool:[bTouch state] forKey:@"bTouch"];
-    [prefs setBool:[bKeyboard state] forKey:@"bKeyboard"];
-    [prefs setBool:[bDragdrop state] forKey:@"bDragdrop"];
+    [prefs setBool:[hasMouse state] forKey:@"bMouse"];
+    [prefs setBool:[hasTouch state] forKey:@"bTouch"];
+    [prefs setBool:[hasKeyboard state] forKey:@"bKeyboard"];
+    [prefs setBool:[hasDragdrop state] forKey:@"bDragdrop"];
 
-    [prefs setBool:[bCss state] forKey:@"bCss"];
-    [prefs setBool:[bBrowser state] forKey:@"bBrowser"];
+    [prefs setBool:[hasCss state] forKey:@"bCss"];
+    [prefs setBool:[hasBrowser state] forKey:@"bBrowser"];
     [prefs setString:[[browserPopup selectedItem] title] forKey:@"browserPopup"];
-    [prefs setBool:[bWarnings state] forKey:@"bWarnings"];
+    [prefs setBool:[hasWarnings state] forKey:@"bWarnings"];
+
+    NSLog(@"Sketch-Creator: setPreferences hasLaunched:%d", [prefs getBool:@"hasLaunched"]);
 }
 
 - (void) updateWithPreferences {
-    NSLog(@"Sketch-Creator: updateWithPreferences");
-
-    if ([prefs getString:@"sketchPath"]) {
+//    if ([prefs getString:@"sketchPath"]) {
         [[sketchPath cell] setPlaceholderString:[prefs getString:@"sketchPath"]];
         [[sketchPath cell] setStringValue:[prefs getString:@"sketchPath"]];
-    }
+//    }
 
-    if ([prefs getBool:@"bMouse"]) {
-        [bMouse setIntValue:[prefs getBool:@"bMouse"]];
-    }
-    if ([prefs getBool:@"bTouch"]) {
-    [bTouch setIntValue:[prefs getBool:@"bTouch"]];
-    }
-    if ([prefs getBool:@"bKeyboard"]) {
-        [bKeyboard setIntValue:[prefs getBool:@"bKeyboard"]];
-    }
-    if ([prefs getBool:@"bDragdrop"]) {
-        [bDragdrop setIntValue:[prefs getBool:@"bDragdrop"]];
-    }
+    if ([prefs getBool:@"hasLaunched"]) {
+        [hasMouse setIntValue:[prefs getBool:@"bMouse"]];
+        [hasTouch setIntValue:[prefs getBool:@"bTouch"]];
+        [hasKeyboard setIntValue:[prefs getBool:@"bKeyboard"]];
+        [hasDragdrop setIntValue:[prefs getBool:@"bDragdrop"]];
 
-    if ([prefs getBool:@"bCss"]) {
-        [bCss setIntValue:[prefs getBool:@"bCss"]];
-    }
-    if ([prefs getBool:@"bBrowser"]) {
-        [bBrowser setIntValue:[prefs getBool:@"bBrowser"]];
-    }
-    if ([prefs getString:@"browserPopup"]) {
+        [hasCss setIntValue:[prefs getBool:@"bCss"]];
+        [hasBrowser setIntValue:[prefs getBool:@"bBrowser"]];
         [browserPopup selectItemWithTitle:[prefs getString:@"browserPopup"]];
+        [hasWarnings setIntValue:[prefs getBool:@"bWarnings"]];
     }
-    if ([prefs getBool:@"bWarnings"]) {
-        [bWarnings setIntValue:[prefs getBool:@"bWarnings"]];
-    }
+
+    NSLog(@"Sketch-Creator: updateWithPreferences hasLaunched:%d", [prefs getBool:@"hasLaunched"]);
 }
 
 
@@ -518,7 +521,7 @@
     if ([openPanel runModal] == NSOKButton) {
         selected = [[[openPanel URLs] objectAtIndex: 0] absoluteString];
         selected = [selected stringByReplacingOccurrencesOfString:@"file://" withString:@""];
-//        [nscell setStringValue:selected];
+        //        [nscell setStringValue:selected];
     }
 
     return selected;
@@ -555,7 +558,7 @@
     // create the directory struture
     [self createStructure:filename
                  withPath:path];
-
+    
     // set preferences
     [self setPreferences];
 }

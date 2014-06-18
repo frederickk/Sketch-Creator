@@ -21,20 +21,10 @@
 
 
 // ------------------------------------------------------------------------
-// Constants
-// ------------------------------------------------------------------------
-#define FDTableCellViewDataType @"FDTableCellViewDataType"
-
-
-
-// ------------------------------------------------------------------------
 // Properties
 // ------------------------------------------------------------------------
-@synthesize FDTableView;
-@synthesize values;
-
-// preferences
-@synthesize prefs;
+@synthesize FDragTableView;
+@synthesize FDragTableValues;
 
 
 
@@ -45,29 +35,13 @@
 // ------------------------------------------------------------------------
 - (void) awakeFromNib {
     // inits
-    values = [[NSMutableArray alloc] init];
-    prefs = [[FPreferences alloc] init];
-
-    // update UI with saved preferences
-    [self updateWithPreferences];
-
-    // add initial items
-    NSString *p5js = [[NSBundle bundleForClass:[self class]]
-                               pathForResource:@"p5.min"
-                                        ofType:@"js"];
-    NSString *p5domjs = [[NSBundle bundleForClass:[self class]]
-                                  pathForResource:@"p5.dom"
-                                           ofType:@"js"];
-
-    [self addPath:p5js     setActive:TRUE];
-    [self addPath:p5domjs  setActive:FALSE];
-
-    [FDTableView registerForDraggedTypes:[NSArray arrayWithObject:FDTableCellViewDataType] ];
+    FDragTableValues = [[NSMutableArray alloc] init];
 }
 
-// ------------------------------------------------------------------------
 
 #pragma mark Methods-Inherited
+
+// ------------------------------------------------------------------------
 
 //
 // Inherited from NSTableViewDataSource
@@ -75,8 +49,8 @@
 
 // Get
 - (NSInteger) numberOfRowsInTableView: (NSTableView *)tableView {
-    if (tableView == FDTableView) {
-        return (int)[values count];
+    if (tableView == self.FDragTableView) {
+        return (int)[FDragTableValues count];
     }
     return 0;
 }
@@ -85,8 +59,8 @@
 objectValueForTableColumn: (NSTableColumn *)column
                       row: (NSInteger)row {
 
-    if (tableView == FDTableView) {
-        return [[values objectAtIndex:row] valueForKey:[column identifier]];
+    if (tableView == self.FDragTableView) {
+        return [[FDragTableValues objectAtIndex:row] valueForKey:[column identifier]];
     }
 
     return nil;
@@ -98,136 +72,16 @@ objectValueForTableColumn: (NSTableColumn *)column
     forTableColumn: (NSTableColumn *)column
                row: (NSInteger)row {
 
-    if (tableView == FDTableView) {
-        [[values objectAtIndex:row] setValue:value forKey:[column identifier]];
-        [self setPreferences];
-    }
-}
-
-// ------------------------------------------------------------------------
-
-
-#pragma mark Methods-Sets
-
-//
-// Sets
-//
-- (BOOL) addPath: (NSString *)path
-       setActive: (BOOL)state {
-
-    NSMutableDictionary *val = [[NSMutableDictionary alloc] init];
-    val[@"active"] = [NSNumber numberWithBool:state];
-    val[@"name"]   = [path lastPathComponent];
-    val[@"path"]   = path;
-
-
-    BOOL isContained = FALSE;
-    for( NSMutableDictionary *item in values ) {
-        if ([item[@"name"] isEqualToString:val[@"name"]] ) {
-//        if ([item[@"path"] isEqualToString:path] ) {
-            isContained = TRUE;
-            break;
-        }
-    }
-
-    BOOL isAdded = FALSE;
-    if ( values && !isContained ) { //![values containsObject:val] ) {
-        [values addObject:val];
-        isAdded = TRUE;
-
-        [self setPreferences];
-    }
-
-    return isAdded;
-}
-
-- (BOOL) removePath: (NSInteger)row {
-    BOOL isRemoved = FALSE;
-//    if (row != 0 && row != 1) {
-        [values removeObjectAtIndex:row];
-        [self.FDTableView noteNumberOfRowsChanged];
-        [self.FDTableView reloadData];
-        isRemoved = TRUE;
-
-        [self setPreferences];
-//    }
-
-    return isRemoved;
-}
-
-// ------------------------------------------------------------------------
-- (BOOL) setPreferences {
-    [prefs setArray:values forKey:@"libraries"];
-    return YES;
-}
-
-- (void) updateWithPreferences {
-    // may seem backwards, but this prevents
-    // an index out of bounds error
-    NSArray *libraries = [prefs getArray:@"libraries"];
-    for( NSMutableDictionary *item in libraries ) {
-        [self addPath:item[@"path"]
-            setActive:(BOOL)item[@"active"]];
-    }
-}
-
-#pragma mark Methods-Gets
-
-// ------------------------------------------------------------------------
-- (NSString *) getFilepathModal: (NSArray *)extensions {
-    NSOpenPanel *openPanel = [[NSOpenPanel alloc] init];
-    [openPanel setCanChooseFiles:YES];
-    [openPanel setCanChooseDirectories:NO];
-    [openPanel setAllowsMultipleSelection:NO];
-    [openPanel setAllowedFileTypes:extensions];
-
-    NSString *selected = @"";
-    if ([openPanel runModal] == NSOKButton) {
-        selected = [[[openPanel URLs] objectAtIndex: 0] absoluteString];
-        selected = [selected stringByReplacingOccurrencesOfString:@"file://" withString:@""];
-    }
-
-    return selected;
-}
-
-
-#pragma mark Events
-
-// ------------------------------------------------------------------------
-// Events
-// ------------------------------------------------------------------------
-- (IBAction) addRow: (id)sender {
-    NSArray *extensions = [[NSArray alloc] initWithObjects:@"js", @"JS", nil];
-    NSString *path = [self getFilepathModal:extensions];
-    if (![path isEqualToString:@""]) {
-        [self addPath:path setActive:TRUE];
-
-        [self.FDTableView noteNumberOfRowsChanged];
-        [self.FDTableView reloadData];
-    }
-}
-
-- (IBAction) removeRow: (id)sender {
-    NSInteger row = [self.FDTableView selectedRow];
-    [self removePath:row];
-}
-
-// ------------------------------------------------------------------------
-- (IBAction) setPath: (id)sender {
-    if (sender == FDTableView) {
-        NSInteger row = [sender clickedRow];
-        NSArray *extensions = [[NSArray alloc] initWithObjects:@"js", @"JS", nil];
-        NSString *path = [self getFilepathModal:extensions];
-        if (![path isEqualToString:@""]) {
-            [[values objectAtIndex:row] setValue:[path lastPathComponent] forKey:@"name"];
-            [[values objectAtIndex:row] setValue:path forKey:@"path"];
-        }
+    if (tableView == self.FDragTableView) {
+        [[FDragTableValues objectAtIndex:row] setValue:value forKey:[column identifier]];
     }
 }
 
 
 #pragma mark Events-Drag
 
+// ------------------------------------------------------------------------
+// Events
 // ------------------------------------------------------------------------
 
 //
@@ -267,21 +121,19 @@ writeRowsWithIndexes: (NSIndexSet *)rows
 
 //    if (dragRow != 0 && dragRow != 1 && row != 0 && row != 1) {
         if (dragRow < row) {
-            [values insertObject:[values objectAtIndex:dragRow] atIndex:row];
-            [values removeObjectAtIndex:dragRow];
-            [self.FDTableView noteNumberOfRowsChanged];
-            [self.FDTableView reloadData];
+            [FDragTableValues insertObject:[FDragTableValues objectAtIndex:dragRow] atIndex:row];
+            [FDragTableValues removeObjectAtIndex:dragRow];
+            [self.FDragTableView noteNumberOfRowsChanged];
+            [self.FDragTableView reloadData];
 
             return YES;
         }
 
-        NSString *zData = [values objectAtIndex:dragRow];
-        [values removeObjectAtIndex:dragRow];
-        [values insertObject:zData atIndex:row];
-        [self.FDTableView noteNumberOfRowsChanged];
-        [self.FDTableView reloadData];
-
-        [self setPreferences];
+        NSString *zData = [FDragTableValues objectAtIndex:dragRow];
+        [FDragTableValues removeObjectAtIndex:dragRow];
+        [FDragTableValues insertObject:zData atIndex:row];
+        [self.FDragTableView noteNumberOfRowsChanged];
+        [self.FDragTableView reloadData];
 
         return YES;
 //    }

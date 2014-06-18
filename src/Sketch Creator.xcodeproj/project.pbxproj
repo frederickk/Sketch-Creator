@@ -36,6 +36,7 @@
 		8DBEE27519446666003C5CC9 /* template_touch.js in Resources */ = {isa = PBXBuildFile; fileRef = 8DBEE26F194463C0003C5CC9 /* template_touch.js */; };
 		8DBEE27619446666003C5CC9 /* template_keyboard.js in Resources */ = {isa = PBXBuildFile; fileRef = 8DBEE272194463D1003C5CC9 /* template_keyboard.js */; };
 		8DBEE2BC194571C4003C5CC9 /* FDragController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DBEE2BB194571C4003C5CC9 /* FDragController.m */; };
+		8DC22EC019514CCD00039D8B /* LibraryTableController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DC22EBF19514CCD00039D8B /* LibraryTableController.m */; };
 		8DE93B6B1947B61D005DB160 /* p5.dom.js in Resources */ = {isa = PBXBuildFile; fileRef = 8DE93B6A1947B60B005DB160 /* p5.dom.js */; };
 /* End PBXBuildFile section */
 
@@ -97,6 +98,9 @@
 		8DBEE272194463D1003C5CC9 /* template_keyboard.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = template_keyboard.js; sourceTree = "<group>"; };
 		8DBEE2BA194571C4003C5CC9 /* FDragController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FDragController.h; sourceTree = "<group>"; };
 		8DBEE2BB194571C4003C5CC9 /* FDragController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FDragController.m; sourceTree = "<group>"; };
+		8DC22EBE19514CCD00039D8B /* LibraryTableController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LibraryTableController.h; sourceTree = "<group>"; };
+		8DC22EBF19514CCD00039D8B /* LibraryTableController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LibraryTableController.m; sourceTree = "<group>"; };
+		8DC22EC119515FEE00039D8B /* AppDefaults.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDefaults.h; sourceTree = "<group>"; };
 		8DE93B6A1947B60B005DB160 /* p5.dom.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = p5.dom.js; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -163,8 +167,11 @@
 		8DBEE20919438B79003C5CC9 /* Sketch Creator */ = {
 			isa = PBXGroup;
 			children = (
+				8DC22EC119515FEE00039D8B /* AppDefaults.h */,
 				8DBEE21519438B79003C5CC9 /* AppDelegate.h */,
 				8DBEE21619438B79003C5CC9 /* AppDelegate.m */,
+				8DC22EBE19514CCD00039D8B /* LibraryTableController.h */,
+				8DC22EBF19514CCD00039D8B /* LibraryTableController.m */,
 				8DBEE2BA194571C4003C5CC9 /* FDragController.h */,
 				8DBEE2BB194571C4003C5CC9 /* FDragController.m */,
 				8D3A94C91946DFAB00847DE5 /* FPreferences.h */,
@@ -362,6 +369,7 @@
 				8DBEE2BC194571C4003C5CC9 /* FDragController.m in Sources */,
 				8D3A94CB1946DFAB00847DE5 /* FPreferences.m in Sources */,
 				8DBEE21019438B79003C5CC9 /* main.m in Sources */,
+				8DC22EC019514CCD00039D8B /* LibraryTableController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

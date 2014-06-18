@@ -8,6 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import <ApplicationServices/ApplicationServices.h>
+#import "AppDefaults.h"
 #import "FPreferences.h"
 
 
@@ -28,15 +29,15 @@
 @property (weak) IBOutlet NSTextField *sketchName;
 @property (weak) IBOutlet NSTextField *sketchPath;
 
-@property (weak) IBOutlet NSButton *bMouse;
-@property (weak) IBOutlet NSButton *bTouch;
-@property (weak) IBOutlet NSButton *bKeyboard;
-@property (weak) IBOutlet NSButton *bDragdrop;
+@property (weak) IBOutlet NSButton *hasMouse;
+@property (weak) IBOutlet NSButton *hasTouch;
+@property (weak) IBOutlet NSButton *hasKeyboard;
+@property (weak) IBOutlet NSButton *hasDragdrop;
 
-@property (weak) IBOutlet NSButton *bCss;
-@property (weak) IBOutlet NSButton *bBrowser;
+@property (weak) IBOutlet NSButton *hasCss;
+@property (weak) IBOutlet NSButton *hasBrowser;
 @property (weak) IBOutlet NSPopUpButton *browserPopup;
-@property (weak) IBOutlet NSButton *bWarnings;
+@property (weak) IBOutlet NSButton *hasWarnings;
 
 // preferences
 @property (strong) FPreferences *prefs;
