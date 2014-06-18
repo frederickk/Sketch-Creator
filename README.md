@@ -15,7 +15,7 @@ A simple app for the creation of [p5.js](https://github.com/lmccart/p5.js) sketc
 Usage
 -------------
 
-**Compatible for OSX 10.7 and above**
+**Compatible with OSX 10.7 and above**
 
 A short video showing basic functionality is forthcoming...
 
