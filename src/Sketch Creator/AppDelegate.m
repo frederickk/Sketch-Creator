@@ -224,7 +224,7 @@
                       withPath:[libDirectory stringByAppendingString:[NSString stringWithFormat:@"/%@.js", filename]]];
 
                 // update html
-                jsHtmlTag = [jsHtmlTag stringByAppendingString:[NSString stringWithFormat:@"<script type=\"text/javascript\" src=\"./lib%@\"></script>\r\t\t", filename]];
+                jsHtmlTag = [jsHtmlTag stringByAppendingString:[NSString stringWithFormat:@"<script type=\"text/javascript\" src=\"./lib/%@.js\"></script>\r\t\t", filename]];
             }
         }
 
