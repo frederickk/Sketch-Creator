@@ -267,6 +267,12 @@
              withContent:htmlContent];
 
 
+        // open containing folder in Finder
+        NSArray *finderDirectory = [NSArray arrayWithObjects:[NSURL fileURLWithPath:sketchDirectory
+                                                                        isDirectory:YES], nil];
+        [[NSWorkspace sharedWorkspace] activateFileViewerSelectingURLs:finderDirectory];
+
+        
         // open in browser
         if ([hasBrowser state] == 1 ) {
             NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"file://%@/%@%@", sketchDirectory, filename, @".html"]];
