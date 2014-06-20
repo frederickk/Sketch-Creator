@@ -111,15 +111,26 @@
 }
 
 - (BOOL) removePath: (NSInteger)row {
+    NSString *filename = [self.FDragTableValues objectAtIndex:row][@"name"];
+
     BOOL isRemoved = FALSE;
-    //    if (row != 0 && row != 1) {
+    BOOL isP5 = [filename rangeOfString:@"p5" options:NSCaseInsensitiveSearch].location != NSNotFound;
+
+    if (isP5) {
+        NSAlert *alert = [[NSAlert alloc] init];
+        [alert setAlertStyle:NSInformationalAlertStyle];
+        [alert setMessageText:[NSString stringWithFormat:@"\"%@\" cannot be removed.", filename]];
+        [alert addButtonWithTitle:@"OK"];
+        [alert runModal];
+    }
+    else {
         [self.FDragTableValues removeObjectAtIndex:row];
         [self.FDragTableView noteNumberOfRowsChanged];
         [self.FDragTableView reloadData];
         isRemoved = TRUE;
 
         [self setPreferences];
-    //    }
+    }
 
     return isRemoved;
 }
