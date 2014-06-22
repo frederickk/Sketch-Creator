@@ -36,6 +36,7 @@
 // Methods
 // ------------------------------------------------------------------------
 #pragma mark Methods-Init
+
 - (id) init {
     // inits
     prefs = [[FPreferences alloc] init];
