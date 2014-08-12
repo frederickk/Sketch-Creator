@@ -158,17 +158,42 @@
 - (NSString *) getFilepathModal: (NSArray *)ext {
     NSOpenPanel *openPanel = [[NSOpenPanel alloc] init];
     [openPanel setCanChooseFiles:YES];
-    [openPanel setCanChooseDirectories:NO];
+    [openPanel setCanChooseDirectories:YES];
     [openPanel setAllowsMultipleSelection:NO];
-    [openPanel setAllowedFileTypes:ext];
+//    [openPanel setAllowedFileTypes:ext];
 
     NSString *selected = @"";
+
     if ([openPanel runModal] == NSOKButton) {
-        selected = [[[openPanel URLs] objectAtIndex: 0] absoluteString];
-        selected = [selected stringByReplacingOccurrencesOfString:@"file://" withString:@""];
+        NSURL *path = [[openPanel URLs] objectAtIndex: 0];
+
+        if (![self isDirectory:path]) {
+            selected = [path absoluteString];
+            selected = [selected stringByReplacingOccurrencesOfString:@"file://" withString:@""];
+        }
     }
 
     return selected;
+}
+
+// ------------------------------------------------------------------------
+//
+//  http://stackoverflow.com/questions/22277117/how-to-find-out-if-the-nsurl-is-a-directory-or-not
+//
+- (BOOL) isDirectory: (NSURL *)path {
+    NSNumber *isDirectory;
+    BOOL success = [path getResourceValue: &isDirectory
+                                   forKey: NSURLIsDirectoryKey
+                                    error: nil];
+
+    if (success && [isDirectory boolValue]) {
+        // NSLog(@"Congratulations, it's a directory!");
+        return YES;
+    }
+    else {
+        // NSLog(@"It seems it's just a file.");
+        return NO;
+    }
 }
 
 
