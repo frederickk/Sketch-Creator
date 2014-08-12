@@ -62,6 +62,13 @@
 			remoteGlobalIDString = 8DBEE1FF19438B79003C5CC9;
 			remoteInfo = "Sketch Creator";
 		};
+		8D376B5F1999A892007AC4BB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8DBEE1F819438B79003C5CC9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8DBEE1FF19438B79003C5CC9;
+			remoteInfo = "Sketch Creator";
+		};
 		8DBEE22519438B79003C5CC9 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 8DBEE1F819438B79003C5CC9 /* Project object */;
@@ -290,6 +297,7 @@
 				8D1ACFE5194D954F00CA02DD /* PBXTargetDependency */,
 				8D1ACFE7194D954F00CA02DD /* PBXTargetDependency */,
 				8D376B5E1999A892007AC4BB /* PBXTargetDependency */,
+				8D376B601999A892007AC4BB /* PBXTargetDependency */,
 			);
 			name = "Sketch CreatorTests";
 			productName = "Sketch CreatorTests";
@@ -406,6 +414,11 @@
 			isa = PBXTargetDependency;
 			target = 8DBEE1FF19438B79003C5CC9 /* Sketch Creator */;
 			targetProxy = 8D376B5D1999A892007AC4BB /* PBXContainerItemProxy */;
+		};
+		8D376B601999A892007AC4BB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8DBEE1FF19438B79003C5CC9 /* Sketch Creator */;
+			targetProxy = 8D376B5F1999A892007AC4BB /* PBXContainerItemProxy */;
 		};
 		8DBEE22619438B79003C5CC9 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
