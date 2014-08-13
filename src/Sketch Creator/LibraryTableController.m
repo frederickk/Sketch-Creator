@@ -41,9 +41,13 @@
     NSString *p5domjs = [[NSBundle bundleForClass:[self class]]
                          pathForResource:@"p5.dom"
                          ofType:@"js"];
+    NSString *p5soundjs = [[NSBundle bundleForClass:[self class]]
+                           pathForResource:@"p5.sound"
+                           ofType:@"js"];
 
-    [self addPath:p5js     setActive:TRUE];
-    [self addPath:p5domjs  setActive:FALSE];
+    [self addPath:p5js       setActive:TRUE];
+    [self addPath:p5domjs    setActive:FALSE];
+    [self addPath:p5soundjs  setActive:FALSE];
 
     [self.FDragTableView registerForDraggedTypes:[NSArray arrayWithObject:FDTableCellViewDataType]];
 }

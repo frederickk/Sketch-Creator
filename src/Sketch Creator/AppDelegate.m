@@ -211,7 +211,7 @@
                 NSString *filepath;
                 // accomodate for the appropriate path of bundled
                 // javascript libraries
-                if ( [filename isEqualToString:@"p5.min"] || [filename isEqualToString:@"p5.dom"] ) {
+                if ( [filename isEqualToString:@"p5.min"] || [filename isEqualToString:@"p5.dom"] || [filename isEqualToString:@"p5.sound"] ) {
                     filepath = [[NSBundle bundleForClass:[self class]]
                                          pathForResource:filename
                                                   ofType:@"js"];
