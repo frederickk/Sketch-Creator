@@ -48,14 +48,19 @@
         [prefs setString:[NSString stringWithFormat:@"%@%@", NSHomeDirectory(), SKETCH_PATH] forKey:@"sketchPath"];
     }
 
+    // setup coreTemplateBundle
+    NSString *bundlePath = [[NSBundle mainBundle] pathForResource:@"core" ofType:@"template"];
+    coreTemplateBundle = [NSBundle bundleWithPath:bundlePath];
+
     return self;
 }
 
 - (void) awakeFromNib {
     // populate browserPopup with appropriate app names
-    NSString *html = [[NSBundle bundleForClass:[self class]]
-                      pathForResource:@"template_base"
-                      ofType:@"html"];
+    NSString *html = [coreTemplateBundle pathForResource: @"template_base"
+                                                  ofType: @"html"];
+    NSLog(@"html %@", html);
+
     NSURL *url = [NSURL fileURLWithPath:html];
     browserBundleList = [self getAppBundlesFor:url];
     [browserPopup removeAllItems];
@@ -95,90 +100,93 @@
     NSError *error;
 
     // the template files to build
-    NSString *html = [[NSBundle bundleForClass:[self class]]
-                      pathForResource:@"template_base"
-                      ofType:@"html"];
-    NSString *js = [[NSBundle bundleForClass:[self class]]
-                    pathForResource:@"template_base"
-                    ofType:@"js"];
+    NSString *html = [coreTemplateBundle pathForResource: @"template_base"
+                                                  ofType: @"html"];
+    NSString *js   = [coreTemplateBundle pathForResource: @"template_base"
+                                                  ofType: @"js"];
+    NSString *css  = [coreTemplateBundle pathForResource: @"css/default"
+                                                  ofType: @"css"];
+    NSLog(@"---css %@", css);
 
     // the contents of the template files
     NSString *htmlContent = [NSString stringWithContentsOfFile:html encoding:NSUTF8StringEncoding error:&error];
-    NSString *jsContent   = [NSString stringWithContentsOfFile:js encoding:NSUTF8StringEncoding error:&error];
+    NSString *jsContent   = [NSString stringWithContentsOfFile:js   encoding:NSUTF8StringEncoding error:&error];
 
 
     // add events to contents
     if ([hasKeyboard state] == 1) {
         // keyboard
-        NSString *jsKeyboard = [[NSBundle bundleForClass:[self class]]
-                                pathForResource:@"template_keyboard"
-                                ofType:@"js"];
+        NSString *jsKeyboard = [coreTemplateBundle pathForResource: @"template_keyboard"
+                                                            ofType: @"js"];
         jsKeyboard = [NSString stringWithContentsOfFile:jsKeyboard encoding:NSUTF8StringEncoding error:&error];
 
         jsContent = [NSString stringWithFormat:@"%@%@", jsContent, jsKeyboard];
     }
     if ([hasMouse state] == 1) {
         // mouse
-        NSString *jsMouse = [[NSBundle bundleForClass:[self class]]
-                             pathForResource:@"template_mouse"
-                             ofType:@"js"];
+        NSString *jsMouse = [coreTemplateBundle pathForResource:@"template_mouse"
+                                                         ofType: @"js"];
         jsMouse = [NSString stringWithContentsOfFile:jsMouse encoding:NSUTF8StringEncoding error:&error];
 
         jsContent = [NSString stringWithFormat:@"%@%@", jsContent, jsMouse];
     }
     if ([hasTouch state] == 1) {
         // touch
-        NSString *jsTouch = [[NSBundle bundleForClass:[self class]]
-                             pathForResource:@"template_touch"
-                             ofType:@"js"];
+        NSString *jsTouch = [coreTemplateBundle pathForResource:@"template_touch"
+                                                         ofType: @"js"];
         jsTouch = [NSString stringWithContentsOfFile:jsTouch encoding:NSUTF8StringEncoding error:&error];
 
         jsContent = [NSString stringWithFormat:@"%@%@", jsContent, jsTouch];
     }
     if ([hasDragdrop state] == 1) {
         // drag-drop
-        NSString *htmlDragdrop = [[NSBundle bundleForClass:[self class]]
-                                  pathForResource:@"template_dragdrop"
-                                  ofType:@"html"];
+        NSString *htmlDragdrop = [coreTemplateBundle pathForResource: @"template_dragdrop"
+                                                              ofType: @"html"];
         htmlDragdrop = [NSString stringWithContentsOfFile:htmlDragdrop encoding:NSUTF8StringEncoding error:&error];
 
         // replace instances ##dragdrop## with dragdrop
-        htmlContent = [htmlContent stringByReplacingOccurrencesOfString:@"##dragdrop##"
-                                                             withString:htmlDragdrop];
+        htmlContent = [htmlContent stringByReplacingOccurrencesOfString: @"##dragdrop##"
+                                                             withString: htmlDragdrop];
 
-        NSString *jsDragdrop = [[NSBundle bundleForClass:[self class]]
-                                pathForResource:@"template_dragdrop"
-                                ofType:@"js"];
+        NSString *jsDragdrop = [coreTemplateBundle pathForResource: @"template_dragdrop"
+                                                            ofType: @"js"];
         jsDragdrop = [NSString stringWithContentsOfFile:jsDragdrop encoding:NSUTF8StringEncoding error:&error];
 
         jsContent = [NSString stringWithFormat:@"%@%@", jsContent, jsDragdrop];
     }
     else {
-        htmlContent = [htmlContent stringByReplacingOccurrencesOfString:@"##dragdrop##"
-                                                             withString:@""];
+        htmlContent = [htmlContent stringByReplacingOccurrencesOfString: @"##dragdrop##"
+                                                             withString: @""];
     }
 
 
     // replace instances ##filename## with name
-    htmlContent = [htmlContent stringByReplacingOccurrencesOfString:@"##filename##"
-                                                         withString:name];
-    jsContent = [jsContent stringByReplacingOccurrencesOfString:@"##filename##"
-                                                     withString:name];
+    htmlContent = [htmlContent stringByReplacingOccurrencesOfString: @"##filename##"
+                                                         withString: name];
+    jsContent = [jsContent stringByReplacingOccurrencesOfString: @"##filename##"
+                                                     withString: name];
 
+
+    // replace instances ##date## with actual date
     CFGregorianDate currentDate = CFAbsoluteTimeGetGregorianDate(CFAbsoluteTimeGetCurrent(), CFTimeZoneCopySystem());
     NSString *date = [NSString stringWithFormat:@"%02d.%02d.%02d", currentDate.year, currentDate.month, currentDate.day];
-    jsContent = [jsContent stringByReplacingOccurrencesOfString:@"##date##"
-                                                     withString:date];
+
+    htmlContent = [htmlContent stringByReplacingOccurrencesOfString: @"##date##"
+                                                     withString: date];
+    jsContent = [jsContent stringByReplacingOccurrencesOfString: @"##date##"
+                                                     withString: date];
 
     if (error) {
         NSLog(@"Error reading file: %@", error);
     }
 
-    return @{@"html":htmlContent, @"js":jsContent};
+    return @{@"html":htmlContent, @"js":jsContent, @"css":css};
 }
 
+// ------------------------------------------------------------------------
 - (void) createStructure: (NSString *)filename
                 withPath: (NSString *)path {
+
     // create the template content
     NSDictionary *content = [self createTemplate:filename];
 
@@ -250,9 +258,11 @@
             NSString *cssDirectory = [self createDirectory:filename
                                                   withPath:[path stringByAppendingPathComponent:@"css"]];
             // move css files
-            NSString *cssDefault = [[NSBundle bundleForClass:[self class]]
-                                    pathForResource:@"default"
-                                    ofType:@"css"];
+            NSString *cssDefault = [content objectForKey:@"css"];
+//            NSString *cssDefault = [coreTemplateBundle pathForResource: @"css/default"
+//                                                                ofType: @"css"];
+            NSLog(@"cssDefault %@", cssDefault);
+
             [self copyFile:cssDefault
                   withPath:[cssDirectory stringByAppendingString:@"/default.css"]];
         }

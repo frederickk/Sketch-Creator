@@ -15,6 +15,7 @@
 @interface AppDelegate : NSObject <NSApplicationDelegate> {
     BOOL bOverwrite;
     NSArray *browserBundleList;
+    NSBundle *coreTemplateBundle;
 }
 
 

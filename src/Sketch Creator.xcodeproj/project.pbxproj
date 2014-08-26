@@ -7,9 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8D3A94C81946D79B00847DE5 /* FDrop.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 8D3A94C61946C78900847DE5 /* FDrop.min.js */; };
 		8D3A94CB1946DFAB00847DE5 /* FPreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D3A94CA1946DFAB00847DE5 /* FPreferences.m */; };
-		8D815C94199B3232003CDE3A /* p5.sound.js in Resources */ = {isa = PBXBuildFile; fileRef = 8D815C93199B3232003CDE3A /* p5.sound.js */; };
+		8DB380F219AC479100368D8A /* FDrop.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 8DB380EE19AC479100368D8A /* FDrop.min.js */; };
+		8DB380F319AC479100368D8A /* p5.dom.js in Resources */ = {isa = PBXBuildFile; fileRef = 8DB380EF19AC479100368D8A /* p5.dom.js */; };
+		8DB380F419AC479100368D8A /* p5.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 8DB380F019AC479100368D8A /* p5.min.js */; };
+		8DB380F519AC479100368D8A /* p5.sound.js in Resources */ = {isa = PBXBuildFile; fileRef = 8DB380F119AC479100368D8A /* p5.sound.js */; };
+		8DB380F719AC4D5700368D8A /* core.template in Resources */ = {isa = PBXBuildFile; fileRef = 8DB380F619AC4D5700368D8A /* core.template */; };
 		8DBEE20419438B79003C5CC9 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DBEE20319438B79003C5CC9 /* Cocoa.framework */; };
 		8DBEE20E19438B79003C5CC9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8DBEE20C19438B79003C5CC9 /* InfoPlist.strings */; };
 		8DBEE21019438B79003C5CC9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DBEE20F19438B79003C5CC9 /* main.m */; };
@@ -21,24 +24,8 @@
 		8DBEE22419438B79003C5CC9 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DBEE20319438B79003C5CC9 /* Cocoa.framework */; };
 		8DBEE22C19438B79003C5CC9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8DBEE22A19438B79003C5CC9 /* InfoPlist.strings */; };
 		8DBEE22E19438B79003C5CC9 /* Sketch_CreatorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DBEE22D19438B79003C5CC9 /* Sketch_CreatorTests.m */; };
-		8DBEE24119439E63003C5CC9 /* default.css in Resources */ = {isa = PBXBuildFile; fileRef = 8DBEE23A19439E63003C5CC9 /* default.css */; };
-		8DBEE24219439E63003C5CC9 /* default.css in Resources */ = {isa = PBXBuildFile; fileRef = 8DBEE23A19439E63003C5CC9 /* default.css */; };
-		8DBEE24519439E63003C5CC9 /* template_base.html in Resources */ = {isa = PBXBuildFile; fileRef = 8DBEE23D19439E63003C5CC9 /* template_base.html */; };
-		8DBEE24619439E63003C5CC9 /* template_base.html in Resources */ = {isa = PBXBuildFile; fileRef = 8DBEE23D19439E63003C5CC9 /* template_base.html */; };
-		8DBEE2501943B23A003C5CC9 /* template_base.js in Resources */ = {isa = PBXBuildFile; fileRef = 8DBEE24C1943B23A003C5CC9 /* template_base.js */; };
-		8DBEE2511943B23A003C5CC9 /* template_base.js in Resources */ = {isa = PBXBuildFile; fileRef = 8DBEE24C1943B23A003C5CC9 /* template_base.js */; };
-		8DBEE2521943B23A003C5CC9 /* template_dragdrop.html in Resources */ = {isa = PBXBuildFile; fileRef = 8DBEE24D1943B23A003C5CC9 /* template_dragdrop.html */; };
-		8DBEE2531943B23A003C5CC9 /* template_dragdrop.html in Resources */ = {isa = PBXBuildFile; fileRef = 8DBEE24D1943B23A003C5CC9 /* template_dragdrop.html */; };
-		8DBEE2541943B23A003C5CC9 /* template_dragdrop.js in Resources */ = {isa = PBXBuildFile; fileRef = 8DBEE24E1943B23A003C5CC9 /* template_dragdrop.js */; };
-		8DBEE2551943B23A003C5CC9 /* template_dragdrop.js in Resources */ = {isa = PBXBuildFile; fileRef = 8DBEE24E1943B23A003C5CC9 /* template_dragdrop.js */; };
-		8DBEE2561943B23A003C5CC9 /* template_mouse.js in Resources */ = {isa = PBXBuildFile; fileRef = 8DBEE24F1943B23A003C5CC9 /* template_mouse.js */; };
-		8DBEE2571943B23A003C5CC9 /* template_mouse.js in Resources */ = {isa = PBXBuildFile; fileRef = 8DBEE24F1943B23A003C5CC9 /* template_mouse.js */; };
-		8DBEE26819443013003C5CC9 /* p5.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 8DBEE25C1943B3E1003C5CC9 /* p5.min.js */; };
-		8DBEE27519446666003C5CC9 /* template_touch.js in Resources */ = {isa = PBXBuildFile; fileRef = 8DBEE26F194463C0003C5CC9 /* template_touch.js */; };
-		8DBEE27619446666003C5CC9 /* template_keyboard.js in Resources */ = {isa = PBXBuildFile; fileRef = 8DBEE272194463D1003C5CC9 /* template_keyboard.js */; };
 		8DBEE2BC194571C4003C5CC9 /* FDragController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DBEE2BB194571C4003C5CC9 /* FDragController.m */; };
 		8DC22EC019514CCD00039D8B /* LibraryTableController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DC22EBF19514CCD00039D8B /* LibraryTableController.m */; };
-		8DE93B6B1947B61D005DB160 /* p5.dom.js in Resources */ = {isa = PBXBuildFile; fileRef = 8DE93B6A1947B60B005DB160 /* p5.dom.js */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,10 +67,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		8D3A94C61946C78900847DE5 /* FDrop.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = FDrop.min.js; sourceTree = "<group>"; };
 		8D3A94C91946DFAB00847DE5 /* FPreferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPreferences.h; sourceTree = "<group>"; };
 		8D3A94CA1946DFAB00847DE5 /* FPreferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPreferences.m; sourceTree = "<group>"; };
-		8D815C93199B3232003CDE3A /* p5.sound.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = p5.sound.js; sourceTree = "<group>"; };
+		8DB380EE19AC479100368D8A /* FDrop.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = FDrop.min.js; sourceTree = "<group>"; };
+		8DB380EF19AC479100368D8A /* p5.dom.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = p5.dom.js; sourceTree = "<group>"; };
+		8DB380F019AC479100368D8A /* p5.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = p5.min.js; sourceTree = "<group>"; };
+		8DB380F119AC479100368D8A /* p5.sound.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = p5.sound.js; sourceTree = "<group>"; };
+		8DB380F619AC4D5700368D8A /* core.template */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = core.template; sourceTree = "<group>"; };
 		8DBEE20019438B79003C5CC9 /* Sketch Creator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Sketch Creator.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8DBEE20319438B79003C5CC9 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		8DBEE20619438B79003C5CC9 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -103,21 +93,11 @@
 		8DBEE22919438B79003C5CC9 /* Sketch CreatorTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Sketch CreatorTests-Info.plist"; sourceTree = "<group>"; };
 		8DBEE22B19438B79003C5CC9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		8DBEE22D19438B79003C5CC9 /* Sketch_CreatorTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Sketch_CreatorTests.m; sourceTree = "<group>"; };
-		8DBEE23A19439E63003C5CC9 /* default.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; path = default.css; sourceTree = "<group>"; };
-		8DBEE23D19439E63003C5CC9 /* template_base.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = template_base.html; sourceTree = "<group>"; };
-		8DBEE24C1943B23A003C5CC9 /* template_base.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = template_base.js; sourceTree = "<group>"; };
-		8DBEE24D1943B23A003C5CC9 /* template_dragdrop.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = template_dragdrop.html; sourceTree = "<group>"; };
-		8DBEE24E1943B23A003C5CC9 /* template_dragdrop.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = template_dragdrop.js; sourceTree = "<group>"; };
-		8DBEE24F1943B23A003C5CC9 /* template_mouse.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = template_mouse.js; sourceTree = "<group>"; };
-		8DBEE25C1943B3E1003C5CC9 /* p5.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = p5.min.js; sourceTree = "<group>"; };
-		8DBEE26F194463C0003C5CC9 /* template_touch.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = template_touch.js; sourceTree = "<group>"; };
-		8DBEE272194463D1003C5CC9 /* template_keyboard.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = template_keyboard.js; sourceTree = "<group>"; };
 		8DBEE2BA194571C4003C5CC9 /* FDragController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FDragController.h; sourceTree = "<group>"; };
 		8DBEE2BB194571C4003C5CC9 /* FDragController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FDragController.m; sourceTree = "<group>"; };
 		8DC22EBE19514CCD00039D8B /* LibraryTableController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LibraryTableController.h; sourceTree = "<group>"; };
 		8DC22EBF19514CCD00039D8B /* LibraryTableController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LibraryTableController.m; sourceTree = "<group>"; };
 		8DC22EC119515FEE00039D8B /* AppDefaults.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDefaults.h; sourceTree = "<group>"; };
-		8DE93B6A1947B60B005DB160 /* p5.dom.js */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.javascript; path = p5.dom.js; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,6 +121,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8DB380ED19AC479100368D8A /* core */ = {
+			isa = PBXGroup;
+			children = (
+				8DB380EE19AC479100368D8A /* FDrop.min.js */,
+				8DB380EF19AC479100368D8A /* p5.dom.js */,
+				8DB380F019AC479100368D8A /* p5.min.js */,
+				8DB380F119AC479100368D8A /* p5.sound.js */,
+			);
+			path = core;
+			sourceTree = "<group>";
+		};
 		8DBEE1F719438B79003C5CC9 = {
 			isa = PBXGroup;
 			children = (
@@ -202,7 +193,8 @@
 		8DBEE20A19438B79003C5CC9 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				8DBEE23719439E63003C5CC9 /* template */,
+				8DB380F619AC4D5700368D8A /* core.template */,
+				8DB380ED19AC479100368D8A /* core */,
 				8DBEE20B19438B79003C5CC9 /* Sketch Creator-Info.plist */,
 				8DBEE20C19438B79003C5CC9 /* InfoPlist.strings */,
 				8DBEE20F19438B79003C5CC9 /* main.m */,
@@ -228,41 +220,6 @@
 				8DBEE22A19438B79003C5CC9 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		8DBEE23719439E63003C5CC9 /* template */ = {
-			isa = PBXGroup;
-			children = (
-				8DBEE2581943B3E1003C5CC9 /* lib */,
-				8DBEE23819439E63003C5CC9 /* css */,
-				8DBEE23D19439E63003C5CC9 /* template_base.html */,
-				8DBEE24D1943B23A003C5CC9 /* template_dragdrop.html */,
-				8DBEE24C1943B23A003C5CC9 /* template_base.js */,
-				8DBEE24E1943B23A003C5CC9 /* template_dragdrop.js */,
-				8DBEE24F1943B23A003C5CC9 /* template_mouse.js */,
-				8DBEE26F194463C0003C5CC9 /* template_touch.js */,
-				8DBEE272194463D1003C5CC9 /* template_keyboard.js */,
-			);
-			path = template;
-			sourceTree = "<group>";
-		};
-		8DBEE23819439E63003C5CC9 /* css */ = {
-			isa = PBXGroup;
-			children = (
-				8DBEE23A19439E63003C5CC9 /* default.css */,
-			);
-			path = css;
-			sourceTree = "<group>";
-		};
-		8DBEE2581943B3E1003C5CC9 /* lib */ = {
-			isa = PBXGroup;
-			children = (
-				8DE93B6A1947B60B005DB160 /* p5.dom.js */,
-				8DBEE25C1943B3E1003C5CC9 /* p5.min.js */,
-				8D815C93199B3232003CDE3A /* p5.sound.js */,
-				8D3A94C61946C78900847DE5 /* FDrop.min.js */,
-			);
-			path = lib;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -345,19 +302,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8DBEE26819443013003C5CC9 /* p5.min.js in Resources */,
-				8DE93B6B1947B61D005DB160 /* p5.dom.js in Resources */,
-				8D815C94199B3232003CDE3A /* p5.sound.js in Resources */,
-				8D3A94C81946D79B00847DE5 /* FDrop.min.js in Resources */,
-				8DBEE2501943B23A003C5CC9 /* template_base.js in Resources */,
-				8DBEE2561943B23A003C5CC9 /* template_mouse.js in Resources */,
-				8DBEE27519446666003C5CC9 /* template_touch.js in Resources */,
-				8DBEE27619446666003C5CC9 /* template_keyboard.js in Resources */,
-				8DBEE2541943B23A003C5CC9 /* template_dragdrop.js in Resources */,
-				8DBEE2521943B23A003C5CC9 /* template_dragdrop.html in Resources */,
-				8DBEE24519439E63003C5CC9 /* template_base.html in Resources */,
-				8DBEE24119439E63003C5CC9 /* default.css in Resources */,
+				8DB380F519AC479100368D8A /* p5.sound.js in Resources */,
+				8DB380F319AC479100368D8A /* p5.dom.js in Resources */,
+				8DB380F719AC4D5700368D8A /* core.template in Resources */,
+				8DB380F419AC479100368D8A /* p5.min.js in Resources */,
 				8DBEE20E19438B79003C5CC9 /* InfoPlist.strings in Resources */,
+				8DB380F219AC479100368D8A /* FDrop.min.js in Resources */,
 				8DBEE21419438B79003C5CC9 /* Credits.rtf in Resources */,
 				8DBEE21C19438B79003C5CC9 /* Images.xcassets in Resources */,
 				8DBEE21A19438B79003C5CC9 /* MainMenu.xib in Resources */,
@@ -368,12 +318,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8DBEE24619439E63003C5CC9 /* template_base.html in Resources */,
-				8DBEE2531943B23A003C5CC9 /* template_dragdrop.html in Resources */,
-				8DBEE24219439E63003C5CC9 /* default.css in Resources */,
-				8DBEE2551943B23A003C5CC9 /* template_dragdrop.js in Resources */,
-				8DBEE2571943B23A003C5CC9 /* template_mouse.js in Resources */,
-				8DBEE2511943B23A003C5CC9 /* template_base.js in Resources */,
 				8DBEE22C19438B79003C5CC9 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
