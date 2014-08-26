@@ -15,7 +15,7 @@
 @interface AppDelegate : NSObject <NSApplicationDelegate> {
     BOOL bOverwrite;
     NSArray *browserBundleList;
-    NSBundle *coreTemplateBundle;
+    NSBundle *templateBundle;
 }
 
 
@@ -26,7 +26,9 @@
 @property (assign) IBOutlet NSPanel *panel;
 
 @property (weak) NSArray *libraryValues;
+@property (weak) NSArray *templateValues;
 
+@property (weak) IBOutlet NSPopUpButton *sketchTemplate;
 @property (weak) IBOutlet NSTextField *sketchName;
 @property (weak) IBOutlet NSTextField *sketchPath;
 

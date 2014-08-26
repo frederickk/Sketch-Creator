@@ -14,8 +14,9 @@
 // ------------------------------------------------------------------------
 // Properties
 // ------------------------------------------------------------------------
+@synthesize sketchTemplate;
 @synthesize sketchName;
-@synthesize sketchPath;   // *
+@synthesize sketchPath;     // *
 
 @synthesize hasMouse;       // *
 @synthesize hasTouch;       // *
@@ -24,7 +25,7 @@
 
 @synthesize hasCss;         // *
 @synthesize hasBrowser;     // *
-@synthesize browserPopup; // *
+@synthesize browserPopup;   // *
 @synthesize hasWarnings;    // *
 
 // preferences
@@ -48,16 +49,16 @@
         [prefs setString:[NSString stringWithFormat:@"%@%@", NSHomeDirectory(), SKETCH_PATH] forKey:@"sketchPath"];
     }
 
-    // setup coreTemplateBundle
+    // setup templateBundle
     NSString *bundlePath = [[NSBundle mainBundle] pathForResource:@"core" ofType:@"template"];
-    coreTemplateBundle = [NSBundle bundleWithPath:bundlePath];
+    templateBundle = [NSBundle bundleWithPath:bundlePath];
 
     return self;
 }
 
 - (void) awakeFromNib {
     // populate browserPopup with appropriate app names
-    NSString *html = [coreTemplateBundle pathForResource: @"template_base"
+    NSString *html = [templateBundle pathForResource: @"template_base"
                                                   ofType: @"html"];
 
     NSURL *url = [NSURL fileURLWithPath:html];
@@ -99,11 +100,11 @@
     NSError *error;
 
     // the template files to build
-    NSString *html = [coreTemplateBundle pathForResource: @"template_base"
+    NSString *html = [templateBundle pathForResource: @"template_base"
                                                   ofType: @"html"];
-    NSString *js   = [coreTemplateBundle pathForResource: @"template_base"
+    NSString *js   = [templateBundle pathForResource: @"template_base"
                                                   ofType: @"js"];
-    NSString *css  = [coreTemplateBundle pathForResource: @"css/default"
+    NSString *css  = [templateBundle pathForResource: @"css/default"
                                                   ofType: @"css"];
 
 
@@ -116,7 +117,7 @@
     NSFileManager *fileManager = [NSFileManager defaultManager];
     if ([hasKeyboard state] == 1) {
         // keyboard
-        NSString *jsKeyboard = [coreTemplateBundle pathForResource: @"template_keyboard"
+        NSString *jsKeyboard = [templateBundle pathForResource: @"template_keyboard"
                                                             ofType: @"js"];
         if ([fileManager fileExistsAtPath:jsKeyboard]){
             jsKeyboard = [NSString stringWithContentsOfFile: jsKeyboard
@@ -127,7 +128,7 @@
     }
     if ([hasMouse state] == 1) {
         // mouse
-        NSString *jsMouse = [coreTemplateBundle pathForResource:@"template_mouse"
+        NSString *jsMouse = [templateBundle pathForResource:@"template_mouse"
                                                          ofType: @"js"];
         if ([fileManager fileExistsAtPath:jsMouse]){
             jsMouse = [NSString stringWithContentsOfFile: jsMouse
@@ -138,7 +139,7 @@
     }
     if ([hasTouch state] == 1) {
         // touch
-        NSString *jsTouch = [coreTemplateBundle pathForResource:@"template_touch"
+        NSString *jsTouch = [templateBundle pathForResource:@"template_touch"
                                                          ofType: @"js"];
         if ([fileManager fileExistsAtPath:jsTouch]){
             jsTouch = [NSString stringWithContentsOfFile: jsTouch
@@ -149,9 +150,9 @@
     }
     if ([hasDragdrop state] == 1) {
         // drag-drop
-        NSString *htmlDragdrop = [coreTemplateBundle pathForResource: @"template_dragdrop"
+        NSString *htmlDragdrop = [templateBundle pathForResource: @"template_dragdrop"
                                                               ofType: @"html"];
-        NSString *jsDragdrop   = [coreTemplateBundle pathForResource: @"template_dragdrop"
+        NSString *jsDragdrop   = [templateBundle pathForResource: @"template_dragdrop"
                                                               ofType: @"js"];
 
         if ([fileManager fileExistsAtPath:htmlDragdrop]){
