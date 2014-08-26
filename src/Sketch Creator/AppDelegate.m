@@ -59,7 +59,6 @@
     // populate browserPopup with appropriate app names
     NSString *html = [coreTemplateBundle pathForResource: @"template_base"
                                                   ofType: @"html"];
-    NSLog(@"html %@", html);
 
     NSURL *url = [NSURL fileURLWithPath:html];
     browserBundleList = [self getAppBundlesFor:url];
@@ -106,7 +105,7 @@
                                                   ofType: @"js"];
     NSString *css  = [coreTemplateBundle pathForResource: @"css/default"
                                                   ofType: @"css"];
-    NSLog(@"---css %@", css);
+
 
     // the contents of the template files
     NSString *htmlContent = [NSString stringWithContentsOfFile:html encoding:NSUTF8StringEncoding error:&error];
@@ -114,45 +113,61 @@
 
 
     // add events to contents
+    NSFileManager *fileManager = [NSFileManager defaultManager];
     if ([hasKeyboard state] == 1) {
         // keyboard
         NSString *jsKeyboard = [coreTemplateBundle pathForResource: @"template_keyboard"
                                                             ofType: @"js"];
-        jsKeyboard = [NSString stringWithContentsOfFile:jsKeyboard encoding:NSUTF8StringEncoding error:&error];
-
-        jsContent = [NSString stringWithFormat:@"%@%@", jsContent, jsKeyboard];
+        if ([fileManager fileExistsAtPath:jsKeyboard]){
+            jsKeyboard = [NSString stringWithContentsOfFile: jsKeyboard
+                                                   encoding: NSUTF8StringEncoding
+                                                      error: &error];
+            jsContent = [NSString stringWithFormat:@"%@%@", jsContent, jsKeyboard];
+        }
     }
     if ([hasMouse state] == 1) {
         // mouse
         NSString *jsMouse = [coreTemplateBundle pathForResource:@"template_mouse"
                                                          ofType: @"js"];
-        jsMouse = [NSString stringWithContentsOfFile:jsMouse encoding:NSUTF8StringEncoding error:&error];
-
-        jsContent = [NSString stringWithFormat:@"%@%@", jsContent, jsMouse];
+        if ([fileManager fileExistsAtPath:jsMouse]){
+            jsMouse = [NSString stringWithContentsOfFile: jsMouse
+                                                encoding: NSUTF8StringEncoding
+                                                   error: &error];
+            jsContent = [NSString stringWithFormat:@"%@%@", jsContent, jsMouse];
+        }
     }
     if ([hasTouch state] == 1) {
         // touch
         NSString *jsTouch = [coreTemplateBundle pathForResource:@"template_touch"
                                                          ofType: @"js"];
-        jsTouch = [NSString stringWithContentsOfFile:jsTouch encoding:NSUTF8StringEncoding error:&error];
-
-        jsContent = [NSString stringWithFormat:@"%@%@", jsContent, jsTouch];
+        if ([fileManager fileExistsAtPath:jsTouch]){
+            jsTouch = [NSString stringWithContentsOfFile: jsTouch
+                                                encoding: NSUTF8StringEncoding
+                                                   error: &error];
+            jsContent = [NSString stringWithFormat:@"%@%@", jsContent, jsTouch];
+        }
     }
     if ([hasDragdrop state] == 1) {
         // drag-drop
         NSString *htmlDragdrop = [coreTemplateBundle pathForResource: @"template_dragdrop"
                                                               ofType: @"html"];
-        htmlDragdrop = [NSString stringWithContentsOfFile:htmlDragdrop encoding:NSUTF8StringEncoding error:&error];
+        NSString *jsDragdrop   = [coreTemplateBundle pathForResource: @"template_dragdrop"
+                                                              ofType: @"js"];
 
-        // replace instances ##dragdrop## with dragdrop
-        htmlContent = [htmlContent stringByReplacingOccurrencesOfString: @"##dragdrop##"
-                                                             withString: htmlDragdrop];
-
-        NSString *jsDragdrop = [coreTemplateBundle pathForResource: @"template_dragdrop"
-                                                            ofType: @"js"];
-        jsDragdrop = [NSString stringWithContentsOfFile:jsDragdrop encoding:NSUTF8StringEncoding error:&error];
-
-        jsContent = [NSString stringWithFormat:@"%@%@", jsContent, jsDragdrop];
+        if ([fileManager fileExistsAtPath:htmlDragdrop]){
+            htmlDragdrop = [NSString stringWithContentsOfFile: htmlDragdrop
+                                                     encoding: NSUTF8StringEncoding
+                                                        error: &error];
+            // replace instances ##dragdrop## with dragdrop
+            htmlContent = [htmlContent stringByReplacingOccurrencesOfString: @"##dragdrop##"
+                                                                 withString: htmlDragdrop];
+        }
+        if ([fileManager fileExistsAtPath:jsDragdrop]){
+            jsDragdrop = [NSString stringWithContentsOfFile: jsDragdrop
+                                                   encoding: NSUTF8StringEncoding
+                                                      error: &error];
+            jsContent = [NSString stringWithFormat:@"%@%@", jsContent, jsDragdrop];
+        }
     }
     else {
         htmlContent = [htmlContent stringByReplacingOccurrencesOfString: @"##dragdrop##"
@@ -211,7 +226,6 @@
         NSString *jsHtmlTag = @"";
         for ( NSMutableDictionary *item in libraries ) {
             NSNumber *isActive = [item valueForKey:@"active"];
-            //            NSLog(@"isActive: %d", [isActive isEqual:[NSNumber numberWithBool:YES]]);
             if ([isActive isEqual:[NSNumber numberWithBool:YES]]) {
                 // copy files
                 NSString *filename = [[item valueForKey:@"name"] stringByDeletingPathExtension];
@@ -257,11 +271,8 @@
             // empty css directory
             NSString *cssDirectory = [self createDirectory:filename
                                                   withPath:[path stringByAppendingPathComponent:@"css"]];
-            // move css files
+            // get path to default css file
             NSString *cssDefault = [content objectForKey:@"css"];
-//            NSString *cssDefault = [coreTemplateBundle pathForResource: @"css/default"
-//                                                                ofType: @"css"];
-            NSLog(@"cssDefault %@", cssDefault);
 
             [self copyFile:cssDefault
                   withPath:[cssDirectory stringByAppendingString:@"/default.css"]];
@@ -352,10 +363,10 @@
 
     // check if file exists
     if (![fileManager fileExistsAtPath:file]) {
-        fileSuccess = [content writeToFile:file
-                                atomically:YES
-                                  encoding:NSUTF8StringEncoding
-                                     error:&error];
+        fileSuccess = [content writeToFile: file
+                                atomically: YES
+                                  encoding: NSUTF8StringEncoding
+                                     error: &error];
 
         if (!fileSuccess) {
             NSLog(@"File creation error: %@", error);
@@ -376,13 +387,21 @@
     if ([fileManager fileExistsAtPath:dest]) {
         [fileManager removeItemAtPath:dest error:&error];
     }
-    copySuccess = [fileManager copyItemAtPath:src
-                                       toPath:dest
-                                        error:&error];
+    copySuccess = [fileManager copyItemAtPath: src
+                                       toPath: dest
+                                        error: &error];
 
     if (!copySuccess) {
         NSLog(@"File copying error: %@", error);
         src = nil;
+
+        // let the user know there was a copying error
+        NSAlert *alert = [[NSAlert alloc] init];
+        [alert setAlertStyle:NSWarningAlertStyle];
+        [alert setMessageText:[error localizedDescription]];
+        [alert setInformativeText:[error localizedFailureReason]];
+        [alert addButtonWithTitle:@"Dismiss"];
+        [alert runModal];
     }
 
     return src;
@@ -582,7 +601,7 @@
     NSString *path = [sketchPath stringValue];
 
     // create the template content
-    [self createTemplate:filename];
+//    [self createTemplate:filename];
 
     // create the directory struture
     [self createStructure:filename

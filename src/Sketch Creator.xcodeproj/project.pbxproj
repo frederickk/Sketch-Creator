@@ -7,12 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8D3A94CB1946DFAB00847DE5 /* FPreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D3A94CA1946DFAB00847DE5 /* FPreferences.m */; };
 		8DB380F219AC479100368D8A /* FDrop.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 8DB380EE19AC479100368D8A /* FDrop.min.js */; };
 		8DB380F319AC479100368D8A /* p5.dom.js in Resources */ = {isa = PBXBuildFile; fileRef = 8DB380EF19AC479100368D8A /* p5.dom.js */; };
 		8DB380F419AC479100368D8A /* p5.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 8DB380F019AC479100368D8A /* p5.min.js */; };
 		8DB380F519AC479100368D8A /* p5.sound.js in Resources */ = {isa = PBXBuildFile; fileRef = 8DB380F119AC479100368D8A /* p5.sound.js */; };
-		8DB380F719AC4D5700368D8A /* core.template in Resources */ = {isa = PBXBuildFile; fileRef = 8DB380F619AC4D5700368D8A /* core.template */; };
+		8DB3811119AC5CB300368D8A /* FDragController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DB3810C19AC5CB300368D8A /* FDragController.m */; };
+		8DB3811219AC5CB300368D8A /* FPreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DB3810E19AC5CB300368D8A /* FPreferences.m */; };
+		8DB3811319AC5CB300368D8A /* LibraryTableController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DB3811019AC5CB300368D8A /* LibraryTableController.m */; };
+		8DB3811519AC5CD700368D8A /* core.template in Resources */ = {isa = PBXBuildFile; fileRef = 8DB3811419AC5CD700368D8A /* core.template */; };
 		8DBEE20419438B79003C5CC9 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DBEE20319438B79003C5CC9 /* Cocoa.framework */; };
 		8DBEE20E19438B79003C5CC9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8DBEE20C19438B79003C5CC9 /* InfoPlist.strings */; };
 		8DBEE21019438B79003C5CC9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DBEE20F19438B79003C5CC9 /* main.m */; };
@@ -24,8 +26,6 @@
 		8DBEE22419438B79003C5CC9 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DBEE20319438B79003C5CC9 /* Cocoa.framework */; };
 		8DBEE22C19438B79003C5CC9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8DBEE22A19438B79003C5CC9 /* InfoPlist.strings */; };
 		8DBEE22E19438B79003C5CC9 /* Sketch_CreatorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DBEE22D19438B79003C5CC9 /* Sketch_CreatorTests.m */; };
-		8DBEE2BC194571C4003C5CC9 /* FDragController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DBEE2BB194571C4003C5CC9 /* FDragController.m */; };
-		8DC22EC019514CCD00039D8B /* LibraryTableController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DC22EBF19514CCD00039D8B /* LibraryTableController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,13 +67,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		8D3A94C91946DFAB00847DE5 /* FPreferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPreferences.h; sourceTree = "<group>"; };
-		8D3A94CA1946DFAB00847DE5 /* FPreferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPreferences.m; sourceTree = "<group>"; };
 		8DB380EE19AC479100368D8A /* FDrop.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = FDrop.min.js; sourceTree = "<group>"; };
 		8DB380EF19AC479100368D8A /* p5.dom.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = p5.dom.js; sourceTree = "<group>"; };
 		8DB380F019AC479100368D8A /* p5.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = p5.min.js; sourceTree = "<group>"; };
 		8DB380F119AC479100368D8A /* p5.sound.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = p5.sound.js; sourceTree = "<group>"; };
-		8DB380F619AC4D5700368D8A /* core.template */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = core.template; sourceTree = "<group>"; };
+		8DB3810B19AC5CB300368D8A /* FDragController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FDragController.h; sourceTree = "<group>"; };
+		8DB3810C19AC5CB300368D8A /* FDragController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FDragController.m; sourceTree = "<group>"; };
+		8DB3810D19AC5CB300368D8A /* FPreferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FPreferences.h; sourceTree = "<group>"; };
+		8DB3810E19AC5CB300368D8A /* FPreferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FPreferences.m; sourceTree = "<group>"; };
+		8DB3810F19AC5CB300368D8A /* LibraryTableController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LibraryTableController.h; sourceTree = "<group>"; };
+		8DB3811019AC5CB300368D8A /* LibraryTableController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LibraryTableController.m; sourceTree = "<group>"; };
+		8DB3811419AC5CD700368D8A /* core.template */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = core.template; sourceTree = "<group>"; };
 		8DBEE20019438B79003C5CC9 /* Sketch Creator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Sketch Creator.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8DBEE20319438B79003C5CC9 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		8DBEE20619438B79003C5CC9 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -93,10 +97,6 @@
 		8DBEE22919438B79003C5CC9 /* Sketch CreatorTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Sketch CreatorTests-Info.plist"; sourceTree = "<group>"; };
 		8DBEE22B19438B79003C5CC9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		8DBEE22D19438B79003C5CC9 /* Sketch_CreatorTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Sketch_CreatorTests.m; sourceTree = "<group>"; };
-		8DBEE2BA194571C4003C5CC9 /* FDragController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FDragController.h; sourceTree = "<group>"; };
-		8DBEE2BB194571C4003C5CC9 /* FDragController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FDragController.m; sourceTree = "<group>"; };
-		8DC22EBE19514CCD00039D8B /* LibraryTableController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LibraryTableController.h; sourceTree = "<group>"; };
-		8DC22EBF19514CCD00039D8B /* LibraryTableController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LibraryTableController.m; sourceTree = "<group>"; };
 		8DC22EC119515FEE00039D8B /* AppDefaults.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDefaults.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -124,12 +124,26 @@
 		8DB380ED19AC479100368D8A /* core */ = {
 			isa = PBXGroup;
 			children = (
+				8DB3811419AC5CD700368D8A /* core.template */,
 				8DB380EE19AC479100368D8A /* FDrop.min.js */,
 				8DB380EF19AC479100368D8A /* p5.dom.js */,
 				8DB380F019AC479100368D8A /* p5.min.js */,
 				8DB380F119AC479100368D8A /* p5.sound.js */,
 			);
 			path = core;
+			sourceTree = "<group>";
+		};
+		8DB3810A19AC5CB300368D8A /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				8DB3810B19AC5CB300368D8A /* FDragController.h */,
+				8DB3810C19AC5CB300368D8A /* FDragController.m */,
+				8DB3810D19AC5CB300368D8A /* FPreferences.h */,
+				8DB3810E19AC5CB300368D8A /* FPreferences.m */,
+				8DB3810F19AC5CB300368D8A /* LibraryTableController.h */,
+				8DB3811019AC5CB300368D8A /* LibraryTableController.m */,
+			);
+			path = Classes;
 			sourceTree = "<group>";
 		};
 		8DBEE1F719438B79003C5CC9 = {
@@ -177,13 +191,7 @@
 				8DC22EC119515FEE00039D8B /* AppDefaults.h */,
 				8DBEE21519438B79003C5CC9 /* AppDelegate.h */,
 				8DBEE21619438B79003C5CC9 /* AppDelegate.m */,
-				8DC22EBE19514CCD00039D8B /* LibraryTableController.h */,
-				8DC22EBF19514CCD00039D8B /* LibraryTableController.m */,
-				8DBEE2BA194571C4003C5CC9 /* FDragController.h */,
-				8DBEE2BB194571C4003C5CC9 /* FDragController.m */,
-				8D3A94C91946DFAB00847DE5 /* FPreferences.h */,
-				8D3A94CA1946DFAB00847DE5 /* FPreferences.m */,
-				8DBEE21819438B79003C5CC9 /* MainMenu.xib */,
+				8DB3810A19AC5CB300368D8A /* Classes */,
 				8DBEE21B19438B79003C5CC9 /* Images.xcassets */,
 				8DBEE20A19438B79003C5CC9 /* Supporting Files */,
 			);
@@ -193,7 +201,7 @@
 		8DBEE20A19438B79003C5CC9 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				8DB380F619AC4D5700368D8A /* core.template */,
+				8DBEE21819438B79003C5CC9 /* MainMenu.xib */,
 				8DB380ED19AC479100368D8A /* core */,
 				8DBEE20B19438B79003C5CC9 /* Sketch Creator-Info.plist */,
 				8DBEE20C19438B79003C5CC9 /* InfoPlist.strings */,
@@ -304,7 +312,7 @@
 			files = (
 				8DB380F519AC479100368D8A /* p5.sound.js in Resources */,
 				8DB380F319AC479100368D8A /* p5.dom.js in Resources */,
-				8DB380F719AC4D5700368D8A /* core.template in Resources */,
+				8DB3811519AC5CD700368D8A /* core.template in Resources */,
 				8DB380F419AC479100368D8A /* p5.min.js in Resources */,
 				8DBEE20E19438B79003C5CC9 /* InfoPlist.strings in Resources */,
 				8DB380F219AC479100368D8A /* FDrop.min.js in Resources */,
@@ -330,10 +338,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				8DBEE21719438B79003C5CC9 /* AppDelegate.m in Sources */,
-				8DBEE2BC194571C4003C5CC9 /* FDragController.m in Sources */,
-				8D3A94CB1946DFAB00847DE5 /* FPreferences.m in Sources */,
+				8DB3811319AC5CB300368D8A /* LibraryTableController.m in Sources */,
+				8DB3811219AC5CB300368D8A /* FPreferences.m in Sources */,
 				8DBEE21019438B79003C5CC9 /* main.m in Sources */,
-				8DC22EC019514CCD00039D8B /* LibraryTableController.m in Sources */,
+				8DB3811119AC5CB300368D8A /* FDragController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
