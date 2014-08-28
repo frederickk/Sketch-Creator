@@ -9,6 +9,8 @@
 #import <Cocoa/Cocoa.h>
 #import <ApplicationServices/ApplicationServices.h>
 #import "AppDefaults.h"
+
+#import "FUtilities.h"
 #import "FPreferences.h"
 
 

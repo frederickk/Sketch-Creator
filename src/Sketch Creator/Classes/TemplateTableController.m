@@ -1,14 +1,14 @@
 //
-//  LibraryTableController.m
+//  TemplateTableController.m
 //  Sketch Creator
 //
 //  Created by Ken Frederick on 2014.06.17.
 //  Copyright (c) 2014 Ken Frederick. All rights reserved.
 //
 
-#import "LibraryTableController.h"
+#import "TemplateTableController.h"
 
-@implementation LibraryTableController
+@implementation TemplateTableController
 
 
 // ------------------------------------------------------------------------
@@ -24,32 +24,21 @@
 // Methods
 // ------------------------------------------------------------------------
 - (void) awakeFromNib {
-    NSLog(@"LibraryTableController");
+    NSLog(@"TemplateTableController");
 
     // inits
     self.FDragTableValues = [[NSMutableArray alloc] init];
     prefs = [[FPreferences alloc] init];
 
     // set viable extensions
-    extensions = [[NSArray alloc] initWithObjects:@"js", @"JS", nil];
+    extensions = [[NSArray alloc] initWithObjects:@"template", @"TEMPLATE", nil];
 
     // update UI with saved preferences
     [self updateWithPreferences];
 
-    // add initial items
-    NSString *p5js = [[NSBundle bundleForClass:[self class]]
-                      pathForResource:@"p5.min"
-                      ofType:@"js"];
-    NSString *p5domjs = [[NSBundle bundleForClass:[self class]]
-                         pathForResource:@"p5.dom"
-                         ofType:@"js"];
-    NSString *p5soundjs = [[NSBundle bundleForClass:[self class]]
-                           pathForResource:@"p5.sound"
-                           ofType:@"js"];
-
-    [self addPath:p5js       setActive:TRUE];
-    [self addPath:p5domjs    setActive:FALSE];
-    [self addPath:p5soundjs  setActive:FALSE];
+    // setup templateBundle
+    NSString *coreTemplate = [[NSBundle mainBundle] pathForResource:@"core" ofType:@"template"];
+    [self addPath:coreTemplate setActive:TRUE];
 
     [self.FDragTableView registerForDraggedTypes:[NSArray arrayWithObject:FDTableCellViewDataType]];
 }
@@ -91,15 +80,17 @@
 - (BOOL) addPath: (NSString *)path
        setActive: (BOOL)state {
 
+    NSString *appSupportPath = [NSString stringWithFormat:@"%@%@", NSHomeDirectory(), @"/Library/Application Support/Sketch Creator"];
+
+    // copy chosen file into ~/Library/Application Support/Sketch Creator
+
+
     NSMutableDictionary *val = [[NSMutableDictionary alloc] init];
-    val[@"active"] = [NSNumber numberWithBool:state];
-    val[@"name"]   = [path lastPathComponent];
-    val[@"path"]   = path;
+    val[@"name"] = [path lastPathComponent];
 
     BOOL isContained = FALSE;
     for( NSMutableDictionary *item in self.FDragTableValues ) {
         if ([item[@"name"] isEqualToString:val[@"name"]] ) {
-            //        if ([item[@"path"] isEqualToString:path] ) {
             isContained = TRUE;
             break;
         }
@@ -143,18 +134,14 @@
 
 // ------------------------------------------------------------------------
 - (BOOL) setPreferences {
-    [prefs setArray:self.FDragTableValues forKey:@"libraries"];
+    [prefs setArray:self.FDragTableValues forKey:@"templates"];
     return YES;
 }
 
 - (void) updateWithPreferences {
     // may seem backwards, but this prevents
     // an index out of bounds error
-    NSArray *libraries = [prefs getArray:@"libraries"];
-    for( NSMutableDictionary *item in libraries ) {
-        [self addPath:item[@"path"]
-            setActive:(BOOL)item[@"active"]];
-    }
+    NSArray *templates = [prefs getArray:@"templates"];
 }
 
 
@@ -166,7 +153,7 @@
     [openPanel setCanChooseFiles:YES];
     [openPanel setCanChooseDirectories:YES];
     [openPanel setAllowsMultipleSelection:NO];
-//    [openPanel setAllowedFileTypes:ext];
+    //    [openPanel setAllowedFileTypes:ext];
 
     NSString *selected = @"";
 
@@ -221,18 +208,6 @@
 - (IBAction) removeRow: (id)sender {
     NSInteger row = [self.FDragTableView selectedRow];
     [self removePath:row];
-}
-
-// ------------------------------------------------------------------------
-- (IBAction) setPath: (id)sender {
-    if (sender == self.FDragTableView) {
-        NSInteger row = [sender clickedRow];
-        NSString *path = [self getFilepathModal:extensions];
-        if (![path isEqualToString:@""]) {
-            [[self.FDragTableValues objectAtIndex:row] setValue:[path lastPathComponent] forKey:@"name"];
-            [[self.FDragTableValues objectAtIndex:row] setValue:path forKey:@"path"];
-        }
-    }
 }
 
 

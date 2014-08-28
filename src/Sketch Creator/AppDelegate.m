@@ -53,6 +53,16 @@
     NSString *bundlePath = [[NSBundle mainBundle] pathForResource:@"core" ofType:@"template"];
     templateBundle = [NSBundle bundleWithPath:bundlePath];
 
+    // check and/or create ~/Library/Application Support/SketchCreator
+    NSString *appSupportPath = [NSString stringWithFormat:@"%@%@", NSHomeDirectory(), @"/Library/Application Support/Sketch Creator"];
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    if (![fileManager fileExistsAtPath:appSupportPath]) {
+        [fileManager createDirectoryAtPath: appSupportPath
+               withIntermediateDirectories: NO
+                                attributes: nil
+                                     error: nil];
+    }
+
     return self;
 }
 
@@ -209,17 +219,21 @@
 
     // create the directories
     path = [path stringByAppendingPathComponent:filename];
-    NSString *sketchDirectory = [self createDirectory:filename
-                                             withPath:path];
+    NSString *sketchDirectory = [FUtilities createDirectory: filename
+                                                   withPath: path
+                                                  overwrite: bOverwrite];
 
     if (bOverwrite) {
         // create the sub-directories
         // empty data directory
-        [self createDirectory:filename
-                     withPath:[path stringByAppendingPathComponent:@"data"]];
+        [FUtilities createDirectory: filename
+                           withPath: [path stringByAppendingPathComponent:@"data"]
+                          overwrite: bOverwrite];
+
         // empty lib directory
-        NSString *libDirectory = [self createDirectory:filename
-                                              withPath:[path stringByAppendingPathComponent:@"lib"]];
+        NSString *libDirectory = [FUtilities createDirectory: filename
+                                                    withPath: [path stringByAppendingPathComponent:@"lib"]
+                                                   overwrite: bOverwrite];
 
 
         // move library/add-on files
@@ -244,8 +258,8 @@
                 }
 
                 // copy files to path
-                [self copyFile:filepath
-                      withPath:[libDirectory stringByAppendingString:[NSString stringWithFormat:@"/%@.js", filename]]];
+                [FUtilities copyFile: filepath
+                            withPath: [libDirectory stringByAppendingString:[NSString stringWithFormat:@"/%@.js", filename]]];
 
                 // update html
                 jsHtmlTag = [jsHtmlTag stringByAppendingString:[NSString stringWithFormat:@"<script type=\"text/javascript\" src=\"./lib/%@.js\"></script>\r\t\t", filename]];
@@ -262,32 +276,33 @@
             NSString *dragdrop = [[NSBundle bundleForClass:[self class]]
                                            pathForResource:@"FDrop.min" // this should match table value
                                                     ofType:@"js"];
-            [self copyFile:dragdrop
-                  withPath:[libDirectory stringByAppendingString:@"/FDrop.min.js"]];
+            [FUtilities copyFile: dragdrop
+                        withPath: [libDirectory stringByAppendingString:@"/FDrop.min.js"]];
         }
 
 
         // css
         if ([hasCss state] == 1) {
             // empty css directory
-            NSString *cssDirectory = [self createDirectory:filename
-                                                  withPath:[path stringByAppendingPathComponent:@"css"]];
+            NSString *cssDirectory = [FUtilities createDirectory: filename
+                                                        withPath: [path stringByAppendingPathComponent:@"css"]
+                                                       overwrite: bOverwrite];
             // get path to default css file
             NSString *cssDefault = [content objectForKey:@"css"];
 
-            [self copyFile:cssDefault
-                  withPath:[cssDirectory stringByAppendingString:@"/default.css"]];
+            [FUtilities copyFile: cssDefault
+                        withPath: [cssDirectory stringByAppendingString:@"/default.css"]];
         }
 
 
         // create the template files
-        [self createFile:[filename stringByAppendingString:@".js"]
-                withPath:sketchDirectory
-             withContent:[content objectForKey:@"js"]];
+        [FUtilities createFile: [filename stringByAppendingString:@".js"]
+                      withPath: sketchDirectory
+                   withContent: [content objectForKey:@"js"]];
 
-        [self createFile:[filename stringByAppendingString:@".html"]
-                withPath:sketchDirectory
-             withContent:htmlContent];
+        [FUtilities createFile: [filename stringByAppendingString:@".html"]
+                      withPath: sketchDirectory
+                   withContent: htmlContent];
 
 
         // open containing folder in Finder
@@ -320,93 +335,8 @@
 }
 
 
-#pragma mark Methods-File-Handling
 
-// ------------------------------------------------------------------------
-- (NSString *) createDirectory: (NSString *)dirname
-                      withPath: (NSString *)path {
-    NSError *error;
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    BOOL dirSuccess = FALSE;
-
-    // check if directory exists
-    if ([fileManager fileExistsAtPath:path]) {
-        // display overwrite warning
-        if ([hasWarnings integerValue] == 0) {
-            bOverwrite = [self warningPrompt:dirname];
-        }
-        if (bOverwrite) {
-            [fileManager removeItemAtPath:path error:&error];
-        }
-    }
-    if (![fileManager fileExistsAtPath:path] && bOverwrite) {
-        dirSuccess = [fileManager createDirectoryAtPath:path
-                            withIntermediateDirectories:NO
-                                             attributes:nil
-                                                  error:&error];
-        if (!dirSuccess) {
-            NSLog(@"Directory creation error: %@", error);
-            path = nil;
-        }
-    }
-
-    return path;
-}
-
-- (NSString *) createFile: (NSString *)filename
-                 withPath: (NSString *)path
-              withContent: (NSString *)content {
-    NSError *error;
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    BOOL fileSuccess = FALSE;
-
-    NSString *file = [NSString stringWithFormat:@"%@/%@", path, filename];
-
-    // check if file exists
-    if (![fileManager fileExistsAtPath:file]) {
-        fileSuccess = [content writeToFile: file
-                                atomically: YES
-                                  encoding: NSUTF8StringEncoding
-                                     error: &error];
-
-        if (!fileSuccess) {
-            NSLog(@"File creation error: %@", error);
-            file = nil;
-        }
-    }
-
-    return file;
-}
-
-- (NSString *) copyFile: (NSString *)src
-               withPath: (NSString *)dest {
-    NSError *error;
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    BOOL copySuccess = FALSE;
-
-    // check if file exists
-    if ([fileManager fileExistsAtPath:dest]) {
-        [fileManager removeItemAtPath:dest error:&error];
-    }
-    copySuccess = [fileManager copyItemAtPath: src
-                                       toPath: dest
-                                        error: &error];
-
-    if (!copySuccess) {
-        NSLog(@"File copying error: %@", error);
-        src = nil;
-
-        // let the user know there was a copying error
-        NSAlert *alert = [[NSAlert alloc] init];
-        [alert setAlertStyle:NSWarningAlertStyle];
-        [alert setMessageText:[error localizedDescription]];
-        [alert setInformativeText:[error localizedFailureReason]];
-        [alert addButtonWithTitle:@"Dismiss"];
-        [alert runModal];
-    }
-
-    return src;
-}
+#pragma mark Methods-App-Associations
 
 // ------------------------------------------------------------------------
 //
@@ -440,25 +370,6 @@
 }
 
 // ------------------------------------------------------------------------
-- (BOOL) warningPrompt: (NSString *)filename {
-    BOOL val = FALSE;
-    NSAlert *alert = [[NSAlert alloc] init];
-    NSString *msg = [NSString stringWithFormat:@"%@\n%@\n%@", @"A sketch with this name already exists", [sketchPath stringValue], @"Are you sure you wish to overwrite?"];
-
-    [alert setAlertStyle:NSCriticalAlertStyle];
-    [alert setMessageText:[NSString stringWithFormat:@"%@ \"%@\"", @"Overwrite", filename]];
-    [alert setInformativeText:msg];
-    [alert addButtonWithTitle:@"OK"];
-    [alert addButtonWithTitle:@"Cancel"];
-    if ([alert runModal] == NSAlertFirstButtonReturn) {
-        val = TRUE;
-    }
-    //    [alert release];
-
-    return val;
-}
-
-// ------------------------------------------------------------------------
 - (BOOL) openBrowser: (NSURL *)url
                 with: (NSString *)appBundleIdentifier {
     BOOL browser = FALSE;
@@ -489,6 +400,7 @@
 
     return browser;
 }
+
 
 
 #pragma mark Methods-Sets
@@ -559,7 +471,7 @@
 
     if ([openPanel runModal] == NSOKButton) {
         NSURL *path = [[openPanel URLs] objectAtIndex: 0];
-        if ([self isDirectory:path]) {
+        if ([FUtilities isDirectory:path]) {
             selected = [path absoluteString];
             selected = [selected stringByReplacingOccurrencesOfString:@"file://" withString:@""];
             //        [nscell setStringValue:selected];
@@ -567,27 +479,6 @@
     }
 
     return selected;
-}
-
-
-// ------------------------------------------------------------------------
-//
-//  http://stackoverflow.com/questions/22277117/how-to-find-out-if-the-nsurl-is-a-directory-or-not
-//
-- (BOOL) isDirectory: (NSURL *)path {
-    NSNumber *isDirectory;
-    BOOL success = [path getResourceValue: &isDirectory
-                                   forKey: NSURLIsDirectoryKey
-                                    error: nil];
-
-    if (success && [isDirectory boolValue]) {
-        // NSLog(@"Congratulations, it's a directory!");
-        return YES;
-    }
-    else {
-        // NSLog(@"It seems it's just a file.");
-        return NO;
-    }
 }
 
 

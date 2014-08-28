@@ -1,8 +1,8 @@
 //
-//  LibraryTableController.h
+//  TemplateTableController.h
 //  Sketch Creator
 //
-//  Created by Ken Frederick on 2014.06.17.
+//  Created by Ken Frederick on 2014.08.26.
 //  Copyright (c) 2014 Ken Frederick. All rights reserved.
 //
 
@@ -10,7 +10,7 @@
 #import "FPreferences.h"
 
 
-@interface LibraryTableController : FDragController {
+@interface TemplateTableController : FDragController {
     NSArray *extensions;
 }
 
@@ -27,7 +27,6 @@
 // ------------------------------------------------------------------------
 - (IBAction) addRow: (id)sender;
 - (IBAction) removeRow: (id)sender;
-- (IBAction) setPath: (id)sender;
 
 
 

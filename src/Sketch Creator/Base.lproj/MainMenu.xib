@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6154.17" systemVersion="13E28" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6206.8" systemVersion="13E28" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6154.17"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6206.8"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="NSApplication">
@@ -10,7 +10,7 @@
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
-        <customObject id="-3" userLabel="Application"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customObject id="Voe-Tx-rLC" customClass="AppDelegate">
             <connections>
                 <outlet property="browserPopup" destination="Nty-sC-fH4" id="hzI-z6-EBi"/>
@@ -25,6 +25,7 @@
                 <outlet property="panel" destination="qWE-kf-WUt" id="akk-Aw-0Kz"/>
                 <outlet property="sketchName" destination="Zij-dW-OiS" id="piP-ei-I0A"/>
                 <outlet property="sketchPath" destination="HsM-fn-nXY" id="Etf-7P-6w0"/>
+                <outlet property="sketchTemplate" destination="gVo-tr-TcJ" id="a4I-Lg-cth"/>
                 <outlet property="window" destination="QvC-M9-y7g" id="mNz-bA-bmJ"/>
             </connections>
         </customObject>
@@ -32,6 +33,11 @@
         <objectController id="wDe-O2-NqI" customClass="LibraryTableController">
             <connections>
                 <outlet property="FDragTableView" destination="HVI-nf-DvB" id="7pq-H1-2kQ"/>
+            </connections>
+        </objectController>
+        <objectController id="b4z-B8-9fR" customClass="TemplateTableController">
+            <connections>
+                <outlet property="FDragTableView" destination="niV-Cz-kw4" id="fWo-Ld-sFU"/>
             </connections>
         </objectController>
         <menu title="Main Menu" systemMenu="main" id="AYu-sK-qS6">
@@ -172,7 +178,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="234" height="329"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <textField appearanceType="lightContent" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9YJ-J6-AHn">
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9YJ-J6-AHn">
                         <rect key="frame" x="0.0" y="-1" width="234" height="61"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" enabled="NO" allowsUndo="NO" sendsActionOnEndEditing="YES" drawsBackground="YES" id="vss-aH-hIv">
                             <font key="font" metaFont="system"/>
@@ -180,7 +186,7 @@
                             <color key="backgroundColor" red="0.16078431372549018" green="0.20000000000000001" blue="0.23921568627450979" alpha="1" colorSpace="calibratedRGB"/>
                         </textFieldCell>
                     </textField>
-                    <textField appearanceType="lightContent" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="46r-P0-VX8">
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="46r-P0-VX8">
                         <rect key="frame" x="22" y="238" width="86" height="17"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Sketch Name" id="ngJ-pE-RyS">
                             <font key="font" metaFont="system"/>
@@ -188,7 +194,7 @@
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <textField toolTip="The name of your sketch." appearanceType="lightContent" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zij-dW-OiS">
+                    <textField toolTip="The name of your sketch." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zij-dW-OiS">
                         <rect key="frame" x="22" y="212" width="190" height="22"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" title="sketch" placeholderString="sketch" drawsBackground="YES" id="eaV-4z-6k8">
                             <font key="font" metaFont="cellTitle"/>
@@ -196,7 +202,7 @@
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <textField appearanceType="lightContent" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PX0-sw-uvi">
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PX0-sw-uvi">
                         <rect key="frame" x="22" y="184" width="135" height="17"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Sketchbook Location" id="m3Q-Kd-mNi">
                             <font key="font" metaFont="system"/>
@@ -204,7 +210,7 @@
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <textField toolTip="The save location of your sketch." appearanceType="lightContent" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HsM-fn-nXY">
+                    <textField toolTip="The save location of your sketch." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HsM-fn-nXY">
                         <rect key="frame" x="22" y="158" width="157" height="22"/>
                         <textFieldCell key="cell" lineBreakMode="truncatingHead" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" placeholderString="~/Documents/Processing/" drawsBackground="YES" usesSingleLineMode="YES" id="MEV-ad-s2F">
                             <font key="font" metaFont="cellTitle"/>
@@ -212,7 +218,7 @@
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <button toolTip="Set path for sketch" appearanceType="lightContent" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Oyq-Cr-vpc">
+                    <button toolTip="Set path for sketch" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Oyq-Cr-vpc">
                         <rect key="frame" x="178" y="156" width="34" height="25"/>
                         <buttonCell key="cell" type="roundTextured" title="..." alternateTitle="..." bezelStyle="texturedRounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="0AK-nT-iBJ">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -222,7 +228,7 @@
                             <action selector="chooseSketchPath:" target="Voe-Tx-rLC" id="ZEI-th-o3P"/>
                         </connections>
                     </button>
-                    <textField appearanceType="lightContent" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="q1a-Bf-ry0">
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="q1a-Bf-ry0">
                         <rect key="frame" x="22" y="128" width="44" height="17"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Events" id="QLv-MZ-v7C">
                             <font key="font" metaFont="system"/>
@@ -237,21 +243,21 @@
                             <font key="font" metaFont="cellTitle"/>
                         </buttonCell>
                     </button>
-                    <button toolTip="Include hooks for touch events." appearanceType="lightContent" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3Kx-at-fWN">
+                    <button toolTip="Include hooks for touch events." fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3Kx-at-fWN">
                         <rect key="frame" x="22" y="83" width="61" height="18"/>
                         <buttonCell key="cell" type="check" title="Touch" bezelStyle="regularSquare" imagePosition="left" inset="2" id="hkV-iX-J2r">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" metaFont="cellTitle"/>
                         </buttonCell>
                     </button>
-                    <button toolTip="Include hooks for keyboard events." appearanceType="lightContent" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SaH-1S-ebk">
+                    <button toolTip="Include hooks for keyboard events." fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="SaH-1S-ebk">
                         <rect key="frame" x="110" y="106" width="82" height="18"/>
                         <buttonCell key="cell" type="check" title="Keyboard" bezelStyle="regularSquare" imagePosition="left" inset="2" id="2p2-he-iHA">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" metaFont="cellTitle"/>
                         </buttonCell>
                     </button>
-                    <button toolTip="Include hooks for drag and drop functionality." appearanceType="lightContent" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3QY-5h-6X1">
+                    <button toolTip="Include hooks for drag and drop functionality." fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3QY-5h-6X1">
                         <rect key="frame" x="110" y="83" width="92" height="18"/>
                         <buttonCell key="cell" type="check" title="Drag-Drop" bezelStyle="regularSquare" imagePosition="left" inset="2" id="NvC-U6-0az">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -268,7 +274,7 @@
                             <action selector="onCreate:" target="Voe-Tx-rLC" id="9Tq-FG-cnf"/>
                         </connections>
                     </button>
-                    <textField appearanceType="lightContent" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XiN-1h-4yO">
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XiN-1h-4yO">
                         <rect key="frame" x="24" y="292" width="108" height="17"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Sketch Template" id="hFN-qu-GYy">
                             <font key="font" metaFont="system"/>
@@ -276,14 +282,16 @@
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <popUpButton toolTip="Template to use for generating sketch" appearanceType="lightContent" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Wvh-Vc-NIF">
-                        <rect key="frame" x="20" y="260" width="195" height="26"/>
-                        <popUpButtonCell key="cell" type="push" title="p5.js" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="zPV-2L-5ht" id="yns-WG-P5d">
+                    <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gVo-tr-TcJ">
+                        <rect key="frame" x="20" y="265" width="195" height="26"/>
+                        <popUpButtonCell key="cell" type="push" title="Item 1" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" state="on" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" selectedItem="LSM-nX-i8o" id="Gdg-f5-NRt">
                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
-                            <font key="font" size="12" name="LucidaGrande"/>
-                            <menu key="menu" id="ILb-4e-MaY">
+                            <font key="font" metaFont="menu"/>
+                            <menu key="menu" id="Dvt-gF-YM1">
                                 <items>
-                                    <menuItem title="p5.js" state="on" id="zPV-2L-5ht"/>
+                                    <menuItem title="Item 1" state="on" id="LSM-nX-i8o"/>
+                                    <menuItem title="Item 2" id="Dn9-k7-kAz"/>
+                                    <menuItem title="Item 3" id="akw-1m-AUL"/>
                                 </items>
                             </menu>
                         </popUpButtonCell>
@@ -302,7 +310,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="305" height="559"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <textField appearanceType="lightContent" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="I0r-2i-fOS">
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="I0r-2i-fOS">
                         <rect key="frame" x="22" y="522" width="246" height="17"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Additional JavaScript Libraries/Addons" id="DyT-7Q-22e">
                             <font key="font" metaFont="system"/>
@@ -310,7 +318,7 @@
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <textField appearanceType="lightContent" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="byc-AB-RKc">
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="byc-AB-RKc">
                         <rect key="frame" x="22" y="470" width="264" height="49"/>
                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Add source files of any additional JavaScript libraries. Load ordering can be adjusted as well." id="WUm-eD-QSi">
                             <font key="font" metaFont="smallSystem"/>
@@ -407,7 +415,7 @@
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                     </scrollView>
-                    <button toolTip="Add JavaScript library" appearanceType="lightContent" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2GG-0C-OO4">
+                    <button toolTip="Add JavaScript library" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2GG-0C-OO4">
                         <rect key="frame" x="22" y="328" width="24" height="15"/>
                         <buttonCell key="cell" type="inline" bezelStyle="inline" image="NSAddTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" inset="2" id="tgu-FH-wqj">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -417,7 +425,7 @@
                             <action selector="addRow:" target="wDe-O2-NqI" id="49I-mi-dlM"/>
                         </connections>
                     </button>
-                    <button toolTip="Remove selected library" appearanceType="lightContent" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hLU-Su-QFx">
+                    <button toolTip="Remove selected library" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hLU-Su-QFx">
                         <rect key="frame" x="48" y="328" width="24" height="15"/>
                         <buttonCell key="cell" type="inline" bezelStyle="inline" image="NSRemoveTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" inset="2" id="Jkw-Bd-FB6">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -427,14 +435,14 @@
                             <action selector="removeRow:" target="wDe-O2-NqI" id="JVD-gT-nV2"/>
                         </connections>
                     </button>
-                    <button appearanceType="lightContent" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="X6c-WQ-RXW">
+                    <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="X6c-WQ-RXW">
                         <rect key="frame" x="21" y="18" width="202" height="18"/>
                         <buttonCell key="cell" type="check" title="Suppress overwrite warnings" bezelStyle="regularSquare" imagePosition="left" inset="2" id="ZL2-Lx-dGo">
                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
                     </button>
-                    <popUpButton appearanceType="lightContent" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Nty-sC-fH4">
+                    <popUpButton verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Nty-sC-fH4">
                         <rect key="frame" x="93" y="36" width="91" height="26"/>
                         <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="hjl-gz-UEx">
                             <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
@@ -447,7 +455,7 @@
                             </menu>
                         </popUpButtonCell>
                     </popUpButton>
-                    <textField appearanceType="lightContent" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gOg-pp-olz">
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gOg-pp-olz">
                         <rect key="frame" x="186" y="43" width="76" height="17"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="on creation" id="ZEM-7I-TrA">
                             <font key="font" metaFont="system"/>
@@ -455,7 +463,7 @@
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <textField appearanceType="lightContent" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ko9-4N-owF">
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ko9-4N-owF">
                         <rect key="frame" x="21" y="274" width="137" height="17"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Additional Templates" id="kQd-gy-JFU">
                             <font key="font" metaFont="system"/>
@@ -463,7 +471,7 @@
                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <textField appearanceType="lightContent" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="R8e-Gg-hGK">
+                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" setsMaxLayoutWidthAtFirstLayout="YES" translatesAutoresizingMaskIntoConstraints="NO" id="R8e-Gg-hGK">
                         <rect key="frame" x="21" y="222" width="264" height="49"/>
                         <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Add any additional template files. These are bundles with the prefix &quot;.template&quot;." id="SU1-GX-Wx2">
                             <font key="font" metaFont="smallSystem"/>
@@ -478,24 +486,13 @@
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnReordering="NO" columnSelection="YES" columnResizing="NO" multipleSelection="NO" autosaveColumns="NO" typeSelect="NO" rowHeight="21" id="niV-Cz-kw4">
-                                    <rect key="frame" x="0.0" y="0.0" width="259" height="23"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="191" height="23"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <size key="intercellSpacing" width="0.0" height="2"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <tableViewGridLines key="gridStyleMask" horizontal="YES"/>
                                     <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                     <tableColumns>
-                                        <tableColumn identifier="active" editable="NO" width="34" minWidth="34" maxWidth="34" id="OOS-Hv-oey">
-                                            <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="center">
-                                                <font key="font" metaFont="smallSystem"/>
-                                                <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
-                                                <color key="backgroundColor" white="0.33333298560000002" alpha="1" colorSpace="calibratedWhite"/>
-                                            </tableHeaderCell>
-                                            <buttonCell key="dataCell" type="check" bezelStyle="regularSquare" imagePosition="only" alignment="center" controlSize="small" toolTip="Toggle inclusion of library during sketch creation." identifier="isActive" inset="2" id="hRn-0m-DhI">
-                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                                <font key="font" metaFont="smallSystem"/>
-                                            </buttonCell>
-                                        </tableColumn>
                                         <tableColumn identifier="name" width="191" minWidth="191" maxWidth="191" id="rgx-vx-VDj">
                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
                                                 <font key="font" metaFont="smallSystem"/>
@@ -503,30 +500,16 @@
                                                 <color key="backgroundColor" white="0.33333298560000002" alpha="1" colorSpace="calibratedWhite"/>
                                             </tableHeaderCell>
                                             <textFieldCell key="dataCell" lineBreakMode="truncatingTail" selectable="YES" sendsActionOnEndEditing="YES" toolTip="Drag and drop to reorder libraries to desired load order." title="Text" id="Tos-BQ-rLe">
-                                                <font key="font" metaFont="titleBar" size="12"/>
+                                                <font key="font" metaFont="cellTitle"/>
                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                             </textFieldCell>
                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                         </tableColumn>
-                                        <tableColumn identifier="path" editable="NO" width="34" minWidth="34" maxWidth="34" id="fph-QL-vTT">
-                                            <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
-                                                <font key="font" metaFont="smallSystem"/>
-                                                <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
-                                                <color key="backgroundColor" white="0.33333298560000002" alpha="1" colorSpace="calibratedWhite"/>
-                                            </tableHeaderCell>
-                                            <buttonCell key="dataCell" type="bevel" title="..." bezelStyle="rounded" alignment="center" toolTip="Change path of JavaScript library" identifier="setPath" inset="2" id="0v7-Ig-sa8">
-                                                <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                                <font key="font" metaFont="system"/>
-                                                <connections>
-                                                    <action selector="setPath:" target="wDe-O2-NqI" id="xYE-nt-Qfd"/>
-                                                </connections>
-                                            </buttonCell>
-                                        </tableColumn>
                                     </tableColumns>
                                     <connections>
-                                        <outlet property="dataSource" destination="wDe-O2-NqI" id="E3z-yo-fKI"/>
-                                        <outlet property="delegate" destination="wDe-O2-NqI" id="QB7-W6-20h"/>
+                                        <outlet property="dataSource" destination="b4z-B8-9fR" id="M7I-2y-yd5"/>
+                                        <outlet property="delegate" destination="b4z-B8-9fR" id="qTm-4A-6qD"/>
                                     </connections>
                                 </tableView>
                             </subviews>
@@ -546,19 +529,25 @@
                         <color key="fillColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <font key="titleFont" metaFont="system"/>
                     </box>
-                    <button toolTip="Add template bundle" appearanceType="lightContent" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ArV-Ju-2Em">
+                    <button toolTip="Add template bundle" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ArV-Ju-2Em">
                         <rect key="frame" x="22" y="126" width="24" height="15"/>
                         <buttonCell key="cell" type="inline" bezelStyle="inline" image="NSAddTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" inset="2" id="On5-nZ-2dL">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="systemBold" size="12"/>
                         </buttonCell>
+                        <connections>
+                            <action selector="addRow:" target="b4z-B8-9fR" id="HIO-BU-eMN"/>
+                        </connections>
                     </button>
-                    <button toolTip="Remove selected template bundle" appearanceType="lightContent" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="d8i-et-beh">
+                    <button toolTip="Remove selected template bundle" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="d8i-et-beh">
                         <rect key="frame" x="48" y="126" width="24" height="15"/>
                         <buttonCell key="cell" type="inline" bezelStyle="inline" image="NSRemoveTemplate" imagePosition="overlaps" alignment="center" borderStyle="border" inset="2" id="9kY-cl-VIt">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="systemBold" size="12"/>
                         </buttonCell>
+                        <connections>
+                            <action selector="removeRow:" target="b4z-B8-9fR" id="6ss-rW-lGe"/>
+                        </connections>
                     </button>
                 </subviews>
             </view>

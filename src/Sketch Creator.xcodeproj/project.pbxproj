@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8D21F21419AE503900C10EF7 /* FUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 8D21F21319AE503900C10EF7 /* FUtilities.m */; };
 		8DB380F219AC479100368D8A /* FDrop.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 8DB380EE19AC479100368D8A /* FDrop.min.js */; };
 		8DB380F319AC479100368D8A /* p5.dom.js in Resources */ = {isa = PBXBuildFile; fileRef = 8DB380EF19AC479100368D8A /* p5.dom.js */; };
 		8DB380F419AC479100368D8A /* p5.min.js in Resources */ = {isa = PBXBuildFile; fileRef = 8DB380F019AC479100368D8A /* p5.min.js */; };
@@ -26,6 +27,7 @@
 		8DBEE22419438B79003C5CC9 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DBEE20319438B79003C5CC9 /* Cocoa.framework */; };
 		8DBEE22C19438B79003C5CC9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8DBEE22A19438B79003C5CC9 /* InfoPlist.strings */; };
 		8DBEE22E19438B79003C5CC9 /* Sketch_CreatorTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DBEE22D19438B79003C5CC9 /* Sketch_CreatorTests.m */; };
+		8DC4B9FC19ADABDC004B123A /* TemplateTableController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8DC4B9FB19ADABDC004B123A /* TemplateTableController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +69,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8D21F21219AE503900C10EF7 /* FUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FUtilities.h; sourceTree = "<group>"; };
+		8D21F21319AE503900C10EF7 /* FUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FUtilities.m; sourceTree = "<group>"; };
 		8DB380EE19AC479100368D8A /* FDrop.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = FDrop.min.js; sourceTree = "<group>"; };
 		8DB380EF19AC479100368D8A /* p5.dom.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = p5.dom.js; sourceTree = "<group>"; };
 		8DB380F019AC479100368D8A /* p5.min.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = p5.min.js; sourceTree = "<group>"; };
@@ -98,6 +102,8 @@
 		8DBEE22B19438B79003C5CC9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		8DBEE22D19438B79003C5CC9 /* Sketch_CreatorTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Sketch_CreatorTests.m; sourceTree = "<group>"; };
 		8DC22EC119515FEE00039D8B /* AppDefaults.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDefaults.h; sourceTree = "<group>"; };
+		8DC4B9FA19ADABDC004B123A /* TemplateTableController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TemplateTableController.h; sourceTree = "<group>"; };
+		8DC4B9FB19ADABDC004B123A /* TemplateTableController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TemplateTableController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,12 +142,16 @@
 		8DB3810A19AC5CB300368D8A /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				8D21F21219AE503900C10EF7 /* FUtilities.h */,
+				8D21F21319AE503900C10EF7 /* FUtilities.m */,
 				8DB3810B19AC5CB300368D8A /* FDragController.h */,
 				8DB3810C19AC5CB300368D8A /* FDragController.m */,
 				8DB3810D19AC5CB300368D8A /* FPreferences.h */,
 				8DB3810E19AC5CB300368D8A /* FPreferences.m */,
 				8DB3810F19AC5CB300368D8A /* LibraryTableController.h */,
 				8DB3811019AC5CB300368D8A /* LibraryTableController.m */,
+				8DC4B9FA19ADABDC004B123A /* TemplateTableController.h */,
+				8DC4B9FB19ADABDC004B123A /* TemplateTableController.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -337,9 +347,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8DC4B9FC19ADABDC004B123A /* TemplateTableController.m in Sources */,
 				8DBEE21719438B79003C5CC9 /* AppDelegate.m in Sources */,
 				8DB3811319AC5CB300368D8A /* LibraryTableController.m in Sources */,
 				8DB3811219AC5CB300368D8A /* FPreferences.m in Sources */,
+				8D21F21419AE503900C10EF7 /* FUtilities.m in Sources */,
 				8DBEE21019438B79003C5CC9 /* main.m in Sources */,
 				8DB3811119AC5CB300368D8A /* FDragController.m in Sources */,
 			);
