@@ -9,6 +9,7 @@
 
 #define SKETCH_NAME    @"sketch"
 #define SKETCH_PATH    @"/Documents/Processing"
+#define SUPPORT_PATH   @"/Library/Application Support/Sketch Creator"
 
 #define HAS_MOUSE      0   // *
 #define HAS_TOUCH      0   // *

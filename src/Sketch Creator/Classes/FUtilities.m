@@ -6,10 +6,18 @@
 //  Copyright (c) 2014 Ken Frederick. All rights reserved.
 //
 
+
+
 #import "FUtilities.h"
 
 @implementation FUtilities
 
+
+#pragma mark Methods
+
+// ------------------------------------------------------------------------
+// Methods
+// ------------------------------------------------------------------------
 
 #pragma mark Methods-File-Handling
 
@@ -29,7 +37,7 @@
             NSString *info = [NSString stringWithFormat:@"%@, \"%@,\" %@", @"A file with this name", [path lastPathComponent], @"already exists. Are you sure you wish to overwrite?"];
             NSString *msg = [NSString stringWithFormat:@"%@ \"%@\"", @"Overwrite", [path lastPathComponent]];
 
-            bOverwrite = [self warningPrompt: dirname
+            bOverwrite = [self warningPrompt: @"warning"
                                      message: msg
                              informativeText: info];
             [fileManager removeItemAtPath:path error:&error];
@@ -75,6 +83,20 @@
     return file;
 }
 
+// ------------------------------------------------------------------------
++ (BOOL) removeFile: (NSString *)filename {
+    NSError *error;
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+
+    if ([fileManager fileExistsAtPath:filename]) {
+        [fileManager removeItemAtPath:filename error:&error];
+        return YES;
+    }
+    else {
+        return NO;
+    }
+
+}
 
 // ------------------------------------------------------------------------
 + (NSString *) copyFile: (NSString *)src
@@ -85,7 +107,7 @@
 
     // check if file exists
     if ([fileManager fileExistsAtPath:dest]) {
-        [fileManager removeItemAtPath:dest error:&error];
+//        [fileManager removeItemAtPath:dest error:&error];
     }
     copySuccess = [fileManager copyItemAtPath: src
                                        toPath: dest
@@ -108,19 +130,58 @@
 }
 
 
++ (NSString *) copyDirectory: (NSString *)src
+                    withPath: (NSString *)dest {
+    NSError *error;
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    BOOL copySuccess = FALSE;
+
+    // check if file exists
+    if ([fileManager fileExistsAtPath:dest]) {
+//        [fileManager removeItemAtPath:dest error:&error];
+    }
+
+    copySuccess = [fileManager copyItemAtURL: [NSURL fileURLWithPath:src]
+                                       toURL: [NSURL fileURLWithPath:dest]
+                                       error: &error];
+
+    if (!copySuccess) {
+        NSLog(@"Directory copying error: %@", error);
+        src = nil;
+
+        // let the user know there was a copying error
+        NSAlert *alert = [[NSAlert alloc] init];
+        [alert setAlertStyle:NSWarningAlertStyle];
+        [alert setMessageText:[error localizedDescription]];
+        [alert setInformativeText:[error localizedFailureReason]];
+        [alert addButtonWithTitle:@"Dismiss"];
+        [alert runModal];
+    }
+
+    return src;
+}
+
 // ------------------------------------------------------------------------
-+ (BOOL) warningPrompt: (NSString *)filename
++ (BOOL) warningPrompt: (NSString *)type
                message: (NSString *)messageText
        informativeText: (NSString *)infoText {
-
     BOOL val = FALSE;
 
     NSAlert *alert = [[NSAlert alloc] init];
-    [alert setAlertStyle:NSCriticalAlertStyle];
-    [alert setMessageText:messageText];
-    [alert setInformativeText:infoText];
-    [alert addButtonWithTitle:@"OK"];
-    [alert addButtonWithTitle:@"Cancel"];
+    if ([type isEqualToString:@"alert"]) {
+        [alert setAlertStyle: NSCriticalAlertStyle];
+    }
+    else if ([type isEqualToString:@"inform"]) {
+        [alert setAlertStyle: NSInformationalAlertStyle];
+    }
+    else {
+        [alert setAlertStyle: NSWarningAlertStyle];
+    }
+
+    [alert setMessageText: messageText];
+    [alert setInformativeText: infoText];
+    [alert addButtonWithTitle: @"OK"];
+    [alert addButtonWithTitle: @"Cancel"];
     if ([alert runModal] == NSAlertFirstButtonReturn) {
         val = TRUE;
     }
@@ -157,6 +218,10 @@
     }
 }
 
++ (BOOL) isExists: (NSURL *)path {
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    return [fileManager fileExistsAtPath:[path path]];
+}
 
 
 @end

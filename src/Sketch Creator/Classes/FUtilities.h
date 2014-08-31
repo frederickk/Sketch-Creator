@@ -24,11 +24,12 @@
 + (NSString *) createDirectory: (NSString *)dirname withPath: (NSString *)path overwrite: (BOOL)bOverwrite;
 + (NSString *) createFile: (NSString *)filename withPath: (NSString *)path withContent: (NSString *)content;
 + (NSString *) copyFile: (NSString *)src withPath: (NSString *)dest;
++ (NSString *) copyDirectory: (NSString *)src withPath: (NSString *)dest;
 
-+ (BOOL) warningPrompt: (NSString *)filename message: (NSString *)messageText informativeText: (NSString *)infoText;
++ (BOOL) warningPrompt: (NSString *)type message: (NSString *)messageText informativeText: (NSString *)infoText;
 
 + (BOOL) isDirectory: (NSURL *)path;
-
++ (BOOL) isExists: (NSURL *)path;
 
 
 @end

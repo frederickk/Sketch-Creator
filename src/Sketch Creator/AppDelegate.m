@@ -14,7 +14,7 @@
 // ------------------------------------------------------------------------
 // Properties
 // ------------------------------------------------------------------------
-@synthesize sketchTemplate;
+@synthesize sketchTemplatePopup;
 @synthesize sketchName;
 @synthesize sketchPath;     // *
 
@@ -50,18 +50,27 @@
     }
 
     // setup templateBundle
-    NSString *bundlePath = [[NSBundle mainBundle] pathForResource:@"core" ofType:@"template"];
+    NSString *bundlePath = [[NSBundle mainBundle] pathForResource:@"p5" ofType:@"bundle"];
     templateBundle = [NSBundle bundleWithPath:bundlePath];
 
     // check and/or create ~/Library/Application Support/SketchCreator
-    NSString *appSupportPath = [NSString stringWithFormat:@"%@%@", NSHomeDirectory(), @"/Library/Application Support/Sketch Creator"];
+    NSString *appSupportPath = [NSString stringWithFormat:@"%@%@", NSHomeDirectory(), SUPPORT_PATH];
     NSFileManager *fileManager = [NSFileManager defaultManager];
-    if (![fileManager fileExistsAtPath:appSupportPath]) {
+
+    if (![FUtilities isDirectory:[NSURL fileURLWithPath:appSupportPath]]) {
         [fileManager createDirectoryAtPath: appSupportPath
                withIntermediateDirectories: NO
                                 attributes: nil
                                      error: nil];
     }
+
+    // add listener for preference change of templates
+    // [prefs getArray:@"templates"]
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults addObserver: self
+               forKeyPath: @"templates"
+                  options: NSKeyValueObservingOptionNew
+                  context: NULL];
 
     return self;
 }
@@ -75,12 +84,12 @@
     browserBundleList = [self getAppBundlesFor:url];
     [browserPopup removeAllItems];
     [browserPopup addItemsWithTitles:[self getBundleAppNames:browserBundleList]];
+
+    // update UI with saved preferences
+    [self updateWithPreferences];
 }
 
 - (void) applicationDidFinishLaunching: (NSNotification *)aNotification {
-    // update UI with saved preferences
-    [self updateWithPreferences];
-
     // set preferences
     [self setPreferences];
 }
@@ -108,6 +117,12 @@
 // ------------------------------------------------------------------------
 - (NSDictionary *) createTemplate: (NSString *)name {
     NSError *error;
+
+    // update template bundle
+    NSString *bundlePath = [NSString stringWithFormat:@"%@%@/%@",
+                            NSHomeDirectory(), SUPPORT_PATH, [prefs getString:@"sketchTemplatePopup"]];
+    templateBundle = [NSBundle bundleWithPath:bundlePath];
+
 
     // the template files to build
     NSString *html = [templateBundle pathForResource: @"template_base"
@@ -416,6 +431,7 @@
         [prefs setBool:YES forKey:@"hasLaunched"];
     }
 
+    [prefs setString:[[sketchTemplatePopup selectedItem] title] forKey:@"sketchTemplatePopup"];
     [prefs setString:[sketchPath stringValue] forKey:@"sketchPath"];
 
     [prefs setBool:[hasMouse state] forKey:@"bMouse"];
@@ -438,6 +454,8 @@
 //    }
 
     if ([prefs getBool:@"hasLaunched"]) {
+        [sketchTemplatePopup selectItemWithTitle:[prefs getString:@"sketchTemplatePopup"]];
+
         [hasMouse setIntValue:[prefs getBool:@"bMouse"]];
         [hasTouch setIntValue:[prefs getBool:@"bTouch"]];
         [hasKeyboard setIntValue:[prefs getBool:@"bKeyboard"]];
@@ -450,6 +468,31 @@
     }
 
     NSLog(@"Sketch-Creator: updateWithPreferences hasLaunched:%d", [prefs getBool:@"hasLaunched"]);
+}
+
+
+- (void) updateTemplatePopup {
+    NSString *sel = [prefs getString:@"sketchTemplatePopup"];
+
+    // clear out existing items
+    [sketchTemplatePopup removeAllItems];
+
+    // update items
+    NSArray *templates = [prefs getArray:@"templates"];
+    for( NSMutableDictionary *item in templates ) {
+        [sketchTemplatePopup addItemWithTitle:item[@"name"]];
+
+        // set selection
+        if ([sel isEqualToString:item[@"name"]]) {
+            [sketchTemplatePopup selectItemWithTitle:sel];
+        }
+    }
+
+    if ([sketchTemplatePopup selectedItem] == nil) {
+        [sketchTemplatePopup selectItemWithTitle:@"p5.bundle"];
+        // set preference
+        [prefs setString:[[sketchTemplatePopup selectedItem] title] forKey:@"sketchTemplatePopup"];
+    }
 }
 
 
@@ -490,14 +533,14 @@
 // ------------------------------------------------------------------------
 - (IBAction) onCreate: (id)sender {
     NSString *filename = [sketchName stringValue];
-    NSString *path = [sketchPath stringValue];
+    NSString *path     = [sketchPath stringValue];
 
     // create the template content
 //    [self createTemplate:filename];
 
     // create the directory struture
-    [self createStructure:filename
-                 withPath:path];
+    [self createStructure: filename
+                 withPath: path];
     
     // set preferences
     [self setPreferences];
@@ -506,9 +549,21 @@
 
 - (IBAction) chooseSketchPath: (id)sender {
     [[sketchPath cell] setStringValue:[self getPathModal]];
+    [self setPreferences];
 }
 
 
+- (IBAction) onChooseTemplate: (id)sender {
+    [self setPreferences];
+}
+
+// ------------------------------------------------------------------------
+- (void) observeValueForKeyPath: (NSString *)keyPath
+                       ofObject: (id)object
+                         change: (NSDictionary *)change
+                        context: (void *)context {
+    [self updateTemplatePopup];
+}
 
 @end
 

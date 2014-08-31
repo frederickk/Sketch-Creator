@@ -108,7 +108,6 @@ writeRowsWithIndexes: (NSIndexSet *)rows
                   proposedRow: (NSInteger)row
         proposedDropOperation: (NSTableViewDropOperation)op {
 
-//    NSLog(@"validate Drop: %@", info);
     return NSDragOperationEvery;
 }
 

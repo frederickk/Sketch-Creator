@@ -30,7 +30,7 @@
 @property (weak) NSArray *libraryValues;
 @property (weak) NSArray *templateValues;
 
-@property (weak) IBOutlet NSPopUpButton *sketchTemplate;
+@property (weak) IBOutlet NSPopUpButton *sketchTemplatePopup;
 @property (weak) IBOutlet NSTextField *sketchName;
 @property (weak) IBOutlet NSTextField *sketchPath;
 
@@ -62,5 +62,7 @@
 - (IBAction) chooseSketchPath: (id)sender;
 
 - (IBAction) onClose: (id)sender;
+
+- (IBAction) onChooseTemplate: (id)sender;
 
 @end

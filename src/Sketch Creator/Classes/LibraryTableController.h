@@ -8,6 +8,7 @@
 
 #import "FDragController.h"
 #import "FPreferences.h"
+#import "FUtilities.h"
 
 
 @interface LibraryTableController : FDragController {

@@ -6,8 +6,10 @@
 //  Copyright (c) 2014 Ken Frederick. All rights reserved.
 //
 
+#import "AppDefaults.h"
 #import "FDragController.h"
 #import "FPreferences.h"
+#import "FUtilities.h"
 
 
 @interface TemplateTableController : FDragController {

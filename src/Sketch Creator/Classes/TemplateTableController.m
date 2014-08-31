@@ -24,21 +24,19 @@
 // Methods
 // ------------------------------------------------------------------------
 - (void) awakeFromNib {
-    NSLog(@"TemplateTableController");
-
     // inits
     self.FDragTableValues = [[NSMutableArray alloc] init];
     prefs = [[FPreferences alloc] init];
 
     // set viable extensions
-    extensions = [[NSArray alloc] initWithObjects:@"template", @"TEMPLATE", nil];
+    extensions = [[NSArray alloc] initWithObjects:@"bundle", @"BUNDLE", nil];
 
     // update UI with saved preferences
     [self updateWithPreferences];
 
     // setup templateBundle
-    NSString *coreTemplate = [[NSBundle mainBundle] pathForResource:@"core" ofType:@"template"];
-    [self addPath:coreTemplate setActive:TRUE];
+    NSString *coreTemplate = [[NSBundle mainBundle] pathForResource:@"p5" ofType:@"bundle"];
+    [self addPath:coreTemplate];
 
     [self.FDragTableView registerForDraggedTypes:[NSArray arrayWithObject:FDTableCellViewDataType]];
 }
@@ -72,39 +70,87 @@
 // ------------------------------------------------------------------------
 
 
+#pragma mark Methods
+
+- (BOOL) validBundle: (NSString *)path {
+    BOOL isValid = NO;
+
+    // update template bundle
+    NSBundle *bundle = [NSBundle bundleWithPath:path];
+
+    // inspect bundle for core files to ensure compatibility
+    NSString *html = [bundle pathForResource: @"template_base"
+                                      ofType: @"html"];
+    NSString *js   = [bundle pathForResource: @"template_base"
+                                      ofType: @"js"];
+    NSString *css  = [bundle pathForResource: @"css/default"
+                                      ofType: @"css"];
+
+    if (html != nil && js != nil) {
+        isValid = YES;
+        if (css == nil) {
+            // TODO: localized strings
+            [FUtilities warningPrompt: @"inform"
+                              message: [NSString stringWithFormat:@"\"%@\" does not contain a valid CSS file.", [path lastPathComponent]]
+                      informativeText: [NSString stringWithFormat:@"\"Include bundled CSS styles\" will have no effect."]];
+        }
+    }
+
+    return isValid;
+}
+
+
+// ------------------------------------------------------------------------
+
+
 #pragma mark Methods-Sets
 
 //
 // Sets
 //
-- (BOOL) addPath: (NSString *)path
-       setActive: (BOOL)state {
-
-    NSString *appSupportPath = [NSString stringWithFormat:@"%@%@", NSHomeDirectory(), @"/Library/Application Support/Sketch Creator"];
-
-    // copy chosen file into ~/Library/Application Support/Sketch Creator
-
+- (BOOL) addPath: (NSString *)path {
+    NSString *appSupportPath = [NSString stringWithFormat:@"%@%@", NSHomeDirectory(), SUPPORT_PATH];
 
     NSMutableDictionary *val = [[NSMutableDictionary alloc] init];
     val[@"name"] = [path lastPathComponent];
+    val[@"path"] = [NSString stringWithFormat:@"%@/%@", appSupportPath, val[@"name"]];
 
-    BOOL isContained = FALSE;
-    for( NSMutableDictionary *item in self.FDragTableValues ) {
-        if ([item[@"name"] isEqualToString:val[@"name"]] ) {
-            isContained = TRUE;
-            break;
+
+    // check that bundle is valid
+    if ([self validBundle:path]) {
+
+        BOOL isContained = FALSE;
+        for( NSMutableDictionary *item in self.FDragTableValues ) {
+            if ([item[@"name"] isEqualToString:val[@"name"]] ) {
+                isContained = TRUE;
+                break;
+            }
         }
+
+        BOOL isAdded = FALSE;
+        if ( self.FDragTableValues && !isContained ) { //![values containsObject:val] ) {
+            [self.FDragTableValues addObject:val];
+            isAdded = TRUE;
+
+            if (![FUtilities isExists:[NSURL fileURLWithPath:val[@"path"]]]) {
+            // copy chosen file into ~/Library/Application Support/Sketch Creator
+                [FUtilities copyFile: path
+                            withPath: val[@"path"] ];
+            }
+            [self setPreferences];
+        }
+
+        return isAdded;
+    }
+    else {
+        // TODO: localized strings
+        [FUtilities warningPrompt: @"alert"
+                          message: [NSString stringWithFormat:@"\"%@\" is an invalid bundle for Sketch Creator", [path lastPathComponent]]
+                  informativeText: @""];
+
+        return NO;
     }
 
-    BOOL isAdded = FALSE;
-    if ( self.FDragTableValues && !isContained ) { //![values containsObject:val] ) {
-        [self.FDragTableValues addObject:val];
-        isAdded = TRUE;
-
-        [self setPreferences];
-    }
-
-    return isAdded;
 }
 
 - (BOOL) removePath: (NSInteger)row {
@@ -124,6 +170,11 @@
         [self.FDragTableValues removeObjectAtIndex:row];
         [self.FDragTableView noteNumberOfRowsChanged];
         [self.FDragTableView reloadData];
+
+        NSFileManager *fileManager = [NSFileManager defaultManager];
+        NSString *appSupportPath = [NSString stringWithFormat:@"%@%@", NSHomeDirectory(), SUPPORT_PATH];
+        [fileManager removeItemAtPath:[appSupportPath stringByAppendingPathComponent:filename] error:nil];
+
         isRemoved = TRUE;
 
         [self setPreferences];
@@ -139,10 +190,15 @@
 }
 
 - (void) updateWithPreferences {
+    NSLog(@"templateTable.updateWithPreferences");
     // may seem backwards, but this prevents
     // an index out of bounds error
     NSArray *templates = [prefs getArray:@"templates"];
+    for( NSMutableDictionary *item in templates ) {
+        [self addPath:item[@"path"]];
+    }
 }
+
 
 
 #pragma mark Methods-Gets
@@ -160,7 +216,7 @@
     if ([openPanel runModal] == NSOKButton) {
         NSURL *path = [[openPanel URLs] objectAtIndex: 0];
 
-        if (![self isDirectory:path]) {
+        if ([FUtilities isDirectory:path]) {
             selected = [path absoluteString];
             selected = [selected stringByReplacingOccurrencesOfString:@"file://" withString:@""];
         }
@@ -169,25 +225,6 @@
     return selected;
 }
 
-// ------------------------------------------------------------------------
-//
-//  http://stackoverflow.com/questions/22277117/how-to-find-out-if-the-nsurl-is-a-directory-or-not
-//
-- (BOOL) isDirectory: (NSURL *)path {
-    NSNumber *isDirectory;
-    BOOL success = [path getResourceValue: &isDirectory
-                                   forKey: NSURLIsDirectoryKey
-                                    error: nil];
-
-    if (success && [isDirectory boolValue]) {
-        // NSLog(@"Congratulations, it's a directory!");
-        return YES;
-    }
-    else {
-        // NSLog(@"It seems it's just a file.");
-        return NO;
-    }
-}
 
 
 #pragma mark Events
@@ -197,8 +234,9 @@
 // ------------------------------------------------------------------------
 - (IBAction) addRow: (id)sender {
     NSString *path = [self getFilepathModal:extensions];
+
     if (![path isEqualToString:@""]) {
-        [self addPath:path setActive:TRUE];
+        [self addPath:path];
 
         [self.FDragTableView noteNumberOfRowsChanged];
         [self.FDragTableView reloadData];
