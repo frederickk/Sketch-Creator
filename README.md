@@ -42,7 +42,6 @@ Add source files of any additional JavaScript libraries. Load ordering can be ad
 **Additional Templates**
 Add bundle file containing custom template files. This is a .bundle file incorporating the following structure.
 ```
-/root/paper.folio.template.html
 └── css/default.css
 template_base.html (required)
 template_dragdrop.html
