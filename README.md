@@ -1,14 +1,14 @@
 Sketch-Creator
 ==============
 
-##A Tool for the creation of p5.js sketches ##
+##A Tool for the scaffolding of creative JavaScript sketches ##
 
 ![Screenshot](sketch-creator-screenshot.png)
 
-A simple app for the creation of [p5.js](https://github.com/lmccart/p5.js) sketches. Similar to [OpenFrameworks-Project Creator](https://github.com/ofZach/project-creator) and [Cinder-TinderBox](https://github.com/cinder/TinderBox-Mac). This app will create the scaffolding for a self-contained—html, css, js, etc.—[p5.js](https://github.com/lmccart/p5.js) project.
+A simple app for the creation of JavaScript sketches. Similar to [OpenFrameworks-Project Creator](https://github.com/ofZach/project-creator) and [Cinder-TinderBox](https://github.com/cinder/TinderBox-Mac). This app will create the scaffolding—html, css, js, etc.—for a self-contained project. This tool is framework agnostic, however, it was created with [paper.js](https://paperjs.org/) or [p5.js](https://github.com/lmccart/p5.js) in mind.
 
 **Download**
-[Sketch Creator.zip](https://github.com/frederickk/Sketch-Creator/raw/master/distribution/Sketch%20Creator.zip)
+[Sketch Creator.zip](https://github.com/frederickk/Sketch-Creator/blob/multi-template/distribution/Sketch%20Creator.zip?raw=true)
 
 
 
@@ -17,8 +17,10 @@ Usage
 
 **Compatible with OSX 10.7 and above**
 
-A short video showing basic functionality is forthcoming...
+This [short video](https://vimeo.com/99052459) shows the basic functionality.
 
+**Sketch Template**
+The template used for scaffolding your sketch. 
 
 **Sketch Name**
 Obvious. The name of your sketch.
@@ -37,19 +39,28 @@ Add source files of any additional JavaScript libraries. Load ordering can be ad
 - "+" add JavaScript library
 - "-" remove selected library
 
+**Additional Templates**
+Add bundle file containing custom template files. This is a .bundle file incorporating the following structure.
+```
+/root/paper.folio.template.html
+└── css/default.css
+template_base.html (required)
+template_dragdrop.html
+template_base.js (required)
+template_dragdrop.js
+template_keyboard.js
+template_mouse.js
+```
+I recommend copying the [p5.bundle](https://github.com/frederickk/Sketch-Creator/tree/multi-template/src/Sketch%20Creator/core/p5.bundle) from the source and modifying it. If you wish to make your own, simple create the required files in the editor of your choice, save them in a folder and rename that folder with ```bundle``` extension.
+
 **Include bundled CSS styles**
-The included CSS only makes things prettier, it is not required for p5.js.
+The included CSS only makes things prettier, it is not required for functionality.
 
 **Open in browser on creation**
 Opens created sketch within the browser. Watch the overview video to see how to use the browser as an [IDE](http://en.wikipedia.org/wiki/Integrated_development_environment).
 
 **Suppress overwrite warnings**
 Avoid pop-up warnings for overwriting sketch files with same name.
-
-
-
-Examples
--------------
 
 
 
